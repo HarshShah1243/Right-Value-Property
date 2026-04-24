@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - RIGHT VALUE PROPERTY</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-red: #c0392b;
+            --primary-red-dark: #a93226;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --bg-light: #ecf0f1;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            cursor: none; /* Hide default cursor */
+        }
+
+        /* --- Custom Cursor --- */
+        .cursor-dot,
+        .cursor-outline {
+            pointer-events: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary-red);
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(192, 57, 43, 0.3);
+            transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, transform 0.1s ease-out;
+        }
+
+        body:hover .cursor-dot,
+        body:hover .cursor-outline {
+            opacity: 1;
+        }
+
+        .cursor-link-hover .cursor-outline {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(192, 57, 43, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                cursor: auto;
+            }
+
+            .cursor-dot,
+            .cursor-outline {
+                display: none;
+            }
+        }
+
+        a, button, input, textarea {
+            cursor: none; /* Apply custom cursor to interactive elements */
+        }
+
+        .btn-primary {
+            background-color: var(--primary-red);
+            color: white;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-red-dark);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 10px 20px -5px rgba(192, 57, 43, 0.4);
+        }
+        
+        /* Button Shine Effect */
+        .btn-shine {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-shine::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -75%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%);
+            transform: skewX(-25deg);
+            transition: left 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .btn-shine:hover::before {
+            left: 125%;
+        }
+
+        /* Style for the map container and the iframe inside it */
+        #map-container {
+            height: 450px;
+        }
+        #map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+    
+    <!-- Custom Cursor Elements -->
+    <div class="cursor-outline"></div>
+    <div class="cursor-dot"></div>
+
+    <div id="header-placeholder"></div>
+
+    <main>
+        <section class="relative h-[50vh] bg-cover bg-center flex items-center justify-center"
+            style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.pexels.com/photos/323705/pexels-photo-323705.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');">
+            <div class="text-center text-white p-4" data-aos="fade-in">
+                <h1 id="hero-title" class="text-4xl sm:text-5xl md:text-6xl font-bold drop-shadow-lg">Get In Touch</h1>
+                <p id="hero-subtitle" class="text-lg md:text-xl mt-4 max-w-2xl mx-auto drop-shadow-md">We're here to
+                    help. Send us a message and we'll get back to you shortly.</p>
+            </div>
+        </section>
+
+        <section class="py-16 sm:py-20 bg-gray-50">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div data-aos="fade-right">
+                        <h2 id="info-title" class="text-3xl font-bold text-[var(--primary-red)] mb-6">Contact
+                            Information</h2>
+                        <div id="contact-info-details" class="space-y-6 text-gray-600">
+                            <!-- Dynamic contact details will be loaded here -->
+                        </div>
+                        <div id="map-container" class="mt-10 rounded-lg overflow-hidden shadow-lg bg-gray-200 flex items-center justify-center" data-aos="zoom-in"
+                            data-aos-delay="200">
+                            <p class="text-gray-500">Loading map...</p>
+                        </div>
+                    </div>
+
+                    <div id="form-container" class="bg-white p-8 rounded-lg shadow-lg" data-aos="fade-left"
+                        data-aos-delay="150">
+                        <h2 id="form-title" class="text-3xl font-bold text-[var(--primary-red)] mb-6">Send us a Message
+                        </h2>
+                        <form id="contact-form" class="space-y-5" novalidate>
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                                <input type="text" id="name" name="name" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary-red)] focus:border-transparent cursor-link" required>
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                                <input type="email" id="email" name="email" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary-red)] focus:border-transparent cursor-link" required>
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary-red)] focus:border-transparent cursor-link">
+                            </div>
+                            <div>
+                                <label for="subject" class="block text-sm font-medium text-gray-700">Subject</label>
+                                <input type="text" id="subject" name="subject" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary-red)] focus:border-transparent cursor-link" required>
+                            </div>
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+                                <textarea id="message" name="message" rows="4" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary-red)] focus:border-transparent cursor-link" required></textarea>
+                            </div>
+                            <div class="pt-2">
+                                <button type="submit" class="w-full btn-primary btn-shine font-semibold py-3 px-4 rounded-md shadow-lg flex items-center justify-center cursor-link">
+                                    Send Message
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Consolidated Page Script -->
+    <script>
+        window.onload = function() {
+
+            // --- SHARED LOGIC ---
+            const fetchData = async (collectionName) => {
+                try {
+                    const response = await fetch(`api/api.php?collection=${collectionName}&t=${new Date().getTime()}`);
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    return await response.json();
+                } catch (error) {
+                    console.error(`Failed to fetch ${collectionName}:`, error);
+                    return collectionName.startsWith('page_') || collectionName === 'settings' ? {} : [];
+                }
+            };
+
+            const loadComponent = async (placeholderId, url) => {
+                const placeholder = document.getElementById(placeholderId);
+                if (placeholder) {
+                    try {
+                        const response = await fetch(url);
+                        if (!response.ok) throw new Error(`Could not load ${url}`);
+                        placeholder.innerHTML = await response.text();
+                    } catch (error) {
+                        console.error(`Error loading component from ${url}:`, error);
+                    }
+                }
+            };
+
+            const initializeHeaderScripts = () => {
+                const header = document.querySelector('header');
+                if (!header) return;
+
+                const mobileMenuButton = header.querySelector('#mobile-menu-button');
+                const mobileMenu = header.querySelector('#mobile-menu');
+                if (mobileMenuButton && mobileMenu) {
+                    mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+                }
+
+                const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+                header.querySelectorAll('a.nav-link').forEach(link => {
+                    const linkPage = link.getAttribute('href').split('/').pop() || 'index.html';
+                    if (linkPage === 'contact.html') { // Set active link for this page
+                        link.classList.add('active', 'text-[var(--primary-red)]', 'font-semibold');
+                    }
+                });
+
+                let lastScrollTop = 0;
+                window.addEventListener('scroll', () => {
+                    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    header.classList.toggle('scrolled', scrollTop > 50);
+                    header.classList.toggle('header-hidden', scrollTop > lastScrollTop && scrollTop > header.offsetHeight);
+                    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+                }, false);
+            };
+
+            const initializeFooter = (settings) => {
+                if (!settings) return;
+                const footerContactInfo = document.getElementById('footer-contact-info');
+                if (footerContactInfo) {
+                    footerContactInfo.innerHTML = `
+                        <p class="flex items-start"><i class="fa-solid fa-location-dot w-4 mr-3 mt-1 text-[var(--primary-red)]"></i><span>${settings.address || ''}</span></p>
+                        <p class="flex items-start"><i class="fa-solid fa-envelope w-4 mr-3 mt-1 text-[var(--primary-red)]"></i><a href="mailto:${settings.email || '#'}" class="hover:text-[var(--primary-red)] cursor-link">${settings.email || ''}</a></p>
+                        <p class="flex items-start"><i class="fa-solid fa-phone w-4 mr-3 mt-1 text-[var(--primary-red)]"></i><a href="tel:${settings.phone || '#'}" class="hover:text-[var(--primary-red)] cursor-link">${settings.phone || ''}</a></p>
+                    `;
+                }
+
+                const socialLinksContainer = document.getElementById('footer-social-links');
+                if (socialLinksContainer) {
+                    let linksHtml = '';
+                    if (settings.facebook_url) linksHtml += `<a href="${settings.facebook_url}" target="_blank" aria-label="Facebook" class="text-gray-500 hover:text-[var(--primary-red)] transition-colors cursor-link"><i class="fa-brands fa-facebook-f fa-lg"></i></a>`;
+                    if (settings.instagram_url) linksHtml += `<a href="${settings.instagram_url}" target="_blank" aria-label="Instagram" class="text-gray-500 hover:text-[var(--primary-red)] transition-colors cursor-link"><i class="fa-brands fa-instagram fa-lg"></i></a>`;
+                    socialLinksContainer.innerHTML = linksHtml;
+                }
+
+                const reraEl = document.getElementById('footer-rera');
+                if (reraEl) reraEl.textContent = `RERA: ${settings.rera_number || ''}`;
+                const copyrightEl = document.getElementById('footer-copyright');
+                if (copyrightEl) copyrightEl.textContent = settings.copyright_text || `© ${new Date().getFullYear()} RIGHT VALUE PROPERTY.`;
+
+                const statusElement = document.getElementById('office-status');
+                const timeElement = document.getElementById('current-time');
+                if (statusElement && timeElement) {
+                    const updateOfficeStatus = () => {
+                        const openHour = parseInt(settings.opening_hour, 10) || 10;
+                        const closeHour = parseInt(settings.closing_hour, 10) || 19;
+                        const closedDays = (settings.closed_days || 'Sun').split(',').map(d => d.trim());
+                        const now = new Date();
+                        const options = { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+                        const timeString = now.toLocaleTimeString('en-IN', options);
+                        const day = now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata', weekday: 'short' });
+                        const hour = parseInt(now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata', hour: '2-digit', hour12: false }));
+                        const isOpen = !closedDays.includes(day) && hour >= openHour && hour < closeHour;
+                        timeElement.textContent = `${timeString} (IST)`;
+                        statusElement.textContent = isOpen ? 'Open' : 'Closed';
+                        statusElement.classList.toggle('open', isOpen);
+                        statusElement.classList.toggle('closed', !isOpen);
+                    };
+                    updateOfficeStatus();
+                    setInterval(updateOfficeStatus, 1000);
+                }
+
+                const scrollToTopBtn = document.getElementById('scroll-to-top');
+                if (scrollToTopBtn) {
+                    window.addEventListener('scroll', () => scrollToTopBtn.classList.toggle('show', window.pageYOffset > 300));
+                    scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+                }
+            };
+
+            // --- PAGE-SPECIFIC LOGIC ---
+            const initializeContactPage = async (settings) => {
+                AOS.init({ duration: 800, once: true });
+
+                // Populate contact info and map from the shared settings data
+                const contactDetails = document.getElementById('contact-info-details');
+                if(contactDetails) {
+                    contactDetails.innerHTML = `
+                        <div class="flex items-start space-x-4"><i class="fa-solid fa-location-dot text-2xl text-[var(--primary-red)] mt-1"></i><div><h3 class="font-semibold text-lg text-gray-800">Our Office</h3><p>${settings.address || ''}</p></div></div>
+                        <div class="flex items-start space-x-4"><i class="fa-solid fa-envelope text-2xl text-[var(--primary-red)] mt-1"></i><div><h3 class="font-semibold text-lg text-gray-800">Email Us</h3><a href="mailto:${settings.email || '#'}" class="hover:text-[var(--primary-red)] cursor-link">${settings.email || ''}</a></div></div>
+                        <div class="flex items-start space-x-4"><i class="fa-solid fa-phone text-2xl text-[var(--primary-red)] mt-1"></i><div><h3 class="font-semibold text-lg text-gray-800">Call Us</h3><a href="tel:${settings.phone || '#'}" class="hover:text-[var(--primary-red)] cursor-link">${settings.phone || ''}</a></div></div>
+                    `;
+                }
+
+                const mapContainer = document.getElementById('map-container');
+                if (mapContainer && settings.map_embed_url) {
+                    mapContainer.innerHTML = settings.map_embed_url;
+                } else if (mapContainer) {
+                    mapContainer.innerHTML = '<p class="text-gray-500">Map not available.</p>';
+                }
+
+                const pageContent = await fetchData('page_contact');
+                document.getElementById('hero-title').textContent = pageContent.hero_title || 'Get In Touch';
+                document.getElementById('info-title').textContent = pageContent.info_title || 'Contact Information';
+                document.getElementById('form-title').textContent = pageContent.form_title || 'Send us a Message';
+
+                const contactForm = document.getElementById('contact-form');
+                contactForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    const form = e.target;
+                    const submitButton = form.querySelector('button[type="submit"]');
+                    submitButton.textContent = 'Sending...';
+                    submitButton.disabled = true;
+
+                    const formData = new FormData(form);
+                    formData.append('source', 'Contact Page Inquiry');
+
+                    try {
+                        const response = await fetch('api/api.php?collection=form_submissions', { method: 'POST', body: formData });
+                        const result = await response.json();
+                        if (!result.success) throw new Error(result.message || 'Submission failed');
+                        
+                        document.getElementById('form-container').innerHTML = `<div class="text-center py-10"><i class="fa-solid fa-check-circle text-6xl text-green-500 mb-4"></i><h2 class="text-2xl font-bold text-gray-800 mb-2">Thank You!</h2><p class="text-gray-600">Your message has been sent successfully.</p></div>`;
+                    } catch (error) {
+                        alert(`An error occurred: ${error.message}`);
+                        submitButton.textContent = 'Send Message';
+                        submitButton.disabled = false;
+                    }
+                });
+            };
+
+            // --- EXECUTION LOGIC ---
+            const initializePage = async () => {
+                await Promise.all([
+                    loadComponent('header-placeholder', 'header.html'),
+                    loadComponent('footer-placeholder', 'footer.html')
+                ]);
+                
+                const siteSettings = await fetchData('settings');
+                
+                initializeHeaderScripts();
+                initializeFooter(siteSettings);
+                
+                await initializeContactPage(siteSettings);
+
+                // Add custom cursor logic
+                const cursorDot = document.querySelector('.cursor-dot');
+                const cursorOutline = document.querySelector('.cursor-outline');
+                window.addEventListener('mousemove', (e) => {
+                    const posX = e.clientX;
+                    const posY = e.clientY;
+                    cursorDot.style.left = `${posX}px`;
+                    cursorDot.style.top = `${posY}px`;
+                    cursorOutline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 500, fill: "forwards" });
+                });
+
+                const addCursorHover = () => {
+                    document.querySelectorAll('.cursor-link').forEach(link => {
+                        link.addEventListener('mouseenter', () => document.body.classList.add('cursor-link-hover'));
+                        link.addEventListener('mouseleave', () => document.body.classList.remove('cursor-link-hover'));
+                    });
+                };
+                addCursorHover();
+            };
+
+            initializePage();
+        };
+    </script>
+</body>
+
+</html>

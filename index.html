@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Right Value Property - Your Real Estate Partner in Vadodara</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+    <style>
+        :root {
+            --primary-red: #c0392b;
+            --primary-red-dark: #a93226;
+            --text-dark: #2c3e50;
+            --bg-light: #ecf0f1;
+            --accent-dark: #34495e;
+            --text-light: #7f8c8d;
+            --bg-darker: #e4e7e8;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            cursor: none;
+        }
+
+        .cursor-dot,
+        .cursor-outline {
+            pointer-events: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary-red);
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(192, 57, 43, 0.3);
+            transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, transform 0.1s ease-out;
+        }
+
+        body:hover .cursor-dot,
+        body:hover .cursor-outline {
+            opacity: 1;
+        }
+
+        .cursor-link-hover .cursor-outline {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(192, 57, 43, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                cursor: auto;
+            }
+
+            .cursor-dot,
+            .cursor-outline {
+                display: none;
+            }
+        }
+
+        a,
+        button,
+        .card-hover,
+        .service-card,
+        .locality-card,
+        .inner-home-tab {
+            cursor: none;
+        }
+
+        .section-title {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-red);
+            border-radius: 2px;
+        }
+
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        .card-hover .card-image {
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .card-hover:hover .card-image {
+            transform: scale(1.05);
+        }
+
+        .listing-tab {
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .listing-tab.active,
+        .listing-tab:hover {
+            color: var(--primary-red);
+            border-bottom-color: var(--primary-red);
+        }
+
+        .service-card {
+            transition: all 0.4s ease-out;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            background-color: var(--primary-red);
+            color: white;
+            box-shadow: 0 20px 25px -5px rgba(192, 57, 43, 0.3);
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.2) rotate(-15deg);
+            color: white;
+        }
+
+        .service-icon {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .inner-home-tab {
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .inner-home-tab.active {
+            background-color: var(--primary-red);
+            color: white;
+            border-color: var(--primary-red-dark);
+        }
+
+        .inner-home-tab:not(.active) {
+            background-color: white;
+            color: var(--text-dark);
+            border-color: var(--bg-darker);
+        }
+
+        .inner-home-tab:not(.active):hover {
+            background-color: var(--bg-darker);
+            color: var(--primary-red);
+        }
+
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.6s;
+        }
+
+        .tab-pane.active {
+            display: grid;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .locality-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .locality-card:hover {
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+        }
+
+        .locality-card .locality-image {
+            transition: transform 0.5s ease;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .locality-card:hover .locality-image {
+            transform: scale(1.1);
+        }
+
+        .locality-card .locality-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 60%);
+        }
+
+        .locality-card .locality-title {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            right: 1rem;
+            color: white;
+            font-weight: 700;
+            font-size: 1.25rem;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.4s ease;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .locality-card:hover .locality-title {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        #testimonial-cards {
+            perspective: 1000px;
+        }
+
+        .testimonial-card {
+            transition: transform 0.2s ease-out;
+            transform-style: preserve-3d;
+        }
+
+        .cta-section {
+            background-attachment: fixed;
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: var(--primary-red);
+        }
+
+        .swiper-pagination-bullet-active {
+            background: var(--primary-red);
+        }
+
+        .placeholder {
+            background-color: #e0e0e0;
+            border-radius: 0.5rem;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: .5;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+
+    <div class="cursor-outline"></div>
+    <div class="cursor-dot"></div>
+
+    <div id="header-placeholder"></div>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero-section"
+            class="relative h-[60vh] md:h-[80vh] bg-cover bg-center text-white flex items-center">
+            <div class="absolute inset-0 bg-black opacity-50"></div>
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center" data-aos="fade-up">
+                <h1 id="hero-title" class="text-4xl md:text-6xl font-extrabold leading-tight mb-4"></h1>
+                <p id="hero-subtitle" class="text-lg md:text-xl max-w-3xl mx-auto"></p>
+            </div>
+        </section>
+
+        <!-- OUR SERVICES -->
+        <section class="py-16 sm:py-20 bg-gray-50">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div data-aos="fade-up">
+                    <h2 id="services-title" class="section-title text-center mb-12">Our Professional Services</h2>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 text-center">
+                    <div data-aos="fade-up" data-aos-delay="100">
+                        <div class="service-card h-full flex flex-col items-center justify-center p-6 rounded-lg">
+                            <i class="fa-solid fa-house-signal service-icon text-4xl mb-3 text-[var(--primary-red)]"></i>
+                            <h3 class="text-lg font-bold">Sale</h3>
+                        </div>
+                    </div>
+                    <div data-aos="fade-up" data-aos-delay="200">
+                        <div class="service-card h-full flex flex-col items-center justify-center p-6 rounded-lg">
+                            <i class="fa-solid fa-magnifying-glass-dollar service-icon text-4xl mb-3 text-[var(--primary-red)]"></i>
+                            <h3 class="text-lg font-bold">Purchase</h3>
+                        </div>
+                    </div>
+                    <div data-aos="fade-up" data-aos-delay="300">
+                        <div class="service-card h-full flex flex-col items-center justify-center p-6 rounded-lg">
+                            <i class="fa-solid fa-key service-icon text-4xl mb-3 text-[var(--primary-red)]"></i>
+                            <h3 class="text-lg font-bold">Rent</h3>
+                        </div>
+                    </div>
+                    <div data-aos="fade-up" data-aos-delay="400">
+                        <div class="service-card h-full flex flex-col items-center justify-center p-6 rounded-lg">
+                            <i class="fa-solid fa-file-signature service-icon text-4xl mb-3 text-[var(--primary-red)]"></i>
+                            <h3 class="text-lg font-bold">Lease</h3>
+                        </div>
+                    </div>
+                    <div data-aos="fade-up" data-aos-delay="500">
+                        <div class="service-card h-full flex flex-col items-center justify-center p-6 rounded-lg">
+                            <i class="fa-solid fa-building-user service-icon text-4xl mb-3 text-[var(--primary-red)]"></i>
+                            <h3 class="text-lg font-bold">Pre-leased</h3>
+                        </div>
+                    </div>
+                    <div data-aos="fade-up" data-aos-delay="600">
+                        <div class="service-card h-full flex flex-col items-center justify-center p-6 rounded-lg">
+                            <i class="fa-solid fa-award service-icon text-4xl mb-3 text-[var(--primary-red)]"></i>
+                            <h3 class="text-lg font-bold">Project Endorsements</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Premier Listings Section -->
+        <section class="py-16 sm:py-24 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <h2 id="listings-title" class="section-title">Our Premier Listings</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">Handpicked properties tailored to your
+                        needs, from cozy homes to prime commercial spaces.</p>
+                </div>
+
+                <!-- Tabs -->
+                <div class="flex justify-center flex-wrap gap-4 md:gap-8 mb-12" data-aos="fade-up" data-aos-delay="100">
+                    <button class="listing-tab text-lg font-semibold py-2 px-4 cursor-link active" data-target="#listings-residential-buy">Residential Buy</button>
+                    <button class="listing-tab text-lg font-semibold py-2 px-4 cursor-link" data-target="#listings-residential-rent">Residential Rent</button>
+                    <button class="listing-tab text-lg font-semibold py-2 px-4 cursor-link" data-target="#listings-commercial-buy">Commercial Buy</button>
+                    <button class="listing-tab text-lg font-semibold py-2 px-4 cursor-link" data-target="#listings-commercial-rent">Commercial Rent</button>
+                </div>
+
+                <!-- Tab Content -->
+                <div id="listings-residential-buy" class="listing-content" data-aos="fade-up">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="placeholder h-96"></div>
+                        <div class="placeholder h-96"></div>
+                        <div class="placeholder h-96"></div>
+                    </div>
+                </div>
+                <div id="listings-residential-rent" class="listing-content hidden" data-aos="fade-up">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+                </div>
+                <div id="listings-commercial-buy" class="listing-content hidden" data-aos="fade-up">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+                </div>
+                <div id="listings-commercial-rent" class="listing-content hidden" data-aos="fade-up">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXPLORE INTERIORS -->
+        <section class="py-16 sm:py-20 bg-gray-50">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div data-aos="fade-up">
+                    <h2 id="interiors-title" class="section-title text-center mb-12">Explore The Interiors</h2>
+                </div>
+                <div id="inner-home-tabs" class="flex justify-center flex-wrap gap-3 mb-10" data-aos="fade-up"
+                    data-aos-delay="100">
+                    <button class="inner-home-tab active" data-tab="living-room">Living Room</button>
+                    <button class="inner-home-tab" data-tab="bedroom">Bedroom</button>
+                    <button class="inner-home-tab" data-tab="kitchen">Kitchen</button>
+                    <button class="inner-home-tab" data-tab="bathroom">Bathroom</button>
+                </div>
+                <div id="inner-home-content">
+                    <div id="tab-living-room" class="tab-pane active grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="placeholder h-64"></div>
+                        <div class="placeholder h-64"></div>
+                        <div class="placeholder h-64"></div>
+                    </div>
+                    <div id="tab-bedroom" class="tab-pane grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+                    <div id="tab-kitchen" class="tab-pane grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+                    <div id="tab-bathroom" class="tab-pane grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TOP LOCALITIES -->
+        <section class="py-16 sm:py-20 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div data-aos="fade-up">
+                    <h2 id="localities-title" class="section-title text-center mb-12">Explore Top Localities</h2>
+                </div>
+                <div id="locality-cards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+                    <div class="placeholder h-64"></div>
+                    <div class="placeholder h-64"></div>
+                    <div class="placeholder h-64"></div>
+                    <div class="placeholder h-64"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TESTIMONIALS -->
+        <section class="py-16 sm:py-20 bg-gray-50">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div data-aos="fade-up">
+                    <h2 id="testimonials-title" class="section-title text-center mb-12">What Our Clients Say</h2>
+                </div>
+                <div id="testimonial-cards" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="placeholder h-48"></div>
+                    <div class="placeholder h-48"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CALL TO ACTION -->
+        <section class="py-20 sm:py-24 bg-cover bg-center cta-section"
+            style="background-image: linear-gradient(to right, rgba(192, 57, 43, 0.9), rgba(169, 50, 38, 0.9)), url('https://images.pexels.com/photos/2102587/pexels-photo-2102587.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-white" data-aos="zoom-in">
+                <h2 id="cta-title" class="text-3xl sm:text-4xl font-bold mb-4">Ready to Find the Right Value?</h2>
+                <p id="cta-subtitle" class="text-lg mb-8 max-w-2xl mx-auto">Let our experts help you navigate the
+                    Vadodara real estate market.</p>
+                <a id="cta-button" href="contact.html"
+                    class="inline-block bg-white text-[var(--primary-red)] px-8 py-3 rounded-md font-semibold shadow-lg transition-all duration-300 hover:bg-gray-200 hover:scale-105 cursor-link">Contact
+                    Us</a>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <script>
+        window.onload = function() {
+        // --- SHARED LOGIC ---
+        const fetchData = async (collectionName) => {
+            try {
+                const response = await fetch(`api/api.php?collection=${collectionName}&t=${new Date().getTime()}`);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                return await response.json();
+            } catch (error) {
+                console.error(`Failed to fetch ${collectionName}:`, error);
+                return collectionName.startsWith('page_') || collectionName === 'settings' ? {} : [];
+            }
+        };
+
+        const loadComponent = async (placeholderId, url) => {
+            const placeholder = document.getElementById(placeholderId);
+            if (placeholder) {
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error(`Could not load ${url}`);
+                    placeholder.innerHTML = await response.text();
+                } catch (error) { console.error(`Error loading component from ${url}:`, error); }
+            }
+        };
+
+        const initializeHeaderScripts = () => {
+            const header = document.querySelector('header');
+            if (!header) return;
+            const mobileMenuButton = header.querySelector('#mobile-menu-button');
+            const mobileMenu = header.querySelector('#mobile-menu');
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                    header.querySelector('#menu-open-icon').classList.toggle('hidden');
+                    header.querySelector('#menu-close-icon').classList.toggle('hidden');
+                });
+            }
+            header.querySelectorAll('a.nav-link[href="index.html"]').forEach(link => {
+                link.classList.add('active', 'text-[var(--primary-red)]', 'font-semibold');
+            });
+            let lastScrollTop = 0;
+            window.addEventListener('scroll', () => {
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                header.classList.toggle('scrolled', scrollTop > 50);
+                header.classList.toggle('header-hidden', scrollTop > lastScrollTop && scrollTop > header.offsetHeight);
+                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+            }, false);
+        };
+
+        const initializeFooter = (settings) => {
+            if (!settings) return;
+            const footerContactInfo = document.getElementById('footer-contact-info');
+            if (footerContactInfo) {
+                footerContactInfo.innerHTML = `
+                    <p class="flex items-start"><i class="fa-solid fa-location-dot w-4 mr-3 mt-1 text-[var(--primary-red)]"></i><span>${settings.address || ''}</span></p>
+                    <p class="flex items-start"><i class="fa-solid fa-envelope w-4 mr-3 mt-1 text-[var(--primary-red)]"></i><a href="mailto:${settings.email || '#'}" class="hover:text-[var(--primary-red)] cursor-link">${settings.email || ''}</a></p>
+                    <p class="flex items-start"><i class="fa-solid fa-phone w-4 mr-3 mt-1 text-[var(--primary-red)]"></i><a href="tel:${settings.phone || '#'}" class="hover:text-[var(--primary-red)] cursor-link">${settings.phone || ''}</a></p>
+                `;
+            }
+
+            const socialLinksContainer = document.getElementById('footer-social-links');
+            if (socialLinksContainer) {
+                let linksHtml = '';
+                if (settings.facebook_url) linksHtml += `<a href="${settings.facebook_url}" target="_blank" aria-label="Facebook" class="text-gray-500 hover:text-[var(--primary-red)] transition-colors cursor-link"><i class="fa-brands fa-facebook-f fa-lg"></i></a>`;
+                if (settings.instagram_url) linksHtml += `<a href="${settings.instagram_url}" target="_blank" aria-label="Instagram" class="text-gray-500 hover:text-[var(--primary-red)] transition-colors cursor-link"><i class="fa-brands fa-instagram fa-lg"></i></a>`;
+                socialLinksContainer.innerHTML = linksHtml;
+            }
+
+            const reraEl = document.getElementById('footer-rera');
+            if (reraEl) reraEl.textContent = `RERA: ${settings.rera_number || ''}`;
+            const copyrightEl = document.getElementById('footer-copyright');
+            if (copyrightEl) copyrightEl.textContent = settings.copyright_text || `© ${new Date().getFullYear()} RIGHT VALUE PROPERTY.`;
+
+            const statusElement = document.getElementById('office-status');
+            const timeElement = document.getElementById('current-time');
+            if (statusElement && timeElement) {
+                const updateOfficeStatus = () => {
+                    const openHour = parseInt(settings.opening_hour, 10) || 10;
+                    const closeHour = parseInt(settings.closing_hour, 10) || 19;
+                    const closedDays = (settings.closed_days || 'Sun').split(',').map(d => d.trim());
+                    const now = new Date();
+                    const options = { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+                    const timeString = now.toLocaleTimeString('en-IN', options);
+                    const day = now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata', weekday: 'short' });
+                    const hour = parseInt(now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata', hour: '2-digit', hour12: false }));
+                    const isOpen = !closedDays.includes(day) && hour >= openHour && hour < closeHour;
+                    timeElement.textContent = `${timeString} (IST)`;
+                    statusElement.textContent = isOpen ? 'Open' : 'Closed';
+                    statusElement.classList.toggle('open', isOpen);
+                    statusElement.classList.toggle('closed', !isOpen);
+                };
+                updateOfficeStatus();
+                setInterval(updateOfficeStatus, 1000);
+            }
+
+            const scrollToTopBtn = document.getElementById('scroll-to-top');
+            if (scrollToTopBtn) {
+                window.addEventListener('scroll', () => scrollToTopBtn.classList.toggle('show', window.pageYOffset > 300));
+                scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            }
+        };
+        
+        const addCursorHover = () => {
+            document.querySelectorAll('.cursor-link').forEach(link => {
+                link.addEventListener('mouseenter', () => document.body.classList.add('cursor-link-hover'));
+                link.addEventListener('mouseleave', () => document.body.classList.remove('cursor-link-hover'));
+            });
+        };
+
+        // --- PAGE-SPECIFIC LOGIC ---
+        function createPropertyCard(prop, type) {
+            const mainImage = (prop.images && prop.images.length > 0) ? prop.images[0] : 'https://placehold.co/600x400';
+            let detailsPage = '';
+            let bedLabel = 'Beds';
+            let bathLabel = 'Baths';
+
+            switch (type) {
+                case 'residential-buy': detailsPage = 'property-details.html'; break;
+                case 'residential-rent': detailsPage = 'rent-details.html'; break;
+                case 'commercial-buy': detailsPage = 'commercial-buy-details.html'; bedLabel = 'Cabins'; bathLabel = 'Washrooms'; break;
+                case 'commercial-rent': detailsPage = 'commercial-rent-details.html'; bedLabel = 'Cabins'; bathLabel = 'Washrooms'; break;
+            }
+
+            return `
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover flex flex-col cursor-link">
+                    <div class="overflow-hidden relative h-56">
+                        <img src="${mainImage}" alt="${prop.title}" class="w-full h-full object-cover card-image">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold text-[var(--text-dark)] mb-2 truncate">${prop.title}</h3>
+                        <p class="text-gray-500 text-sm mb-4"><i class="fa-solid fa-location-dot mr-2"></i>${prop.location}</p>
+                        <div class="text-2xl font-extrabold mb-4" style="color: var(--primary-red);">${prop.price}</div>
+                        <div class="flex justify-between text-sm text-gray-600 border-t pt-4 mt-auto">
+                            <span><strong class="text-gray-800">${prop.beds || 0}</strong> ${bedLabel}</span>
+                            <span><strong class="text-gray-800">${prop.baths || 0}</strong> ${bathLabel}</span>
+                            <span><strong class="text-gray-800">${prop.sqft ? prop.sqft.toLocaleString() : 0}</strong> sqft</span>
+                        </div>
+                        <a href="${detailsPage}?id=${prop.id}" class="block text-center mt-4 px-4 py-2 text-sm font-semibold rounded-md text-white transition-colors cursor-link" style="background-color: var(--primary-red-dark);">Know More</a>
+                    </div>
+                </div>`;
+        }
+        
+        const initializeHomepageContent = async () => {
+            const [pageContent, localities, testimonials, buyProps, rentProps, commBuyProps, commRentProps] = await Promise.all([
+                fetchData('page_home'),
+                fetchData('localities'),
+                fetchData('testimonials'),
+                fetchData('properties_buy'),
+                fetchData('properties_rent'),
+                fetchData('properties_commercial_buy'),
+                fetchData('properties_commercial_rent'),
+            ]);
+
+            // Set dynamic text content
+            const setText = (id, value) => {
+                const el = document.getElementById(id);
+                if (el && value && value.trim()) el.textContent = value;
+            }
+            setText('hero-title', pageContent.hero_title);
+            setText('hero-subtitle', pageContent.hero_subtitle);
+            setText('services-title', pageContent.services_title);
+            setText('listings-title', pageContent.listings_title);
+            setText('interiors-title', pageContent.interiors_title);
+            setText('localities-title', pageContent.localities_title);
+            setText('testimonials-title', pageContent.testimonials_title);
+            setText('cta-title', pageContent.cta_title);
+            setText('cta-subtitle', pageContent.cta_subtitle);
+            setText('cta-button', pageContent.cta_button_text);
+            if (pageContent.hero_bg_image) document.getElementById('hero-section').style.backgroundImage = `url('${pageContent.hero_bg_image}')`;
+
+            // Render Premier Listings
+            const allData = {
+                'residential-buy': buyProps, 'residential-rent': rentProps,
+                'commercial-buy': commBuyProps, 'commercial-rent': commRentProps,
+            };
+            const renderProperties = (container, properties, type) => {
+                const grid = container.querySelector('.grid');
+                grid.innerHTML = '';
+                const featured = properties.filter(p => p.is_featured === 'on').slice(0, 3);
+                if (featured.length === 0) {
+                    grid.innerHTML = `<p class="col-span-full text-center text-gray-500 py-8">No featured properties in this category.</p>`;
+                    return;
+                }
+                featured.forEach(prop => grid.innerHTML += createPropertyCard(prop, type));
+            };
+            renderProperties(document.getElementById('listings-residential-buy'), allData['residential-buy'], 'residential-buy');
+            renderProperties(document.getElementById('listings-residential-rent'), allData['residential-rent'], 'residential-rent');
+            renderProperties(document.getElementById('listings-commercial-buy'), allData['commercial-buy'], 'commercial-buy');
+            renderProperties(document.getElementById('listings-commercial-rent'), allData['commercial-rent'], 'commercial-rent');
+            
+            // Render Interiors
+            const panes = {
+                'living-room': document.getElementById('tab-living-room'), 'bedroom': document.getElementById('tab-bedroom'),
+                'kitchen': document.getElementById('tab-kitchen'), 'bathroom': document.getElementById('tab-bathroom'),
+            };
+            Object.values(panes).forEach(pane => { if (pane) pane.innerHTML = ''; });
+            for (let i = 1; i <= 3; i++) {
+                if (pageContent[`interior_living_${i}`] && panes['living-room']) { panes['living-room'].innerHTML += `<img src="${pageContent[`interior_living_${i}`]}" class="rounded-lg shadow-md object-cover h-64 w-full" data-aos="zoom-in" data-aos-delay="${i*100}">`; }
+                if (pageContent[`interior_bedroom_${i}`] && panes['bedroom']) { panes['bedroom'].innerHTML += `<img src="${pageContent[`interior_bedroom_${i}`]}" class="rounded-lg shadow-md object-cover h-64 w-full" data-aos="zoom-in" data-aos-delay="${i*100}">`; }
+                if (pageContent[`interior_kitchen_${i}`] && panes['kitchen']) { panes['kitchen'].innerHTML += `<img src="${pageContent[`interior_kitchen_${i}`]}" class="rounded-lg shadow-md object-cover h-64 w-full" data-aos="zoom-in" data-aos-delay="${i*100}">`; }
+                if (pageContent[`interior_bathroom_${i}`] && panes['bathroom']) { panes['bathroom'].innerHTML += `<img src="${pageContent[`interior_bathroom_${i}`]}" class="rounded-lg shadow-md object-cover h-64 w-full" data-aos="zoom-in" data-aos-delay="${i*100}">`; }
+            }
+
+            // Render Localities
+            const localitiesContainer = document.getElementById('locality-cards');
+            if (localitiesContainer && localities.length > 0) {
+                localitiesContainer.innerHTML = localities.map((item, i) => `
+                    <div class="locality-card h-64 cursor-link" data-aos="fade-up" data-aos-delay="${(i+1)*100}">
+                        <img src="${item.image || 'https://placehold.co/400x400'}" alt="${item.name}" class="locality-image">
+                        <div class="locality-overlay"></div><h3 class="locality-title">${item.name}</h3>
+                    </div>`).join('');
+            }
+
+            // Render Testimonials
+            const testimonialsContainer = document.getElementById('testimonial-cards');
+            if (testimonialsContainer && testimonials.length > 0) {
+                testimonialsContainer.innerHTML = testimonials.map((item, i) => `
+                    <div class="bg-white p-6 rounded-lg shadow-lg testimonial-card" data-aos="fade-up" data-aos-delay="${(i+1)*100}">
+                        <div class="flex items-start">
+                            <img src="${item.avatar || 'https://placehold.co/100x100'}" alt="${item.name}" class="w-16 h-16 rounded-full mr-5 object-cover border-2 border-[var(--primary-red)]">
+                            <div>
+                                <p class="text-gray-600 italic mb-4">"${item.quote}"</p>
+                                <h4 class="font-bold text-lg text-[var(--text-dark)]">${item.name}</h4>
+                                <p class="text-sm text-[var(--primary-red)]">${item.location}</p>
+                            </div>
+                        </div>
+                    </div>`).join('');
+            }
+        };
+
+        const initializeEventListeners = () => {
+            // Premier Listings Tabs
+            const tabs = document.querySelectorAll('.listing-tab');
+            const contentSections = document.querySelectorAll('.listing-content');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    contentSections.forEach(section => section.classList.add('hidden'));
+                    const target = document.querySelector(tab.dataset.target);
+                    if (target) target.classList.remove('hidden');
+                });
+            });
+
+            // Interiors Tabs
+            document.querySelectorAll('.inner-home-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetPaneId = 'tab-' + tab.dataset.tab;
+                    document.querySelectorAll('.inner-home-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.toggle('active', pane.id === targetPaneId));
+                });
+            });
+
+            // Testimonial 3D effect
+            document.querySelectorAll('.testimonial-card').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left; const y = e.clientY - rect.top;
+                    const { width, height } = rect;
+                    const rotateX = (y - height / 2) / 15;
+                    const rotateY = (width / 2 - x) / 15;
+                    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+                });
+            });
+            
+            // CTA Parallax
+            const ctaSection = document.querySelector('.cta-section');
+            if(ctaSection) {
+                window.addEventListener('scroll', () => {
+                    const scrollPosition = window.pageYOffset;
+                    ctaSection.style.backgroundPositionY = (scrollPosition - ctaSection.offsetTop) * 0.3 + 'px';
+                });
+            }
+        };
+
+        // --- EXECUTION LOGIC ---
+        const initializePage = async () => {
+            AOS.init({ duration: 800, once: true, disable: 'mobile' });
+            
+            await Promise.all([
+                loadComponent('header-placeholder', 'header.html'),
+                loadComponent('footer-placeholder', 'footer.html')
+            ]);
+            
+            const siteSettings = await fetchData('settings');
+            
+            initializeHeaderScripts();
+            initializeFooter(siteSettings);
+            await initializeHomepageContent();
+            initializeEventListeners();
+            
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorOutline = document.querySelector('.cursor-outline');
+            window.addEventListener('mousemove', (e) => {
+                cursorDot.style.left = `${e.clientX}px`;
+                cursorDot.style.top = `${e.clientY}px`;
+                cursorOutline.animate({ left: `${e.clientX}px`, top: `${e.clientY}px` }, { duration: 500, fill: "forwards" });
+            });
+            
+            addCursorHover();
+            AOS.refresh();
+        };
+
+        initializePage();
+    };
+    </script>
+</body>
+
+</html>

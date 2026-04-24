@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Right Value Property</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        :root { --primary-red: #c0392b; }
+        .btn-primary { background-color: var(--primary-red); }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary-red);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+
+    <div class="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+        <div>
+            <img class="mx-auto h-24 w-auto" src="logo/website RVP LOGO.jpg" alt="Right Value Property" onerror="this.onerror=null;this.src='https://placehold.co/200x100?text=Logo+Not+Found';">
+            <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+                Admin Panel Login
+            </h2>
+        </div>
+        <form id="loginForm" class="mt-8 space-y-6">
+            <div class="rounded-md shadow-sm -space-y-px">
+                <div>
+                    <label for="username" class="sr-only">Username</label>
+                    <input id="username" name="username" type="text" autocomplete="username" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" placeholder="Username">
+                </div>
+                <div>
+                    <label for="password" class="sr-only">Password</label>
+                    <input id="password" name="password" type="password" autocomplete="current-password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm" placeholder="Password">
+                </div>
+            </div>
+
+            <div id="error-message" class="text-red-600 text-sm hidden p-2 bg-red-50 rounded-md"></div>
+
+            <div>
+                <button type="submit" id="loginButton" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white btn-primary hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                    <span class="btn-text">Sign in</span>
+                    <div class="loader hidden ml-3"></div>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Check if user is already logged in
+            try {
+                const response = await fetch('api/auth.php?action=check_session');
+                const data = await response.json();
+                if (data.isLoggedIn) {
+                    window.location.href = 'dashboard.html';
+                }
+            } catch (error) {
+                console.error('Session check failed:', error);
+            }
+        });
+
+        const loginForm = document.getElementById('loginForm');
+        const errorMessage = document.getElementById('error-message');
+        const loginButton = document.getElementById('loginButton');
+        const buttonText = loginButton.querySelector('.btn-text');
+        const loader = loginButton.querySelector('.loader');
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            errorMessage.classList.add('hidden');
+            buttonText.classList.add('hidden');
+            loader.classList.remove('hidden');
+            loginButton.disabled = true;
+
+            const formData = new FormData(loginForm);
+
+            try {
+                const response = await fetch('api/auth.php?action=login', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    window.location.href = 'dashboard.html';
+                } else {
+                    errorMessage.innerText = result.message || 'An unexpected error occurred.';
+                    errorMessage.classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error("Login request failed:", error);
+                errorMessage.innerText = "Could not connect to the server. Please try again later.";
+                errorMessage.classList.remove('hidden');
+            } finally {
+                buttonText.classList.remove('hidden');
+                loader.classList.add('hidden');
+                loginButton.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

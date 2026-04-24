@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commercial Projects - RIGHT VALUE PROPERTY</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-red: #c0392b;
+            --primary-red-dark: #a93226;
+            --text-dark: #2c3e50;
+            --bg-light: #ecf0f1;
+            --bg-darker: #e4e7e8;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+        }
+
+        /* --- Custom Cursor --- */
+        /* Hide custom cursor on touch devices */
+        @media (hover: hover) and (pointer: fine) {
+            body {
+                cursor: none;
+                /* Hide default for custom cursor */
+            }
+
+            .cursor-dot,
+            .cursor-outline {
+                pointer-events: none;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                border-radius: 50%;
+                z-index: 9999;
+                opacity: 0;
+                transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out;
+            }
+
+            .cursor-dot {
+                width: 8px;
+                height: 8px;
+                background-color: var(--primary-red);
+            }
+
+            .cursor-outline {
+                width: 40px;
+                height: 40px;
+                background-color: rgba(192, 57, 43, 0.3);
+                transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, transform 0.1s ease-out;
+            }
+
+            body:hover .cursor-dot,
+            body:hover .cursor-outline {
+                opacity: 1;
+            }
+
+            .cursor-link-hover .cursor-outline {
+                width: 60px;
+                height: 60px;
+                background-color: rgba(192, 57, 43, 0.4);
+            }
+
+            a,
+            button,
+            .card-hover {
+                cursor: none;
+            }
+        }
+
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        .card-hover .card-image {
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .card-hover:hover .card-image {
+            transform: scale(1.05);
+        }
+
+        .pagination-link {
+            transition: all 0.3s ease;
+        }
+
+        .pagination-link:hover:not(.active):not(.disabled) {
+            background-color: var(--bg-darker);
+            border-color: #ccc;
+            transform: translateY(-2px);
+        }
+
+        .pagination-link.active {
+            background-color: var(--primary-red);
+            border-color: var(--primary-red);
+            color: white;
+            cursor: default;
+        }
+
+        .pagination-link.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .placeholder {
+            background-color: #e0e0e0;
+            border-radius: 0.5rem;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: .5;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+
+    <!-- Custom Cursor Elements -->
+    <div class="cursor-outline"></div>
+    <div class="cursor-dot"></div>
+
+    <div id="header-placeholder"></div>
+
+    <main>
+        <section class="py-16 sm:py-20" style="background-color: var(--bg-light);">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4" data-aos="fade-up">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-[var(--primary-red)]">Commercial Projects</h2>
+                </div>
+
+                <div id="property-listings" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="placeholder h-96"></div>
+                    <div class="placeholder h-96"></div>
+                    <div class="placeholder h-96"></div>
+                </div>
+
+                <div class="mt-12 flex justify-center" data-aos="fade-up">
+                    <nav id="pagination-controls" class="flex items-center space-x-2" aria-label="Pagination"></nav>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Consolidated Page Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // --- SHARED LOGIC ---
+            const fetchData = async (collectionName) => {
+                try {
+                    const response = await fetch(`api/api.php?collection=${collectionName}&t=${new Date().getTime()}`);
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    const data = await response.json();
+                     if ((collectionName === 'settings' || collectionName.startsWith('page_')) && (Array.isArray(data) && data.length === 0)) {
+                        return {};
+                    }
+                    return data;
+                } catch (error) {
+                    console.error(`Failed to fetch ${collectionName}:`, error);
+                    return (collectionName === 'settings' || collectionName.startsWith('page_')) ? {} : [];
+                }
+            };
+
+            const loadComponent = async (placeholderId, url) => {
+                const placeholder = document.getElementById(placeholderId);
+                if (placeholder) {
+                    try {
+                        const response = await fetch(url);
+                        if (!response.ok) throw new Error(`Could not load ${url}`);
+                        placeholder.innerHTML = await response.text();
+                        addCursorHover();
+                    } catch (error) {
+                        console.error(`Error loading component from ${url}:`, error);
+                    }
+                }
+            };
+
+            const initializeHeaderScripts = () => {
+                const header = document.querySelector('header');
+                if (!header) return;
+
+                const mobileMenuButton = header.querySelector('#mobile-menu-button');
+                const mobileMenu = header.querySelector('#mobile-menu');
+                if (mobileMenuButton && mobileMenu) {
+                    mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+                }
+
+                header.querySelectorAll('a.nav-link[href="projects-commercial.html"]').forEach(link => {
+                    link.classList.add('active', 'text-[var(--primary-red)]', 'font-semibold');
+                });
+
+                let lastScrollTop = 0;
+                window.addEventListener('scroll', () => {
+                    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    header.classList.toggle('scrolled', scrollTop > 50);
+                    header.classList.toggle('header-hidden', scrollTop > lastScrollTop && scrollTop > header.offsetHeight);
+                    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+                }, false);
+            };
+
+            const initializeFooter = (settings) => {
+                if (!settings) return;
+                const footerContactInfo = document.getElementById('footer-contact-info');
+                if (footerContactInfo) {
+                    footerContactInfo.innerHTML = `
+                        <p class="flex items-start"><i class="fa-solid fa-location-dot w-4 mr-3 mt-1 text-[var(--primary-red)]"></i><span>${settings.address || ''}</span></p>
+                        <p class="flex items-start"><i class="fa-solid fa-envelope w-4 mr-3 mt-1 text-[var(--primary-red)]"></i><a href="mailto:${settings.email || '#'}" class="hover:text-[var(--primary-red)]">${settings.email || ''}</a></p>
+                        <p class="flex items-start"><i class="fa-solid fa-phone w-4 mr-3 mt-1 text-[var(--primary-red)]"></i><a href="tel:${settings.phone || '#'}" class="hover:text-[var(--primary-red)]">${settings.phone || ''}</a></p>
+                    `;
+                }
+
+                const socialLinksContainer = document.getElementById('footer-social-links');
+                if (socialLinksContainer) {
+                    let linksHtml = '';
+                    if (settings.facebook_url) linksHtml += `<a href="${settings.facebook_url}" target="_blank" aria-label="Facebook" class="text-gray-500 hover:text-[var(--primary-red)] transition-colors"><i class="fa-brands fa-facebook-f fa-lg"></i></a>`;
+                    if (settings.instagram_url) linksHtml += `<a href="${settings.instagram_url}" target="_blank" aria-label="Instagram" class="text-gray-500 hover:text-[var(--primary-red)] transition-colors"><i class="fa-brands fa-instagram fa-lg"></i></a>`;
+                    socialLinksContainer.innerHTML = linksHtml;
+                }
+
+                const reraEl = document.getElementById('footer-rera');
+                if (reraEl) reraEl.textContent = `RERA: ${settings.rera_number || ''}`;
+                const copyrightEl = document.getElementById('footer-copyright');
+                if (copyrightEl) copyrightEl.textContent = settings.copyright_text || `© ${new Date().getFullYear()} RIGHT VALUE PROPERTY.`;
+
+                const statusElement = document.getElementById('office-status');
+                const timeElement = document.getElementById('current-time');
+                if (statusElement && timeElement) {
+                    const updateOfficeStatus = () => {
+                        const openHour = parseInt(settings.opening_hour, 10) || 10;
+                        const closeHour = parseInt(settings.closing_hour, 10) || 19;
+                        const closedDays = (settings.closed_days || 'Sun').split(',').map(d => d.trim());
+                        const now = new Date();
+                        const options = { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+                        const timeString = now.toLocaleTimeString('en-IN', options);
+                        const day = now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata', weekday: 'short' });
+                        const hour = parseInt(now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata', hour: '2-digit', hour12: false }));
+                        const isOpen = !closedDays.includes(day) && hour >= openHour && hour < closeHour;
+                        timeElement.textContent = `${timeString} (IST)`;
+                        statusElement.textContent = isOpen ? 'Open' : 'Closed';
+                        statusElement.classList.toggle('open', isOpen);
+                        statusElement.classList.toggle('closed', !isOpen);
+                    };
+                    updateOfficeStatus();
+                    setInterval(updateOfficeStatus, 1000);
+                }
+
+                const scrollToTopBtn = document.getElementById('scroll-to-top');
+                if (scrollToTopBtn) {
+                    window.addEventListener('scroll', () => scrollToTopBtn.classList.toggle('show', window.pageYOffset > 300));
+                    scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+                }
+            };
+
+            // --- PAGE-SPECIFIC LOGIC ---
+            const initializeProjectsPage = () => {
+                AOS.init({ duration: 800, once: true });
+
+                const listingsContainer = document.getElementById('property-listings');
+                const paginationControls = document.getElementById('pagination-controls');
+                let allProperties = [];
+                const propertiesPerPage = 6;
+                let currentPage = 1;
+                
+                async function loadContent() {
+                    allProperties = await fetchData('projects_commercial');
+                    
+                    if (listingsContainer) {
+                        displayProperties(currentPage);
+                        setupPagination();
+                    }
+                }
+
+                function displayProperties(page) {
+                    listingsContainer.innerHTML = '';
+                    page--; 
+
+                    const startIndex = propertiesPerPage * page;
+                    const endIndex = startIndex + propertiesPerPage;
+                    const paginatedProperties = allProperties.slice(startIndex, endIndex);
+
+                    if (paginatedProperties.length === 0) {
+                        listingsContainer.innerHTML = '<p class="col-span-full text-center text-gray-500">No commercial projects found.</p>';
+                        return;
+                    }
+
+                    paginatedProperties.forEach((prop, index) => {
+                        const mainImage = (prop.images && prop.images.length > 0) ? prop.images[0] : 'https://placehold.co/600x400';
+                        const card = `
+                            <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover flex flex-col" data-aos="fade-up" data-aos-delay="${index * 100}">
+                                <div class="overflow-hidden relative h-56">
+                                    <img src="${mainImage}" alt="${prop.title}" class="w-full h-full object-cover card-image">
+                                </div>
+                                <div class="p-6 flex flex-col flex-grow">
+                                     <h3 class="text-xl font-bold text-[var(--text-dark)] mb-2">${prop.title}</h3>
+                                     <p class="text-gray-500 text-sm mb-4">${prop.location}</p>
+                                     <div class="text-2xl font-extrabold mb-4" style="color: var(--primary-red);">${prop.price}</div>
+                                     <div class="flex justify-between text-sm text-gray-600 border-t pt-4 mt-auto">
+                                        <span><strong class="text-gray-800">${prop.beds || 0}</strong> Cabins</span>
+                                        <span><strong class="text-gray-800">${prop.baths || 0}</strong> Washrooms</span>
+                                        <span><strong class="text-gray-800">${prop.sqft ? prop.sqft.toLocaleString() : 0}</strong> sqft</span>
+                                     </div>
+                                     <a href="projects-commercial-details.html?type=projects_commercial&id=${prop.id}" class="block text-center mt-4 px-4 py-2 text-sm font-semibold rounded-md text-white transition-colors" style="background-color: var(--primary-red-dark);">Know More</a>
+                                </div>
+                            </div>
+                        `;
+                        listingsContainer.innerHTML += card;
+                    });
+                    setTimeout(() => {
+                        AOS.refresh();
+                        addCursorHover();
+                    }, 100);
+                }
+
+                function setupPagination() {
+                    if (!paginationControls || allProperties.length <= propertiesPerPage) {
+                        if (paginationControls) paginationControls.innerHTML = '';
+                        return;
+                    }
+                    const pageCount = Math.ceil(allProperties.length / propertiesPerPage);
+                    paginationControls.innerHTML = '';
+
+                    const prevButton = document.createElement('button');
+                    prevButton.innerHTML = `<i class="fas fa-arrow-left"></i>`;
+                    prevButton.className = 'pagination-link relative inline-flex items-center justify-center w-10 h-10 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-500';
+                    prevButton.addEventListener('click', () => {
+                        if (currentPage > 1) {
+                            currentPage--;
+                            displayProperties(currentPage);
+                            updatePagination();
+                        }
+                    });
+                    paginationControls.appendChild(prevButton);
+
+                    for (let i = 1; i <= pageCount; i++) {
+                        const pageButton = document.createElement('button');
+                        pageButton.innerText = i;
+                        pageButton.className = 'pagination-link relative inline-flex items-center justify-center w-10 h-10 border border-gray-300 bg-white text-sm font-medium text-gray-700 rounded-md';
+                        if (i === currentPage) pageButton.classList.add('active');
+                        pageButton.addEventListener('click', () => {
+                            currentPage = i;
+                            displayProperties(currentPage);
+                            updatePagination();
+                        });
+                        paginationControls.appendChild(pageButton);
+                    }
+
+                    const nextButton = document.createElement('button');
+                    nextButton.innerHTML = `<i class="fas fa-arrow-right"></i>`;
+                    nextButton.className = 'pagination-link relative inline-flex items-center justify-center w-10 h-10 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-500';
+                    nextButton.addEventListener('click', () => {
+                        if (currentPage < pageCount) {
+                            currentPage++;
+                            displayProperties(currentPage);
+                            updatePagination();
+                        }
+                    });
+                    paginationControls.appendChild(nextButton);
+                    
+                    updatePagination();
+                }
+
+                function updatePagination() {
+                    if (!paginationControls) return;
+                    const pageCount = Math.ceil(allProperties.length / propertiesPerPage);
+                    const buttons = paginationControls.querySelectorAll('button');
+                    
+                    buttons.forEach(button => {
+                        button.classList.remove('active', 'disabled');
+                        if (parseInt(button.innerText) === currentPage) button.classList.add('active');
+                    });
+                    if (currentPage === 1) buttons[0].classList.add('disabled');
+                    if (currentPage === pageCount) buttons[buttons.length - 1].classList.add('disabled');
+                }
+
+                loadContent();
+            };
+            
+            // --- Custom Cursor and Hover Effects ---
+            const addCursorHover = () => {
+                if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+                    const links = document.querySelectorAll('a, button, .card-hover');
+                    links.forEach(link => {
+                        link.addEventListener('mouseenter', () => document.body.classList.add('cursor-link-hover'));
+                        link.addEventListener('mouseleave', () => document.body.classList.remove('cursor-link-hover'));
+                    });
+                }
+            };
+
+            // --- EXECUTION LOGIC ---
+            const initializePage = async () => {
+                await Promise.all([
+                    loadComponent('header-placeholder', 'header.html'),
+                    loadComponent('footer-placeholder', 'footer.html')
+                ]);
+                
+                const siteSettings = await fetchData('settings');
+                
+                initializeHeaderScripts();
+                initializeFooter(siteSettings);
+                
+                initializeProjectsPage();
+                
+                if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+                    const cursorDot = document.querySelector('.cursor-dot');
+                    const cursorOutline = document.querySelector('.cursor-outline');
+                    window.addEventListener('mousemove', (e) => {
+                        const posX = e.clientX;
+                        const posY = e.clientY;
+                        cursorDot.style.left = `${posX}px`;
+                        cursorDot.style.top = `${posY}px`;
+                        cursorOutline.animate({
+                            left: `${posX}px`,
+                            top: `${posY}px`
+                        }, { duration: 500, fill: "forwards" });
+                    });
+                }
+                
+                addCursorHover();
+            };
+
+            initializePage();
+        });
+    </script>
+</body>
+
+</html>

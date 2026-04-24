@@ -1,0 +1,135 @@
+<!-- Reusable Dynamic Footer Component -->
+<footer class="bg-white text-gray-800 border-t border-gray-200">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+            <!-- Column 1: Logo & Tagline -->
+            <div class="lg:col-span-1 md:col-span-2" data-aos="fade-up" data-aos-delay="100">
+                <a href="index.html" class="cursor-link">
+                    <img src="logo/website RVP LOGO.jpg" class="h-24 w-auto mb-4" alt="Right Value Property Logo">
+                </a>
+                <p class="text-gray-600 text-sm leading-relaxed">At Right Value Property, we are dedicated to
+                    transforming your real estate journey in Vadodara. Our expert team offers personalized service and
+                    unparalleled market knowledge to ensure you find the perfect property that truly feels like home.
+                </p>
+            </div>
+
+            <!-- Column 2: Quick Links -->
+            <div data-aos="fade-up" data-aos-delay="200">
+                <h4 class="font-semibold text-lg mb-4">Quick Links</h4>
+                <ul class="space-y-3">
+                    <li><a href="index.html" class="text-gray-600 hover:text-[var(--primary-red)] cursor-link">Home</a></li>
+                    <li><a href="buy.html" class="text-gray-600 hover:text-[var(--primary-red)] cursor-link">Buy (Residential)</a></li>
+                    <li><a href="rent.html" class="text-gray-600 hover:text-[var(--primary-red)] cursor-link">Rent (Residential)</a></li>
+                    <li><a href="commercial-buy.html" class="text-gray-600 hover:text-[var(--primary-red)] cursor-link">Buy (Commercial)</a></li>
+                    <li><a href="commercial-rent.html" class="text-gray-600 hover:text-[var(--primary-red)] cursor-link">Rent (Commercial)</a></li>
+                    <li><a href="projects-residential.html" class="text-gray-600 hover:text-[var(--primary-red)] cursor-link">Residential Projects</a></li>
+                    <li><a href="projects-commercial.html" class="text-gray-600 hover:text-[var(--primary-red)] cursor-link">Commercial Projects</a></li>
+                    <li><a href="finance.html" class="text-gray-600 hover:text-[var(--primary-red)] cursor-link">Finance</a></li>
+                    <li><a href="about.html" class="text-gray-600 hover:text-[var(--primary-red)] cursor-link">About Us</a></li>
+                    <li><a href="contact.html" class="text-gray-600 hover:text-[var(--primary-red)] cursor-link">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Dynamic Contact Info -->
+            <div data-aos="fade-up" data-aos-delay="300">
+                <h4 class="font-semibold text-lg mb-4">Contact Info</h4>
+                <address id="footer-contact-info" class="text-gray-600 not-italic text-sm space-y-4">
+                    <!-- Loading placeholder -->
+                    <div class="h-5 w-full bg-gray-200 rounded animate-pulse"></div>
+                    <div class="h-5 w-3/4 bg-gray-200 rounded animate-pulse"></div>
+                    <div class="h-5 w-1/2 bg-gray-200 rounded animate-pulse"></div>
+                </address>
+            </div>
+
+            <!-- Column 4: Business Hours & Dynamic Socials -->
+            <div data-aos="fade-up" data-aos-delay="400">
+                <h4 class="font-semibold text-lg mb-4">Business Hours</h4>
+                <div class="text-sm text-gray-600 space-y-2">
+                    <p><strong>Tuesday - Sunday :</strong> 10:00 AM - 7:00 PM</p>
+                    <p><strong>Monday :</strong> Closed</p>
+                    <div class="pt-2">
+                        <span id="office-status" class="status-badge"></span>
+                        <span id="current-time" class="ml-2 text-xs font-medium"></span>
+                    </div>
+                </div>
+                <div class="mt-8">
+                    <h4 class="font-semibold text-lg mb-3 text-gray-800">Follow Us</h4>
+                    <div id="footer-social-links" class="flex space-x-5">
+                        <!-- Social links will be dynamically injected by main.js -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-gray-200 mt-12 pt-8 text-center text-gray-500 text-sm" data-aos="fade-up">
+            <p id="footer-rera" class="mb-2 h-4"></p><br>
+            <p id="footer-copyright" class="mb-4 h-4"></p>
+            <div class="flex justify-center items-center space-x-4">
+                <a href="privacy.html" class="hover:text-[var(--primary-red)] transition-colors cursor-link">Privacy
+                    Policy</a>
+                <span class="border-l h-4 border-gray-400"></span>
+                <a href="terms.html" class="hover:text-[var(--primary-red)] transition-colors cursor-link">Terms of
+                    Service</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Scroll to Top Button -->
+<button id="scroll-to-top" class="cursor-link" title="Go to top">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+<!-- Styles for the footer components. All script logic is now in main.js -->
+<style>
+    .status-badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        color: white;
+    }
+
+    .status-badge.open {
+        background-color: #27ae60;
+        /* --success-green */
+    }
+
+    .status-badge.closed {
+        background-color: #c0392b;
+        /* --primary-red */
+    }
+
+    #scroll-to-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        display: none;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: var(--primary-red);
+        color: white;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-size: 20px;
+        z-index: 1000;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease-in-out;
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    #scroll-to-top.show {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    #scroll-to-top:hover {
+        background-color: var(--primary-red-dark);
+        transform: scale(1.1);
+    }
+</style>

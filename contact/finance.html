@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Services - RIGHT VALUE PROPERTY</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-red: #c0392b;
+            --primary-red-dark: #a93226;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --bg-light: #ecf0f1;
+            --bg-darker: #e4e7e8;
+        }
+        body { font-family: 'Inter', sans-serif; color: var(--text-dark); }
+        .btn-primary {
+            background-color: var(--primary-red);
+            color: white;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: var(--primary-red-dark);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 10px 20px -5px rgba(192, 57, 43, 0.4);
+        }
+        .card-hover { transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+<body class="bg-white">
+
+    <div id="header-placeholder"></div>
+
+    <main>
+        <!-- =========== HERO SECTION =========== -->
+        <section class="relative h-[60vh] bg-cover bg-center flex items-center justify-center overflow-hidden" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.pexels.com/photos/730547/pexels-photo-730547.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');">
+            <div class="relative z-10 text-center text-white p-4" data-aos="fade-in" data-aos-delay="300">
+                <h1 id="hero-title" class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 drop-shadow-lg">Financial Services</h1>
+                <p id="hero-subtitle" class="text-lg md:text-xl max-w-3xl mx-auto drop-shadow-md">Seamless loan solutions to help you secure your dream property.</p>
+            </div>
+        </section>
+
+        <!-- =========== LOAN EMI CALCULATOR =========== -->
+        <section class="py-16 sm:py-20" style="background-color: var(--bg-darker);">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div data-aos="fade-up">
+                    <h2 id="calc-title" class="text-3xl sm:text-4xl font-bold text-center text-[var(--primary-red)] mb-2">Loan EMI Calculator</h2>
+                    <p id="calc-subtitle" class="text-center text-[var(--text-light)] mb-12 max-w-2xl mx-auto">Estimate your Equated Monthly Installment (EMI) for your home loan.</p>
+                </div>
+                <div class="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                    <!-- Calculator Form -->
+                    <div class="bg-white p-8 rounded-lg shadow-lg" data-aos="fade-right">
+                        <form id="emi-calculator-form" class="space-y-6">
+                            <div>
+                                <label for="loan-amount" class="block text-sm font-medium text-gray-700">Loan Amount (₹)</label>
+                                <input type="number" id="loan-amount" value="5000000" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[var(--primary-red)] focus:border-[var(--primary-red)] sm:text-sm" required>
+                            </div>
+                            <div>
+                                <label for="interest-rate" class="block text-sm font-medium text-gray-700">Interest Rate (%)</label>
+                                <input type="number" id="interest-rate" step="0.01" value="8.5" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[var(--primary-red)] focus:border-[var(--primary-red)] sm:text-sm" required>
+                            </div>
+                            <div>
+                                <label for="loan-tenure" class="block text-sm font-medium text-gray-700">Loan Tenure (Years)</label>
+                                <input type="number" id="loan-tenure" value="20" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[var(--primary-red)] focus:border-[var(--primary-red)] sm:text-sm" required>
+                            </div>
+                            <div class="pt-2">
+                                <button type="submit" class="w-full btn-primary font-semibold py-3 px-4 rounded-md shadow-lg">Calculate EMI</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Results Display -->
+                    <div class="text-center" data-aos="fade-left">
+                        <div class="bg-white p-8 rounded-lg shadow-lg">
+                            <h3 class="text-lg font-medium text-gray-500 mb-2">Your Monthly EMI</h3>
+                            <p id="emi-result" class="text-4xl lg:text-5xl font-extrabold" style="color: var(--primary-red);">₹ 0</p>
+                            <div class="mt-8 space-y-4 text-left">
+                                <div class="flex justify-between items-center"><p class="text-gray-600">Principal Amount</p><p id="principal-amount" class="font-semibold text-gray-800">₹ 0</p></div>
+                                <div class="flex justify-between items-center"><p class="text-gray-600">Total Interest</p><p id="total-interest" class="font-semibold text-gray-800">₹ 0</p></div>
+                                <hr class="my-2">
+                                <div class="flex justify-between items-center"><p class="font-bold text-gray-700">Total Payable</p><p id="total-payable" class="font-bold text-lg" style="color: var(--primary-red-dark);">₹ 0</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========== OUR FINANCE OFFERINGS =========== -->
+        <section class="py-16 sm:py-20" style="background-color: var(--bg-light);">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div data-aos="fade-up">
+                    <h2 id="offerings-title" class="text-3xl sm:text-4xl font-bold text-center text-[var(--primary-red)] mb-2">Our Finance Offerings</h2>
+                    <p id="offerings-subtitle" class="text-center text-[var(--text-light)] mb-12 max-w-2xl mx-auto">We offer a range of financial products to assist you at every step.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="100">
+                        <div class="p-8"><h3 class="text-2xl font-bold mb-3 text-[var(--text-dark)]">Home Loans</h3><p class="text-[var(--text-light)] mb-6">Get the best interest rates and flexible repayment options for your dream home.</p></div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="200">
+                        <div class="p-8"><h3 class="text-2xl font-bold mb-3 text-[var(--text-dark)]">Loan Against Property</h3><p class="text-[var(--text-light)] mb-6">Unlock the value of your existing property with our Loan Against Property services.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({ duration: 800, once: true });
+
+            const fetchData = async () => {
+                try {
+                    const response = await fetch(`api/api.php?collection=page_finance`);
+                    return response.ok ? await response.json() : {};
+                } catch (error) {
+                    console.error(`Failed to fetch finance page content:`, error);
+                    return {};
+                }
+            };
+
+            async function loadPageContent() {
+                const pageContent = await fetchData();
+                const setText = (id, value) => {
+                    const el = document.getElementById(id);
+                    if (el && value && value.trim()) el.textContent = value;
+                }
+                setText('hero-title', pageContent.hero_title);
+                setText('hero-subtitle', pageContent.hero_subtitle);
+                setText('calc-title', pageContent.calc_title);
+                setText('calc-subtitle', pageContent.calc_subtitle);
+                setText('offerings-title', pageContent.offerings_title);
+                setText('offerings-subtitle', pageContent.offerings_subtitle);
+            }
+            
+            // --- EMI CALCULATOR LOGIC ---
+            const form = document.getElementById('emi-calculator-form');
+            if (form) {
+                const calculateEMI = () => {
+                    const loanAmount = parseFloat(document.getElementById('loan-amount').value);
+                    const interestRate = parseFloat(document.getElementById('interest-rate').value);
+                    const loanTenure = parseFloat(document.getElementById('loan-tenure').value);
+
+                    if (isNaN(loanAmount) || isNaN(interestRate) || isNaN(loanTenure) || loanAmount <= 0 || interestRate <= 0 || loanTenure <= 0) return;
+
+                    const monthlyInterestRate = (interestRate / 100) / 12;
+                    const numberOfMonths = loanTenure * 12;
+                    const emi = (loanAmount * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfMonths)) / (Math.pow(1 + monthlyInterestRate, numberOfMonths) - 1);
+                    const totalPayable = emi * numberOfMonths;
+                    const totalInterest = totalPayable - loanAmount;
+
+                    document.getElementById('emi-result').textContent = `₹ ${emi.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
+                    document.getElementById('principal-amount').textContent = `₹ ${loanAmount.toLocaleString('en-IN')}`;
+                    document.getElementById('total-interest').textContent = `₹ ${totalInterest.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
+                    document.getElementById('total-payable').textContent = `₹ ${totalPayable.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
+                };
+                
+                form.addEventListener('submit', (event) => {
+                    event.preventDefault();
+                    calculateEMI();
+                });
+                calculateEMI(); // Initial calculation on page load
+            }
+
+            loadPageContent();
+        });
+    </script>
+</body>
+</html>

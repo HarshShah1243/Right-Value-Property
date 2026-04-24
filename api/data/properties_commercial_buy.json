@@ -1,0 +1,121 @@
+[
+    {
+        "id": "688db67e0dfe8",
+        "images": [
+            "https://rightvalueproperty.com/api/uploads/1754117758_688db67e0e8a8_pexels-tomfisk-3052848.jpg",
+            "https://rightvalueproperty.com/api/uploads/1754117840_688db6d01b820_pexels-pixabay-276724.jpg",
+            "https://rightvalueproperty.com/api/uploads/1754117840_688db6d01d949_pexels-pixabay-262048 (1).jpg",
+            "https://rightvalueproperty.com/api/uploads/1754117840_688db6d01dffc_pexels-pixabay-210617.jpg",
+            "https://rightvalueproperty.com/api/uploads/1754117840_688db6d01e941_pexels-pixabay-277667.jpg",
+            "https://rightvalueproperty.com/api/uploads/1754117840_688db6d01ef89_pexels-vika-glitter-392079-1648776.jpg"
+        ],
+        "title": "Downtown Retail Space",
+        "location": "Main Street, Metropolis",
+        "price": "$ 2.5M",
+        "beds": "Retail",
+        "baths": "2 ",
+        "sqft": "2,500",
+        "description": "Prime retail space located on the busiest street in Metropolis. Features a large glass storefront perfect for displays, a spacious main floor, a back office, and a stock room. Ideal for a boutique, gallery, or high-end shop.",
+        "amenities": "High Foot Traffic,\r\nStorefront Display,\r\nStock Room,\r\nPrivate Restroom,\r\nCentral HVAC,",
+        "map_embed_url": "",
+        "nearby_schools": "Empire State Building ,Metropolis Library",
+        "nearby_hospitals": "Grand Central Terminal ,Subway Line 4, 5, 6",
+        "nearby_shopping": " The Steakhouse ,Corner Bistro",
+        "is_featured": "on"
+    },
+    {
+        "id": "688db79c1fdf6",
+        "images": [
+            "https://rightvalueproperty.com/api/uploads/1754118044_688db79c1fe20_pexels-sevenstormphotography-443383.jpg"
+        ],
+        "title": "Modern Office Building",
+        "location": "Financial District, Metropolis",
+        "price": "$ 8.2M",
+        "beds": "Office",
+        "baths": "",
+        "sqft": "15000 ",
+        "description": "",
+        "amenities": "",
+        "map_embed_url": "",
+        "nearby_schools": "",
+        "nearby_hospitals": "",
+        "nearby_shopping": "",
+        "is_featured": "on"
+    },
+    {
+        "id": "688db8043ddc9",
+        "images": [
+            "https://rightvalueproperty.com/api/uploads/1754118148_688db8043ddfd_pexels-pixabay-209251.jpg"
+        ],
+        "title": "Industrial Warehouse",
+        "location": "Industrial Park, Suburbia",
+        "price": "$ 1.8M",
+        "beds": " Industrial",
+        "baths": "",
+        "sqft": "30000",
+        "description": "",
+        "amenities": "",
+        "map_embed_url": "",
+        "nearby_schools": "",
+        "nearby_hospitals": "",
+        "nearby_shopping": "",
+        "is_featured": "on"
+    },
+    {
+        "id": "688db8681ff03",
+        "images": [
+            "https://rightvalueproperty.com/api/uploads/1754118248_688db8681ff2b_pexels-fotios-photos-1089570.jpg"
+        ],
+        "title": "Charming Cafe Space",
+        "location": "Arts District, Metropolis",
+        "price": "$ 850K",
+        "beds": " Retail",
+        "baths": "",
+        "sqft": "1200",
+        "description": "",
+        "amenities": "",
+        "map_embed_url": "",
+        "nearby_schools": "",
+        "nearby_hospitals": "",
+        "nearby_shopping": "",
+        "is_featured": "off"
+    },
+    {
+        "id": "688db8aa244f4",
+        "images": [
+            "https://rightvalueproperty.com/api/uploads/1754118314_688db8aa2451f_pexels-tomasito-28570925.jpg"
+        ],
+        "title": "Suburban Office Park",
+        "location": "Tech Corridor, Suburbia",
+        "price": "$ 4.5M",
+        "beds": "Office",
+        "baths": "",
+        "sqft": " 22000 ",
+        "description": "",
+        "amenities": "",
+        "map_embed_url": "",
+        "nearby_schools": "",
+        "nearby_hospitals": "",
+        "nearby_shopping": "",
+        "is_featured": "off"
+    },
+    {
+        "id": "688db919249c1",
+        "images": [
+            "https://rightvalueproperty.com/api/uploads/1754118425_688db919249fa_pexels-kelly-30991816.jpg"
+        ],
+        "title": "Development Land",
+        "location": "Outer Ring Road, Metropolis",
+        "price": "$ 3.1M",
+        "beds": "Land",
+        "baths": "",
+        "sqft": "87120 ",
+        "description": "",
+        "amenities": "",
+        "map_embed_url": "",
+        "nearby_schools": "",
+        "nearby_hospitals": "",
+        "nearby_shopping": "",
+        "is_featured": "off"
+    }
+]

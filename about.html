@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - RIGHT VALUE PROPERTY</title>
+
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- AOS (Animate on Scroll) Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-red: #c0392b;
+            --primary-red-dark: #a93226;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --bg-light: #ecf0f1;
+            --bg-darker: #e4e7e8;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            cursor: none;
+        }
+
+        /* --- Custom Cursor --- */
+        .cursor-dot,
+        .cursor-outline {
+            pointer-events: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary-red);
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(192, 57, 43, 0.3);
+            transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, transform 0.1s ease-out;
+        }
+
+        body:hover .cursor-dot,
+        body:hover .cursor-outline {
+            opacity: 1;
+        }
+
+        .cursor-link-hover .cursor-outline {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(192, 57, 43, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                cursor: auto;
+            }
+
+            .cursor-dot,
+            .cursor-outline {
+                display: none;
+            }
+        }
+
+        a,
+        button {
+            cursor: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-red);
+            color: white;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-red-dark);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 10px 20px -5px rgba(192, 57, 43, 0.4);
+        }
+
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        .value-card .value-icon {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .value-card:hover .value-icon {
+            transform: scale(1.1) rotate(-10deg);
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+
+    <!-- Custom Cursor Elements -->
+    <div class="cursor-outline"></div>
+    <div class="cursor-dot"></div>
+
+    <!-- =========== HEADER PLACEHOLDER =========== -->
+    <div id="header-placeholder"></div>
+
+    <main>
+        <!-- =========== ABOUT US HERO =========== -->
+        <section class="relative h-[50vh] bg-cover bg-center flex items-center justify-center">
+            <div id="hero-bg" class="absolute inset-0 bg-cover bg-center"
+                style="background-image: url('https://images.pexels.com/photos/209274/pexels-photo-209274.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')">
+            </div>
+            <div class="absolute inset-0 bg-black opacity-50"></div>
+            <div class="relative z-10 text-center text-white p-4" data-aos="fade-in">
+                <h1 id="hero-title" class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 drop-shadow-lg">About RIGHT
+                    VALUE PROPERTY</h1>
+                <p id="hero-subtitle" class="text-lg md:text-xl max-w-3xl mx-auto drop-shadow-md">Your Trusted Partner
+                    in Vadodara's Real Estate Landscape.</p>
+            </div>
+        </section>
+
+        <!-- =========== OUR STORY & MISSION =========== -->
+        <section class="py-16 sm:py-20" style="background-color: var(--bg-light);">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 sm:gap-16 items-center">
+                    <div data-aos="fade-right">
+                        <img id="mission-image" src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Modern office interior" class="rounded-lg shadow-2xl w-full h-full object-cover">
+                    </div>
+                    <div data-aos="fade-left">
+                        <h2 id="mission-title" class="text-3xl sm:text-4xl font-bold text-[var(--primary-red)] mb-4">Our
+                            Mission: Redefining Real Estate</h2>
+                        <p id="mission-text-1" class="text-[var(--text-light)] mb-4">
+                            Founded with a vision to bring transparency, integrity, and client-centric service to the
+                            forefront of the real estate industry in Vadodara, RIGHT VALUE PROPERTY has grown into a
+                            trusted name for property transactions.
+                        </p>
+                        <p id="mission-text-2" class="text-[var(--text-light)]">
+                            Our mission is simple: to empower our clients with expert guidance, verified information,
+                            and end-to-end support, ensuring every decision is made with confidence and clarity. We
+                            don't just sell properties; we build lifelong relationships based on trust and mutual
+                            respect.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========== THE RIGHT VALUE DIFFERENCE =========== -->
+        <section class="py-16 sm:py-20" style="background-color: var(--bg-darker);">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div data-aos="fade-up">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-center text-[var(--primary-red)] mb-2">The Right
+                        Value Difference</h2>
+                    <p class="text-center text-[var(--text-light)] mb-12 max-w-2xl mx-auto">Our commitment to excellence
+                        is built on a foundation of core values that guide every interaction.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Value Card 1: Integrity -->
+                    <div class="bg-white p-8 rounded-lg shadow-lg text-center card-hover value-card cursor-link"
+                        data-aos="fade-up" data-aos-delay="100">
+                        <div class="flex justify-center mb-4">
+                            <div class="bg-red-100 p-4 rounded-full">
+                                <i class="fa-solid fa-shield-halved fa-2x text-[var(--primary-red)] value-icon"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-[var(--text-dark)]">Unwavering Integrity</h3>
+                        <p class="text-[var(--text-light)]">We operate with complete transparency and honesty. Your
+                            trust is our most valued asset, and we are committed to providing clear, straightforward
+                            advice.</p>
+                    </div>
+
+                    <!-- Value Card 2: Expertise -->
+                    <div class="bg-white p-8 rounded-lg shadow-lg text-center card-hover value-card cursor-link"
+                        data-aos="fade-up" data-aos-delay="200">
+                        <div class="flex justify-center mb-4">
+                            <div class="bg-red-100 p-4 rounded-full">
+                                <i class="fa-solid fa-lightbulb fa-2x text-[var(--primary-red)] value-icon"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-[var(--text-dark)]">Unmatched Expertise</h3>
+                        <p class="text-[var(--text-light)]">With deep roots in Vadodara, our team possesses unparalleled
+                            market knowledge. We leverage data-driven insights to ensure you get the best possible
+                            value.</p>
+                    </div>
+
+                    <!-- Value Card 3: Client-Centric Approach -->
+                    <div class="bg-white p-8 rounded-lg shadow-lg text-center card-hover value-card cursor-link"
+                        data-aos="fade-up" data-aos-delay="300">
+                        <div class="flex justify-center mb-4">
+                            <div class="bg-red-100 p-4 rounded-full">
+                                <i class="fa-solid fa-handshake-angle fa-2x text-[var(--primary-red)] value-icon"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-[var(--text-dark)]">End-to-End Support</h3>
+                        <p class="text-[var(--text-light)]">From the initial consultation to the final paperwork and
+                            beyond, we are with you at every step. We handle the complexities so you can enjoy a
+                            stress-free experience.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- =========== FOOTER PLACEHOLDER =========== -->
+    <div id="footer-placeholder"></div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Consolidated Page Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // --- SHARED LOGIC ---
+            const fetchData = async (collectionName) => {
+                try {
+                    const response = await fetch(`api/api.php?collection=${collectionName}&t=${new Date().getTime()}`);
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    return await response.json();
+                } catch (error) {
+                    console.error(`Failed to fetch ${collectionName}:`, error);
+                    return {};
+                }
+            };
+
+            const loadComponent = async (placeholderId, url) => {
+                const placeholder = document.getElementById(placeholderId);
+                if (placeholder) {
+                    try {
+                        const response = await fetch(url);
+                        if (!response.ok) throw new Error(`Could not load ${url}`);
+                        placeholder.innerHTML = await response.text();
+                    } catch (error) {
+                        console.error(`Error loading component from ${url}:`, error);
+                    }
+                }
+            };
+
+            const initializeHeaderScripts = () => {
+                const header = document.querySelector('header');
+                if (!header) return;
+
+                const mobileMenuButton = header.querySelector('#mobile-menu-button');
+                const mobileMenu = header.querySelector('#mobile-menu');
+                if (mobileMenuButton && mobileMenu) {
+                    mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+                }
+
+                const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+                header.querySelectorAll('a.nav-link').forEach(link => {
+                    const linkPage = link.getAttribute('href').split('/').pop() || 'index.html';
+                    if (linkPage === 'about.html') { // Set active link for this page
+                        link.classList.add('active', 'text-[var(--primary-red)]', 'font-semibold');
+                    }
+                });
+            };
+
+            // UPDATED: This function now includes the full footer functionality.
+            const initializeFooter = (settings) => {
+                if (!settings) return;
+                const footerContactInfo = document.getElementById('footer-contact-info');
+                if (footerContactInfo) {
+                    footerContactInfo.innerHTML = `
+                        <p class="flex items-start"><i class="fa-solid fa-location-dot w-4 mr-3 mt-1 text-[var(--primary-red)]"></i><span>${settings.address || ''}</span></p>
+                        <p class="flex items-start"><i class="fa-solid fa-envelope w-4 mr-3 mt-1 text-[var(--primary-red)]"></i><a href="mailto:${settings.email || '#'}" class="hover:text-[var(--primary-red)]">${settings.email || ''}</a></p>
+                        <p class="flex items-start"><i class="fa-solid fa-phone w-4 mr-3 mt-1 text-[var(--primary-red)]"></i><a href="tel:${settings.phone || '#'}" class="hover:text-[var(--primary-red)]">${settings.phone || ''}</a></p>
+                    `;
+                }
+
+                const socialLinksContainer = document.getElementById('footer-social-links');
+                if (socialLinksContainer) {
+                    let linksHtml = '';
+                    if (settings.facebook_url) linksHtml += `<a href="${settings.facebook_url}" target="_blank" aria-label="Facebook" class="text-gray-500 hover:text-[var(--primary-red)] transition-colors"><i class="fa-brands fa-facebook-f fa-lg"></i></a>`;
+                    if (settings.instagram_url) linksHtml += `<a href="${settings.instagram_url}" target="_blank" aria-label="Instagram" class="text-gray-500 hover:text-[var(--primary-red)] transition-colors"><i class="fa-brands fa-instagram fa-lg"></i></a>`;
+                    socialLinksContainer.innerHTML = linksHtml;
+                }
+
+                const reraEl = document.getElementById('footer-rera');
+                if (reraEl) reraEl.textContent = `RERA: ${settings.rera_number || ''}`;
+                const copyrightEl = document.getElementById('footer-copyright');
+                if (copyrightEl) copyrightEl.textContent = settings.copyright_text || `© ${new Date().getFullYear()} RIGHT VALUE PROPERTY.`;
+
+                const statusElement = document.getElementById('office-status');
+                const timeElement = document.getElementById('current-time');
+                if (statusElement && timeElement) {
+                    const updateOfficeStatus = () => {
+                        const openHour = parseInt(settings.opening_hour, 10) || 10;
+                        const closeHour = parseInt(settings.closing_hour, 10) || 19;
+                        const closedDays = (settings.closed_days || 'Sun').split(',').map(d => d.trim());
+                        const now = new Date();
+                        const options = { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+                        const timeString = now.toLocaleTimeString('en-IN', options);
+                        const day = now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata', weekday: 'short' });
+                        const hour = parseInt(now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata', hour: '2-digit', hour12: false }));
+                        const isOpen = !closedDays.includes(day) && hour >= openHour && hour < closeHour;
+                        timeElement.textContent = `${timeString} (IST)`;
+                        statusElement.textContent = isOpen ? 'Open' : 'Closed';
+                        statusElement.classList.toggle('open', isOpen);
+                        statusElement.classList.toggle('closed', !isOpen);
+                    };
+                    updateOfficeStatus();
+                    setInterval(updateOfficeStatus, 1000);
+                }
+
+                const scrollToTopBtn = document.getElementById('scroll-to-top');
+                if (scrollToTopBtn) {
+                    window.addEventListener('scroll', () => scrollToTopBtn.classList.toggle('show', window.pageYOffset > 300));
+                    scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+                }
+            };
+
+            // --- PAGE-SPECIFIC LOGIC ---
+            const initializeAboutPage = async () => {
+                AOS.init({ duration: 800, once: true });
+
+                const pageContent = await fetchData('page_about');
+
+                const setText = (id, value) => {
+                    const el = document.getElementById(id);
+                    if (el && value && value.trim()) el.textContent = value;
+                }
+                
+                const setSrc = (id, value) => {
+                    const el = document.getElementById(id);
+                    if (el && value && value.trim()) el.src = value;
+                }
+
+                const setBgImage = (id, value) => {
+                    const el = document.getElementById(id);
+                    if (el && value && value.trim()) el.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${value}')`;
+                }
+
+                setText('hero-title', pageContent.hero_title);
+                setText('hero-subtitle', pageContent.hero_subtitle);
+                setBgImage('hero-bg', pageContent.hero_bg_image);
+                setText('mission-title', pageContent.mission_title);
+                setText('mission-text-1', pageContent.mission_text_1);
+                setText('mission-text-2', pageContent.mission_text_2);
+                setSrc('mission-image', pageContent.mission_image);
+                
+                AOS.refresh();
+            };
+            
+            const addCursorHover = () => {
+                document.querySelectorAll('.cursor-link').forEach(link => {
+                    link.addEventListener('mouseenter', () => document.body.classList.add('cursor-link-hover'));
+                    link.addEventListener('mouseleave', () => document.body.classList.remove('cursor-link-hover'));
+                });
+            };
+
+            // --- EXECUTION LOGIC ---
+            const initializePage = async () => {
+                await Promise.all([
+                    loadComponent('header-placeholder', 'header.html'),
+                    loadComponent('footer-placeholder', 'footer.html')
+                ]);
+                
+                const siteSettings = await fetchData('settings');
+                
+                initializeHeaderScripts();
+                initializeFooter(siteSettings);
+                
+                initializeAboutPage();
+
+                const cursorDot = document.querySelector('.cursor-dot');
+                const cursorOutline = document.querySelector('.cursor-outline');
+                window.addEventListener('mousemove', (e) => {
+                    const posX = e.clientX;
+                    const posY = e.clientY;
+                    cursorDot.style.left = `${posX}px`;
+                    cursorDot.style.top = `${posY}px`;
+                    cursorOutline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 500, fill: "forwards" });
+                });
+                
+                addCursorHover();
+            };
+
+            initializePage();
+        });
+    </script>
+</body>
+
+</html>

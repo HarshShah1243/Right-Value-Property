@@ -1,0 +1,20 @@
+[
+    {
+        "title": "ghar",
+        "details": "mera ghar",
+        "price": "500",
+        "tag": "kharid lena",
+        "alt": "chup",
+        "image": "uploads\/1753498816_WhatsApp Image 2025-07-24 at 11.54.39 AM (1).jpeg",
+        "id": "688444c03659f"
+    },
+    {
+        "title": "bangla",
+        "details": "kharido",
+        "price": "1",
+        "tag": "1 rom",
+        "alt": "jina",
+        "image": "uploads\/1753499104_WhatsApp Image 2025-07-24 at 11.51.34 AM (1).jpeg",
+        "id": "688445e056f85"
+    }
+]

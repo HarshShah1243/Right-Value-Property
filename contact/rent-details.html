@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Details - Right Value Property</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-red: #c0392b;
+            --primary-red-dark: #a93226;
+            --text-dark: #2c3e50;
+            --bg-light: #ecf0f1;
+            --success-green: #27ae60;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        body.loaded { opacity: 1; }
+
+        #preloader {
+            position: fixed; inset: 0; background-color: #fff; z-index: 100;
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.75s ease, visibility 0.75s ease;
+        }
+        #preloader.hidden { opacity: 0; visibility: hidden; }
+        .loader-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1); width: 48px; height: 48px;
+            border-radius: 50%; border-left-color: var(--primary-red);
+            animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        @keyframes slideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .animate-slide-down { animation: slideDown 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
+        .animate-slide-up { animation: slideUp 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.2s forwards; }
+
+        header { transition: all 0.4s ease-out; }
+        header.scrolled nav { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+        header.scrolled .logo-img { height: 4.5rem; }
+        .logo-img { transition: height 0.4s ease-out; }
+        
+        .btn-primary {
+            background-color: var(--primary-red); color: white;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: var(--primary-red-dark); transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 10px 20px -5px rgba(192, 57, 43, 0.4);
+        }
+        
+        .nav-link { position: relative; padding: 4px 0; }
+        .nav-link::after {
+            content: ''; position: absolute; bottom: 0; left: 50%;
+            transform: translateX(-50%); width: 0; height: 2px;
+            background-color: var(--primary-red); transition: width 0.3s ease-out;
+        }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+        .gallery-main-image {
+            height: 24rem; border-radius: 0.5rem; overflow: hidden;
+            background-color: var(--bg-light);
+        }
+        .gallery-main-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+        .gallery-thumbnails {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 0.5rem; margin-top: 0.75rem;
+        }
+        .thumbnail-item {
+            border-radius: 0.375rem; overflow: hidden; cursor: pointer;
+            border: 2px solid transparent; transition: border-color 0.3s ease, transform 0.2s ease;
+        }
+        .thumbnail-item:hover { transform: scale(1.05); }
+        .thumbnail-item.active { border-color: var(--primary-red); }
+        .thumbnail-item img { width: 100%; height: 60px; object-fit: cover; }
+        
+        .section-title {
+            font-size: 1.5rem; font-weight: 700; color: var(--text-dark);
+            padding-bottom: 0.75rem; margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--primary-red);
+            display: inline-block;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    
+    <div id="preloader"><div class="loader-spinner"></div></div>
+<div id="header-placeholder"></div>
+    <!-- <header id="page-header" class="bg-white shadow-md sticky top-0 z-50 opacity-0">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-2 flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <img src="logo/RVP Logo.png" class="h-24 w-auto logo-img" alt="Right Value Property Logo" />
+            </a>
+            <div class="hidden md:flex space-x-4 lg:space-x-6 items-center">
+                <a href="index.html" class="nav-link text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300">Home</a>
+                <a href="buy.html" class="nav-link text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300">Buy</a>
+                <a href="rent.html" class="nav-link text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300">Rent</a>
+                <a href="finance.html" class="nav-link text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300">Finance</a>
+                <a href="about.html" class="nav-link text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300">About Us</a>
+                <a href="contact.html" class="nav-link text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300">Contact</a>
+                <a href="admin.html" class="btn-primary btn-shine px-4 py-2 rounded-md shadow-sm text-sm font-semibold">Admin Login</a>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-600 hover:text-[var(--primary-red)] focus:outline-none">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+                </button>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden px-4 sm:px-6 pb-4 space-y-2">
+             <a href="index.html" class="block text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300 py-2">Home</a>
+             <a href="buy.html" class="block text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300 py-2">Buy</a>
+             <a href="rent.html" class="block text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300 py-2">Rent</a>
+        </div>
+    </header> -->
+
+    <main id="page-main" class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 opacity-0">
+        <div id="property-details-container" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Placeholder while loading -->
+            <div class="lg:col-span-3 text-center py-10">
+                <div class="loader-spinner mx-auto"></div>
+                <p class="mt-4 text-gray-600">Loading Property Details...</p>
+            </div>
+        </div>
+    </main>
+
+   <div id="footer-placeholder"></div>
+
+   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="js/main.js"></script> <!-- Add this line -->
+<script>
+    // Your page-specific JavaScript code here...
+</script>
+</body>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- PAGE LOAD & OPENING ANIMATION ---
+        const preloader = document.getElementById('preloader');
+        const pageHeader = document.getElementById('page-header');
+        const pageMain = document.getElementById('page-main');
+
+        window.onload = () => {
+            setTimeout(() => {
+                preloader.classList.add('hidden');
+                document.body.classList.add('loaded');
+                pageHeader.classList.add('animate-slide-down');
+                pageMain.classList.add('animate-slide-up');
+            }, 500);
+        };
+
+        const container = document.getElementById('property-details-container');
+
+        async function loadContent() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const propertyId = urlParams.get('id');
+
+            if (!propertyId) {
+                container.innerHTML = `<p class="text-center text-red-500 col-span-3">No property ID specified.</p>`;
+                return;
+            }
+
+            try {
+                const response = await fetch(`api/api.php?collection=properties_rent&id=${propertyId}`);
+                if (!response.ok) throw new Error('Property not found');
+                
+                const p = await response.json();
+                if (p.error) throw new Error(p.error);
+
+                displayPropertyDetails(p);
+
+            } catch (error) {
+                console.error('Failed to load property details:', error);
+                container.innerHTML = `<p class="text-center text-red-500 col-span-3">Could not load property details. It may not exist.</p>`;
+            }
+        }
+
+        function displayPropertyDetails(p) {
+            if (!p || !container) return;
+
+            const galleryImages = [p.main_image, p.living_room_image, p.bedroom_image, p.kitchen_image, p.bathroom_image, p.gallery_image_1, p.gallery_image_2, p.gallery_image_3].filter(Boolean);
+
+            const leftColumn = `
+                <div class="lg:col-span-2 space-y-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md" data-aos="fade-up">
+                        <h1 class="text-3xl md:text-4xl font-bold text-[var(--text-dark)]">${p.title || 'N/A'}</h1>
+                        <p class="text-gray-500 mt-2 flex items-center text-lg">
+                            <i class="fa-solid fa-location-dot w-5 mr-2 text-[var(--primary-red)]"></i>
+                            ${p.location || 'N/A'}
+                        </p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md" data-aos="fade-up">
+                        <div id="image-gallery">
+                            <div class="gallery-main-image">
+                                <img id="main-image" src="${galleryImages.length > 0 ? galleryImages[0] : 'https://placehold.co/800x600/e0e0e0/ffffff?text=RVP'}" alt="${p.title}">
+                            </div>
+                            <div class="gallery-thumbnails">
+                                ${galleryImages.map((img, index) => `
+                                    <div class="thumbnail-item ${index === 0 ? 'active' : ''}" data-src="${img}">
+                                        <img src="${img}" alt="Thumbnail ${index + 1}">
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md" data-aos="fade-up">
+                        <h2 class="section-title">About this property</h2>
+                        <p class="text-gray-700 leading-relaxed">${p.description || 'No description available.'}</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md" data-aos="fade-up">
+                        <h2 class="section-title">Amenities</h2>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            ${(p.amenities || '').split(',').map(amenity => {
+                                const trimmed = amenity.trim();
+                                return trimmed ? `<div class="flex items-center text-gray-700"><i class="fa-solid fa-check-circle w-5 mr-3 text-[var(--success-green)]"></i><span>${trimmed}</span></div>` : '';
+                            }).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            const rightColumn = `
+                <div class="lg:col-span-1">
+                    <div class="lg:sticky lg:top-28 space-y-8">
+                        <div class="bg-white p-6 rounded-lg shadow-md" data-aos="fade-up" data-aos-delay="100">
+                            <div class="text-2xl font-bold text-[var(--primary-red)] mb-4">${p.price || 'N/A'}</div>
+                            <div class="grid grid-cols-3 gap-4 text-center border-t pt-4">
+                                <div><div class="font-bold text-xl">${p.beds || 0}</div><div class="text-sm text-gray-600">Beds</div></div>
+                                <div><div class="font-bold text-xl">${p.baths || 0}</div><div class="text-sm text-gray-600">Baths</div></div>
+                                <div><div class="font-bold text-xl">${p.sqft ? p.sqft.toLocaleString() : 0}</div><div class="text-sm text-gray-600">sqft</div></div>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-md" data-aos="fade-up" data-aos-delay="200">
+                             <h3 class="text-xl font-bold text-center mb-4">Request a Call Back</h3>
+                             <form class="space-y-4">
+                                <div><input type="text" placeholder="Your Name" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[var(--primary-red)]"></div>
+                                <div><input type="email" placeholder="Your Email" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[var(--primary-red)]"></div>
+                                <div><input type="tel" placeholder="Your Phone Number" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[var(--primary-red)]"></div>
+                                <div><textarea rows="4" placeholder="I am interested in this property..." class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[var(--primary-red)]"></textarea></div>
+                                <button type="submit" class="w-full btn-primary font-bold py-3 px-4 rounded-lg text-lg">Send Request</button>
+                             </form>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = leftColumn + rightColumn;
+            initializeImageGallery();
+            AOS.init({ duration: 800, once: true, disable: 'mobile' });
+            AOS.refresh();
+        }
+        
+        function initializeImageGallery() {
+            const mainImage = document.getElementById('main-image');
+            const thumbnails = document.querySelectorAll('.thumbnail-item');
+            if (!mainImage || thumbnails.length === 0) return;
+
+            thumbnails.forEach(thumbnail => {
+                thumbnail.addEventListener('click', function() {
+                    mainImage.src = this.dataset.src;
+                    thumbnails.forEach(item => item.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        }
+
+        // --- GENERAL PAGE SCRIPTS ---
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
+        
+        loadContent();
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Services - RIGHT VALUE PROPERTY</title>
+
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- AOS (Animate on Scroll) Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Define the custom color palette based on the logo */
+        :root {
+            --primary-red: #c0392b;
+            --primary-red-dark: #a93226;
+            --accent-dark: #34495e;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --bg-light: #ecf0f1;
+            --bg-darker: #e4e7e8;
+            --success-green: #27ae60;
+            --error-red: #c0392b;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            cursor: none;
+        }
+
+        /* --- Custom Cursor --- */
+        .cursor-dot, .cursor-outline {
+            pointer-events: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary-red);
+        }
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(192, 57, 43, 0.3);
+            transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, transform 0.1s ease-out;
+        }
+        body:hover .cursor-dot, body:hover .cursor-outline {
+            opacity: 1;
+        }
+        .cursor-link-hover .cursor-outline {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(192, 57, 43, 0.4);
+        }
+        @media (max-width: 768px) {
+            body { cursor: auto; }
+            .cursor-dot, .cursor-outline { display: none; }
+        }
+        a, button, input, select {
+            cursor: none;
+        }
+
+        /* --- Dynamic Header on Scroll --- */
+        header {
+            transition: all 0.4s ease-out;
+        }
+        header.scrolled nav {
+            padding-top: 0.25rem;
+            padding-bottom: 0.25rem;
+        }
+        header.scrolled .logo-img {
+            height: 4.5rem; /* 72px */
+        }
+        .logo-img {
+            transition: height 0.4s ease-out;
+        }
+
+        /* Custom Button Styles */
+        .btn-primary {
+            background-color: var(--primary-red);
+            color: white;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: var(--primary-red-dark);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 10px 20px -5px rgba(192, 57, 43, 0.4);
+        }
+        
+        /* Button Shine Effect */
+        .btn-shine {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-shine::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -75%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%);
+            transform: skewX(-25deg);
+            transition: left 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .btn-shine:hover::before {
+            left: 125%;
+        }
+
+        /* Nav link hover effect */
+        .nav-link {
+            position: relative;
+            padding: 4px 0;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-red);
+            transition: width 0.3s ease-out;
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        
+        /* Card Hover Effects */
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+    
+    <!-- Custom Cursor Elements -->
+    <div class="cursor-outline"></div>
+    <div class="cursor-dot"></div>
+
+    <!-- =========== HEADER PLACEHOLDER =========== -->
+    <div id="header-placeholder"></div>
+
+    <main>
+        <!-- =========== HERO SECTION =========== -->
+        <section class="relative h-[60vh] bg-cover bg-center flex items-center justify-center overflow-hidden"
+            style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.pexels.com/photos/730547/pexels-photo-730547.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');">
+            <div class="relative z-10 text-center text-white p-4" data-aos="fade-in" data-aos-delay="300">
+                <h1 id="hero-title" class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 drop-shadow-lg">Financial
+                    Services</h1>
+                <p id="hero-subtitle" class="text-lg md:text-xl max-w-3xl mx-auto drop-shadow-md">Seamless loan
+                    solutions to help you secure your dream property.</p>
+            </div>
+        </section>
+
+        <!-- =========== LOAN EMI CALCULATOR =========== -->
+        <section class="py-16 sm:py-20" style="background-color: var(--bg-darker);">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div data-aos="fade-up">
+                    <h2 id="calc-title"
+                        class="text-3xl sm:text-4xl font-bold text-center text-[var(--primary-red)] mb-2">Loan EMI
+                        Calculator</h2>
+                    <p id="calc-subtitle" class="text-center text-[var(--text-light)] mb-12 max-w-2xl mx-auto">Estimate
+                        your Equated Monthly Installment (EMI) for your home loan.</p>
+                </div>
+                <div class="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                    <!-- Calculator Form -->
+                    <div class="bg-white p-8 rounded-lg shadow-lg" data-aos="fade-right">
+                        <form id="emi-calculator-form" class="space-y-6">
+                            <div>
+                                <label for="loan-amount" class="block text-sm font-medium text-gray-700">Loan Amount (₹)</label>
+                                <input type="number" id="loan-amount" value="5000000" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[var(--primary-red)] focus:border-[var(--primary-red)] sm:text-sm cursor-link" required>
+                            </div>
+                            <div>
+                                <label for="interest-rate" class="block text-sm font-medium text-gray-700">Interest Rate (%)</label>
+                                <input type="number" id="interest-rate" step="0.01" value="8.5" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[var(--primary-red)] focus:border-[var(--primary-red)] sm:text-sm cursor-link" required>
+                            </div>
+                            <div>
+                                <label for="loan-tenure" class="block text-sm font-medium text-gray-700">Loan Tenure (Years)</label>
+                                <input type="number" id="loan-tenure" value="20" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[var(--primary-red)] focus:border-[var(--primary-red)] sm:text-sm cursor-link" required>
+                            </div>
+                            <div class="pt-2">
+                                <button type="submit" class="w-full btn-primary btn-shine font-semibold py-3 px-4 rounded-md shadow-lg cursor-link">Calculate EMI</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Results Display -->
+                    <div class="text-center" data-aos="fade-left">
+                        <div class="bg-white p-8 rounded-lg shadow-lg">
+                            <h3 class="text-lg font-medium text-gray-500 mb-2">Your Monthly EMI</h3>
+                            <p id="emi-result" class="text-4xl lg:text-5xl font-extrabold"
+                                style="color: var(--primary-red);">₹ 0</p>
+                            <div class="mt-8 space-y-4 text-left">
+                                <div class="flex justify-between items-center">
+                                    <p class="text-gray-600">Principal Amount</p>
+                                    <p id="principal-amount" class="font-semibold text-gray-800">₹ 0</p>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <p class="text-gray-600">Total Interest</p>
+                                    <p id="total-interest" class="font-semibold text-gray-800">₹ 0</p>
+                                </div>
+                                <hr class="my-2">
+                                <div class="flex justify-between items-center">
+                                    <p class="font-bold text-gray-700">Total Payable</p>
+                                    <p id="total-payable" class="font-bold text-lg"
+                                        style="color: var(--primary-red-dark);">₹ 0</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========== OUR FINANCE OFFERINGS =========== -->
+        <section class="py-16 sm:py-20" style="background-color: var(--bg-light);">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div data-aos="fade-up">
+                    <h2 id="offerings-title"
+                        class="text-3xl sm:text-4xl font-bold text-center text-[var(--primary-red)] mb-2">Our Finance
+                        Offerings</h2>
+                    <p id="offerings-subtitle" class="text-center text-[var(--text-light)] mb-12 max-w-2xl mx-auto">We
+                        offer a range of financial products to assist you at every step of your property journey.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Service Card 1: Home Loans -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover" data-aos="fade-up"
+                        data-aos-delay="100">
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold mb-3 text-[var(--text-dark)]">Home Loans</h3>
+                            <p class="text-[var(--text-light)] mb-6">Get the best interest rates and flexible repayment
+                                options for your dream home. We partner with leading banks to provide you with a
+                                hassle-free loan application process.</p>
+                            <button class="learn-more-btn font-semibold text-[var(--primary-red)] hover:text-[var(--primary-red-dark)] transition-colors cursor-link"
+                                    data-title="Home Loans"
+                                    data-description="Our Home Loan service is designed to make your home-buying journey smooth and affordable. We collaborate with top financial institutions to offer competitive interest rates, flexible tenure options, and a transparent process from application to disbursal."
+                                    data-features="Competitive Interest Rates|Flexible Repayment Tenures|Quick Approval Process|Minimal Documentation|Expert Guidance"
+                                    data-image="https://images.pexels.com/photos/259209/pexels-photo-259209.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1">
+                                Learn More &rarr;
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Service Card 2: Loan Against Property -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover" data-aos="fade-up"
+                        data-aos-delay="200">
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold mb-3 text-[var(--text-dark)]">Loan Against Property</h3>
+                            <p class="text-[var(--text-light)] mb-6">Unlock the value of your existing property with our
+                                Loan Against Property services. Get access to funds for business expansion, education,
+                                or any other personal need.</p>
+                            <button class="learn-more-btn font-semibold text-[var(--primary-red)] hover:text-[var(--primary-red-dark)] transition-colors cursor-link"
+                                    data-title="Loan Against Property"
+                                    data-description="Leverage the equity in your residential or commercial property to meet your financial goals. Our Loan Against Property (LAP) offers a high loan amount at attractive interest rates, making it an ideal solution for significant expenses."
+                                    data-features="High Loan-to-Value (LTV) Ratio|Funds for Personal or Business Needs|Longer Repayment Period|Simple Eligibility Criteria|Fast Fund Disbursal"
+                                    data-image="https://images.pexels.com/photos/3771077/pexels-photo-3771077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1">
+                                Learn More &rarr;
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Service Card 3: Commercial Loans -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover" data-aos="fade-up"
+                        data-aos-delay="300">
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold mb-3 text-[var(--text-dark)]">Commercial Loans</h3>
+                            <p class="text-[var(--text-light)] mb-6">Tailored financial solutions for purchasing or refinancing commercial properties. Boost your business with our competitive commercial loan products.</p>
+                            <button class="learn-more-btn font-semibold text-[var(--primary-red)] hover:text-[var(--primary-red-dark)] transition-colors cursor-link"
+                                    data-title="Commercial Loans"
+                                    data-description="Our Commercial Loan products are designed to support your business growth. Whether you are looking to purchase a new office space, a retail outlet, or a warehouse, we provide customized loan solutions with competitive terms and a straightforward application process."
+                                    data-features="Flexible Loan Structures|Competitive Interest Rates|Ideal for Office, Retail, or Industrial Properties|Customized Repayment Options|Expert Advisory Services"
+                                    data-image="https://images.pexels.com/photos/269077/pexels-photo-269077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1">
+                                Learn More &rarr;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========== LOAN INQUIRY FORM =========== -->
+        <section class="py-16 sm:py-20 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-3xl mx-auto text-center" data-aos="fade-up">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-center text-[var(--primary-red)] mb-2">Loan Inquiry</h2>
+                    <p class="text-center text-[var(--text-light)] mb-12">Have questions about loans? Fill out the form below and our financial expert will get in touch with you.</p>
+                </div>
+                <div id="loan-inquiry-form-container" class="max-w-3xl mx-auto bg-gray-50 p-8 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="100">
+                    <form id="loan-inquiry-form" class="space-y-6">
+                        <div>
+                            <label for="inquiry-name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                            <input type="text" id="inquiry-name" name="name" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[var(--primary-red)] focus:border-[var(--primary-red)] sm:text-sm cursor-link" required>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="inquiry-email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                                <input type="email" id="inquiry-email" name="email" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[var(--primary-red)] focus:border-[var(--primary-red)] sm:text-sm cursor-link" required>
+                            </div>
+                            <div>
+                                <label for="inquiry-phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                                <input type="tel" id="inquiry-phone" name="phone" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[var(--primary-red)] focus:border-[var(--primary-red)] sm:text-sm cursor-link" required>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="loan-type" class="block text-sm font-medium text-gray-700">Type of Loan</label>
+                            <select id="loan-type" name="subject" class="mt-1 block w-full px-4 py-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-[var(--primary-red)] focus:border-[var(--primary-red)] sm:text-sm cursor-link">
+                                <option>Home Loan Inquiry</option>
+                                <option>Loan Against Property Inquiry</option>
+                                <option>Commercial Loan Inquiry</option>
+                                <option>General Inquiry</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="inquiry-message" class="block text-sm font-medium text-gray-700">Message</label>
+                            <textarea id="inquiry-message" name="message" rows="4" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[var(--primary-red)] focus:border-[var(--primary-red)] sm:text-sm cursor-link" placeholder="Please provide any additional details here..."></textarea>
+                        </div>
+                        <div class="pt-2">
+                            <button type="submit" class="w-full btn-primary btn-shine font-semibold py-3 px-4 rounded-md shadow-lg cursor-link">Submit Inquiry</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========== SERVICE DETAIL DISPLAY (MODIFIED FOR FLIP) =========== -->
+        <section id="service-details-section"
+            class="hidden fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex items-center justify-center p-4 z-[60] transition-opacity duration-300 [perspective:1500px]"
+            aria-labelledby="detail-title" role="dialog" aria-modal="true">
+            <!-- Detail Card -->
+            <div id="service-detail-card"
+                class="bg-white rounded-xl shadow-2xl w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 overflow-hidden relative transform transition-all duration-700 ease-in-out opacity-0 [transform:rotateY(90deg)]"
+                style="transform-style: preserve-3d;">
+                <!-- Close Button -->
+                <button id="close-details-btn" class="absolute top-4 right-4 text-gray-400 hover:text-[var(--primary-red)] transition-colors z-10 cursor-link" aria-label="Close">
+                    <i class="fa-solid fa-times fa-2x"></i>
+                </button>
+
+                <!-- Image Column -->
+                <div class="hidden md:block">
+                    <img id="detail-image" src="" alt="Service Image" class="w-full h-full object-cover">
+                </div>
+
+                <!-- Content Column -->
+                <div class="p-8 md:p-10 flex flex-col">
+                    <h3 id="detail-title" class="text-3xl font-bold text-[var(--text-dark)] mb-4"></h3>
+                    <p id="detail-description" class="text-[var(--text-light)] mb-6"></p>
+
+                    <h4 class="text-lg font-semibold text-[var(--text-dark)] mb-3">Key Features</h4>
+                    <ul id="detail-features" class="space-y-2 text-[var(--text-light)] mb-8 list-disc list-inside">
+                        <!-- Features will be populated by JS -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- =========== FOOTER PLACEHOLDER =========== -->
+    <div id="footer-placeholder"></div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Consolidated Page Script -->
+    <script>
+        window.onload = function() {
+
+            // --- SHARED LOGIC ---
+            const fetchData = async (collectionName) => {
+                try {
+                    const response = await fetch(`api/api.php?collection=${collectionName}&t=${new Date().getTime()}`);
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    return await response.json();
+                } catch (error) {
+                    console.error(`Failed to fetch ${collectionName}:`, error);
+                    return {};
+                }
+            };
+
+            const loadComponent = async (placeholderId, url) => {
+                const placeholder = document.getElementById(placeholderId);
+                if (placeholder) {
+                    try {
+                        const response = await fetch(url);
+                        if (!response.ok) throw new Error(`Could not load ${url}`);
+                        placeholder.innerHTML = await response.text();
+                    } catch (error) {
+                        console.error(`Error loading component from ${url}:`, error);
+                        placeholder.innerHTML = `<p class="text-center text-red-500">Error: Could not load component.</p>`;
+                    }
+                }
+            };
+
+            const initializeHeaderScripts = () => {
+                const header = document.querySelector('header');
+                if (!header) return;
+
+                const mobileMenuButton = header.querySelector('#mobile-menu-button');
+                const mobileMenu = header.querySelector('#mobile-menu');
+                if (mobileMenuButton && mobileMenu) {
+                    mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+                }
+
+                const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+                header.querySelectorAll('a.nav-link').forEach(link => {
+                    const linkPage = link.getAttribute('href').split('/').pop() || 'index.html';
+                    if (linkPage === 'finance.html') {
+                        link.classList.add('active', 'text-[var(--primary-red)]', 'font-semibold');
+                    }
+                });
+
+                let lastScrollTop = 0;
+                window.addEventListener('scroll', () => {
+                    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    header.classList.toggle('scrolled', scrollTop > 50);
+                    header.classList.toggle('header-hidden', scrollTop > lastScrollTop && scrollTop > header.offsetHeight);
+                    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+                }, false);
+            };
+
+            // UPDATED: This function now includes the full footer functionality.
+            const initializeFooter = (settings) => {
+                if (!settings) return;
+                const footerContactInfo = document.getElementById('footer-contact-info');
+                if (footerContactInfo) {
+                    footerContactInfo.innerHTML = `
+                        <p class="flex items-start"><i class="fa-solid fa-location-dot w-4 mr-3 mt-1 text-[var(--primary-red)]"></i><span>${settings.address || ''}</span></p>
+                        <p class="flex items-start"><i class="fa-solid fa-envelope w-4 mr-3 mt-1 text-[var(--primary-red)]"></i><a href="mailto:${settings.email || '#'}" class="hover:text-[var(--primary-red)]">${settings.email || ''}</a></p>
+                        <p class="flex items-start"><i class="fa-solid fa-phone w-4 mr-3 mt-1 text-[var(--primary-red)]"></i><a href="tel:${settings.phone || '#'}" class="hover:text-[var(--primary-red)]">${settings.phone || ''}</a></p>
+                    `;
+                }
+
+                const socialLinksContainer = document.getElementById('footer-social-links');
+                if (socialLinksContainer) {
+                    let linksHtml = '';
+                    if (settings.facebook_url) linksHtml += `<a href="${settings.facebook_url}" target="_blank" aria-label="Facebook" class="text-gray-500 hover:text-[var(--primary-red)] transition-colors"><i class="fa-brands fa-facebook-f fa-lg"></i></a>`;
+                    if (settings.instagram_url) linksHtml += `<a href="${settings.instagram_url}" target="_blank" aria-label="Instagram" class="text-gray-500 hover:text-[var(--primary-red)] transition-colors"><i class="fa-brands fa-instagram fa-lg"></i></a>`;
+                    socialLinksContainer.innerHTML = linksHtml;
+                }
+
+                const reraEl = document.getElementById('footer-rera');
+                if (reraEl) reraEl.textContent = `RERA: ${settings.rera_number || ''}`;
+                const copyrightEl = document.getElementById('footer-copyright');
+                if (copyrightEl) copyrightEl.textContent = settings.copyright_text || `© ${new Date().getFullYear()} RIGHT VALUE PROPERTY.`;
+
+                const statusElement = document.getElementById('office-status');
+                const timeElement = document.getElementById('current-time');
+                if (statusElement && timeElement) {
+                    const updateOfficeStatus = () => {
+                        const openHour = parseInt(settings.opening_hour, 10) || 10;
+                        const closeHour = parseInt(settings.closing_hour, 10) || 19;
+                        const closedDays = (settings.closed_days || 'Sun').split(',').map(d => d.trim());
+                        const now = new Date();
+                        const options = { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+                        const timeString = now.toLocaleTimeString('en-IN', options);
+                        const day = now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata', weekday: 'short' });
+                        const hour = parseInt(now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata', hour: '2-digit', hour12: false }));
+                        const isOpen = !closedDays.includes(day) && hour >= openHour && hour < closeHour;
+                        timeElement.textContent = `${timeString} (IST)`;
+                        statusElement.textContent = isOpen ? 'Open' : 'Closed';
+                        statusElement.classList.toggle('open', isOpen);
+                        statusElement.classList.toggle('closed', !isOpen);
+                    };
+                    updateOfficeStatus();
+                    setInterval(updateOfficeStatus, 1000);
+                }
+
+                const scrollToTopBtn = document.getElementById('scroll-to-top');
+                if (scrollToTopBtn) {
+                    window.addEventListener('scroll', () => scrollToTopBtn.classList.toggle('show', window.pageYOffset > 300));
+                    scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+                }
+            };
+            
+            // --- PAGE-SPECIFIC LOGIC ---
+            const initializeFinancePage = () => {
+                AOS.init({ duration: 800, once: false, disable: 'mobile' });
+
+                const fetchFinanceContent = async () => {
+                    return await fetchData('page_finance');
+                };
+
+                async function loadPageContent() {
+                    const pageContent = await fetchFinanceContent();
+                    const setText = (id, value) => {
+                        const el = document.getElementById(id);
+                        if (el && value && value.trim()) el.textContent = value;
+                    }
+                    setText('hero-title', pageContent.hero_title);
+                    setText('hero-subtitle', pageContent.hero_subtitle);
+                    setText('calc-title', pageContent.calc_title);
+                    setText('calc-subtitle', pageContent.calc_subtitle);
+                    setText('offerings-title', pageContent.offerings_title);
+                    setText('offerings-subtitle', pageContent.offerings_subtitle);
+                }
+
+                const emiForm = document.getElementById('emi-calculator-form');
+                if (emiForm) {
+                    const calculateEMI = () => {
+                        const loanAmount = parseFloat(document.getElementById('loan-amount').value);
+                        const interestRate = parseFloat(document.getElementById('interest-rate').value);
+                        const loanTenure = parseFloat(document.getElementById('loan-tenure').value);
+                        if (isNaN(loanAmount) || isNaN(interestRate) || isNaN(loanTenure) || loanAmount <= 0 || interestRate <= 0 || loanTenure <= 0) return;
+                        const monthlyInterestRate = (interestRate / 100) / 12;
+                        const numberOfMonths = loanTenure * 12;
+                        const emi = (loanAmount * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfMonths)) / (Math.pow(1 + monthlyInterestRate, numberOfMonths) - 1);
+                        const totalPayable = emi * numberOfMonths;
+                        const totalInterest = totalPayable - loanAmount;
+                        document.getElementById('emi-result').textContent = `₹ ${emi.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
+                        document.getElementById('principal-amount').textContent = `₹ ${loanAmount.toLocaleString('en-IN')}`;
+                        document.getElementById('total-interest').textContent = `₹ ${totalInterest.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
+                        document.getElementById('total-payable').textContent = `₹ ${totalPayable.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
+                    };
+                    emiForm.addEventListener('submit', (event) => {
+                        event.preventDefault();
+                        calculateEMI();
+                    });
+                    calculateEMI();
+                }
+
+                const detailSection = document.getElementById('service-details-section');
+                const detailCard = document.getElementById('service-detail-card');
+                const closeBtn = document.getElementById('close-details-btn');
+                const learnMoreBtns = document.querySelectorAll('.learn-more-btn');
+
+                const showDetails = (button) => {
+                    const title = button.dataset.title;
+                    const description = button.dataset.description;
+                    const features = button.dataset.features.split('|');
+                    const image = button.dataset.image;
+                    detailSection.querySelector('#detail-title').textContent = title;
+                    detailSection.querySelector('#detail-description').textContent = description;
+                    detailSection.querySelector('#detail-image').src = image;
+                    const featuresList = detailSection.querySelector('#detail-features');
+                    featuresList.innerHTML = '';
+                    features.forEach(feature => {
+                        const li = document.createElement('li');
+                        li.textContent = feature;
+                        featuresList.appendChild(li);
+                    });
+                    detailSection.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                    setTimeout(() => {
+                        detailSection.style.opacity = '1';
+                        detailCard.classList.remove('opacity-0', '[transform:rotateY(90deg)]');
+                    }, 20);
+                };
+
+                const hideDetails = () => {
+                    detailSection.style.opacity = '0';
+                    detailCard.classList.add('opacity-0', '[transform:rotateY(90deg)]');
+                    setTimeout(() => {
+                        detailSection.classList.add('hidden');
+                        document.body.style.overflow = '';
+                    }, 700);
+                };
+
+                learnMoreBtns.forEach(btn => btn.addEventListener('click', () => showDetails(btn)));
+                if (closeBtn) closeBtn.addEventListener('click', hideDetails);
+                if (detailSection) detailSection.addEventListener('click', (e) => { if (e.target === detailSection) hideDetails(); });
+                document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !detailSection.classList.contains('hidden')) hideDetails(); });
+
+                // Loan Inquiry Form Submission
+                const inquiryForm = document.getElementById('loan-inquiry-form');
+                if (inquiryForm) {
+                    inquiryForm.addEventListener('submit', async function(e) {
+                        e.preventDefault();
+                        const form = e.target;
+                        const submitButton = form.querySelector('button[type="submit"]');
+                        submitButton.textContent = 'Sending...';
+                        submitButton.disabled = true;
+
+                        const formData = new FormData(form);
+                        formData.append('source', 'Finance Page Loan Inquiry');
+
+                        try {
+                            const response = await fetch('api/api.php?collection=form_submissions', { method: 'POST', body: formData });
+                            const result = await response.json();
+                            if (!result.success) throw new Error(result.message || 'Submission failed');
+                            
+                            document.getElementById('loan-inquiry-form-container').innerHTML = `<div class="text-center py-10"><i class="fa-solid fa-check-circle text-6xl text-green-500 mb-4"></i><h2 class="text-2xl font-bold text-gray-800">Thank You!</h2><p class="text-gray-600">Your inquiry has been sent successfully. Our team will contact you shortly.</p></div>`;
+                        } catch (error) {
+                            alert(`An error occurred: ${error.message}`);
+                            submitButton.textContent = 'Submit Inquiry';
+                            submitButton.disabled = false;
+                        }
+                    });
+                }
+
+                loadPageContent();
+            };
+
+            // --- EXECUTION LOGIC ---
+            const initializePage = async () => {
+                await Promise.all([
+                    loadComponent('header-placeholder', 'header.html'),
+                    loadComponent('footer-placeholder', 'footer.html')
+                ]);
+                
+                const siteSettings = await fetchData('settings');
+                
+                initializeHeaderScripts();
+                initializeFooter(siteSettings);
+                
+                initializeFinancePage();
+
+                const cursorDot = document.querySelector('.cursor-dot');
+                const cursorOutline = document.querySelector('.cursor-outline');
+                window.addEventListener('mousemove', (e) => {
+                    const posX = e.clientX;
+                    const posY = e.clientY;
+                    cursorDot.style.left = `${posX}px`;
+                    cursorDot.style.top = `${posY}px`;
+                    cursorOutline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 500, fill: "forwards" });
+                });
+
+                const addCursorHover = () => {
+                    document.querySelectorAll('.cursor-link').forEach(link => {
+                        link.addEventListener('mouseenter', () => document.body.classList.add('cursor-link-hover'));
+                        link.addEventListener('mouseleave', () => document.body.classList.remove('cursor-link-hover'));
+                    });
+                };
+                addCursorHover();
+            };
+
+            initializePage();
+        };
+    </script>
+
+</body>
+
+</html>

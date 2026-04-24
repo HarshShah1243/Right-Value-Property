@@ -1,0 +1,173 @@
+[
+    {
+        "id": "688dc8e05192c",
+        "images": [
+            "https://rightvalueproperty.com/api/uploads/1754122464_688dc8e05195e_pexels-binyaminmellish-1396122.jpg"
+        ],
+        "title": "Suburban Family Haven",
+        "location": "Maple Creek, TX",
+        "price": "$ 450,000",
+        "beds": "4",
+        "baths": "3",
+        "sqft": "2400",
+        "description": "",
+        "amenities": "",
+        "map_embed_url": "",
+        "nearby_schools": "",
+        "nearby_hospitals": "",
+        "nearby_shopping": "",
+        "is_featured": "off"
+    },
+    {
+        "id": "688dc928aa7ce",
+        "images": [
+            "https://rightvalueproperty.com/api/uploads/1754122536_688dc928aa7fc_pexels-expect-best-79873-323775.jpg"
+        ],
+        "title": "Modern Downtown Loft",
+        "location": "Central City, CA",
+        "price": "$ 780,000 ",
+        "beds": "2 ",
+        "baths": "2 ",
+        "sqft": "1800",
+        "description": "",
+        "amenities": "",
+        "map_embed_url": "",
+        "nearby_schools": "",
+        "nearby_hospitals": "",
+        "nearby_shopping": "",
+        "is_featured": "off"
+    },
+    {
+        "id": "688dc9713a67d",
+        "images": [
+            "https://rightvalueproperty.com/api/uploads/1754122609_688dc9713a6b3_pexels-frans-van-heerden-201846-1438832.jpg"
+        ],
+        "title": "Cozy Cottage Retreat",
+        "location": "Willowdale, WA",
+        "price": "$ 320,000",
+        "beds": "3",
+        "baths": "2 ",
+        "sqft": " 1800",
+        "description": "",
+        "amenities": "",
+        "map_embed_url": "",
+        "nearby_schools": "",
+        "nearby_hospitals": "",
+        "nearby_shopping": "",
+        "is_featured": "off"
+    },
+    {
+        "id": "688dc9b729bab",
+        "images": [
+            "https://rightvalueproperty.com/api/uploads/1754122679_688dc9b729bd2_pexels-thgusstavo-2102587.jpg"
+        ],
+        "title": "Luxury Poolside Villa",
+        "location": "Palm Springs, FL",
+        "price": "$ 1,250,000",
+        "beds": "5",
+        "baths": "5",
+        "sqft": "4500",
+        "description": "",
+        "amenities": "",
+        "map_embed_url": "",
+        "nearby_schools": "",
+        "nearby_hospitals": "",
+        "nearby_shopping": "",
+        "is_featured": "off"
+    },
+    {
+        "id": "688dca077b7bc",
+        "images": [
+            "https://rightvalueproperty.com/api/uploads/1754122759_688dca077b7f5_pexels-trygve-finkelsen-1500241-2893177.jpg"
+        ],
+        "title": "Classic Brick House",
+        "location": "Georgetown, VA",
+        "price": "$ 680,000",
+        "beds": "4 ",
+        "baths": "3 ",
+        "sqft": "2900",
+        "description": "",
+        "amenities": "",
+        "map_embed_url": "",
+        "nearby_schools": "",
+        "nearby_hospitals": "",
+        "nearby_shopping": "",
+        "is_featured": "off"
+    },
+    {
+        "id": "688dca4aebf19",
+        "images": [
+            "https://rightvalueproperty.com/api/uploads/1754122826_688dca4aebf36_pexels-pixabay-210617.jpg"
+        ],
+        "title": "Hillside View Estate",
+        "location": "Aspen, CO",
+        "price": "$ 2,500,000",
+        "beds": "6",
+        "baths": "7",
+        "sqft": "6800",
+        "description": "",
+        "amenities": "",
+        "map_embed_url": "",
+        "nearby_schools": "",
+        "nearby_hospitals": "",
+        "nearby_shopping": "",
+        "is_featured": "off"
+    },
+    {
+        "id": "688dca97e7a46",
+        "images": [
+            "https://rightvalueproperty.com/api/uploads/1754122903_688dca97e7a78_pexels-pixabay-208736.jpg"
+        ],
+        "title": "Charming Starter Home",
+        "location": "Oakwood, OH",
+        "price": "$210,000",
+        "beds": "3",
+        "baths": "1",
+        "sqft": "1200",
+        "description": "",
+        "amenities": "",
+        "map_embed_url": "",
+        "nearby_schools": "",
+        "nearby_hospitals": "",
+        "nearby_shopping": "",
+        "is_featured": "off"
+    },
+    {
+        "id": "688dcae303530",
+        "images": [
+            "https://rightvalueproperty.com/api/uploads/1754122979_688dcae303574_pexels-pixabay-221540.jpg"
+        ],
+        "title": "Urban Condominium",
+        "location": "Metro City, IL",
+        "price": "$ 350,000",
+        "beds": "2 ",
+        "baths": "2",
+        "sqft": "1100",
+        "description": "",
+        "amenities": "",
+        "map_embed_url": "",
+        "nearby_schools": "",
+        "nearby_hospitals": "",
+        "nearby_shopping": "",
+        "is_featured": "off"
+    },
+    {
+        "id": "688dcb3117dac",
+        "images": [
+            "https://rightvalueproperty.com/api/uploads/1754123057_688dcb3117ddf_pexels-pixabay-276724 (1).jpg"
+        ],
+        "title": "Sleek Modern Residence",
+        "location": "Westwood, CA",
+        "price": "$950,000",
+        "beds": "3",
+        "baths": "3",
+        "sqft": "2200",
+        "description": "",
+        "amenities": "",
+        "map_embed_url": "",
+        "nearby_schools": "",
+        "nearby_hospitals": "",
+        "nearby_shopping": "",
+        "is_featured": "off"
+    }
+]

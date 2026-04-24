@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Residential Project Details - Right Value Property</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-red: #c0392b;
+            --primary-red-dark: #a93226;
+            --text-dark: #2c3e50;
+            --bg-light: #ecf0f1;
+            --success-green: #27ae60;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            cursor: none;
+            /* Hide default for custom cursor */
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        body.loaded {
+            opacity: 1;
+        }
+
+        #preloader {
+            position: fixed;
+            inset: 0;
+            background-color: #fff;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.75s ease, visibility 0.75s ease;
+        }
+
+        #preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border-left-color: var(--primary-red);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        #page-header.animate-slide-down {
+            animation: slideDown 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+
+        #page-main.animate-slide-up {
+            animation: slideUp 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.2s forwards;
+        }
+
+        .cursor-dot,
+        .cursor-outline {
+            pointer-events: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary-red);
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(192, 57, 43, 0.3);
+            transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, transform 0.1s ease-out;
+        }
+
+        body:hover .cursor-dot,
+        body:hover .cursor-outline {
+            opacity: 1;
+        }
+
+        .cursor-link-hover .cursor-outline {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(192, 57, 43, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                cursor: auto;
+            }
+
+            .cursor-dot,
+            .cursor-outline {
+                display: none;
+            }
+        }
+
+        a,
+        button,
+        .thumbnail-item {
+            cursor: none;
+        }
+
+        .gallery-main-image {
+            height: 24rem;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            background-color: #ddd;
+        }
+
+        .gallery-main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-thumbnails {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+
+        .thumbnail-item {
+            border-radius: 0.375rem;
+            overflow: hidden;
+            border: 2px solid transparent;
+            transition: border-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .thumbnail-item:hover {
+            transform: scale(1.05);
+        }
+
+        .thumbnail-item.active {
+            border-color: var(--primary-red);
+        }
+
+        .thumbnail-item img {
+            width: 100%;
+            height: 60px;
+            object-fit: cover;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            padding-bottom: 0.75rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--primary-red);
+            display: inline-block;
+        }
+
+        .map-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            padding-top: 56.25%;
+        }
+
+        .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+
+    <div id="preloader">
+        <div class="loader-spinner"></div>
+    </div>
+    <div class="cursor-outline"></div>
+    <div class="cursor-dot"></div>
+
+    <div id="header-placeholder"></div>
+
+    <main id="page-main" class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 opacity-0">
+        <div id="property-details-container" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Loading state placeholder -->
+            <div class="lg:col-span-2 space-y-8">
+                <div class="bg-white p-6 rounded-lg shadow-md h-24 animate-pulse"></div>
+                <div class="bg-white p-6 rounded-lg shadow-md h-96 animate-pulse"></div>
+                <div class="bg-white p-6 rounded-lg shadow-md h-48 animate-pulse"></div>
+            </div>
+            <div class="lg:col-span-1">
+                <div class="bg-white p-6 rounded-lg shadow-md h-64 animate-pulse"></div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+        const preloader = document.getElementById('preloader');
+        const pageMain = document.getElementById('page-main');
+
+        // --- SHARED LOGIC ---
+        const fetchData = async (collectionName, id = null) => {
+            try {
+                let url = `api/api.php?collection=${collectionName}&t=${new Date().getTime()}`;
+                if (id) url += `&id=${id}`;
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                const data = await response.json();
+                if ((collectionName === 'settings' || collectionName.startsWith('page_')) && (Array.isArray(data) && data.length === 0)) {
+                    return {};
+                }
+                return data;
+            } catch (error) {
+                console.error(`Failed to fetch ${collectionName}:`, error);
+                return collectionName.startsWith('page_') || collectionName === 'settings' ? {} : [];
+            }
+        };
+
+        const loadComponent = async (placeholderId, url) => {
+            const placeholder = document.getElementById(placeholderId);
+            if (placeholder) {
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error(`Could not load ${url}`);
+                    placeholder.innerHTML = await response.text();
+                    if(placeholderId === 'header-placeholder') {
+                        placeholder.firstElementChild.id = 'page-header';
+                        placeholder.firstElementChild.classList.add('opacity-0');
+                    }
+                } catch (error) { console.error(`Error loading component from ${url}:`, error); }
+            }
+        };
+
+        const initializeHeaderScripts = () => {
+            const header = document.querySelector('header');
+            if (!header) return;
+            const mobileMenuButton = header.querySelector('#mobile-menu-button');
+            const mobileMenu = header.querySelector('#mobile-menu');
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            }
+        };
+
+        const initializeFooter = (settings) => {
+            if (!settings) return;
+            const footerContactInfo = document.getElementById('footer-contact-info');
+            if (footerContactInfo) {
+                footerContactInfo.innerHTML = `
+                    <p class="flex items-start"><i class="fa-solid fa-location-dot w-4 mr-3 mt-1 text-[var(--primary-red)]"></i><span>${settings.address || ''}</span></p>
+                    <p class="flex items-start"><i class="fa-solid fa-envelope w-4 mr-3 mt-1 text-[var(--primary-red)]"></i><a href="mailto:${settings.email || '#'}" class="hover:text-[var(--primary-red)] cursor-link">${settings.email || ''}</a></p>
+                    <p class="flex items-start"><i class="fa-solid fa-phone w-4 mr-3 mt-1 text-[var(--primary-red)]"></i><a href="tel:${settings.phone || '#'}" class="hover:text-[var(--primary-red)] cursor-link">${settings.phone || ''}</a></p>
+                `;
+            }
+            const socialLinksContainer = document.getElementById('footer-social-links');
+            if (socialLinksContainer) {
+                let linksHtml = '';
+                if (settings.facebook_url) linksHtml += `<a href="${settings.facebook_url}" target="_blank" aria-label="Facebook" class="text-gray-500 hover:text-[var(--primary-red)] transition-colors cursor-link"><i class="fa-brands fa-facebook-f fa-lg"></i></a>`;
+                if (settings.instagram_url) linksHtml += `<a href="${settings.instagram_url}" target="_blank" aria-label="Instagram" class="text-gray-500 hover:text-[var(--primary-red)] transition-colors cursor-link"><i class="fa-brands fa-instagram fa-lg"></i></a>`;
+                socialLinksContainer.innerHTML = linksHtml;
+            }
+            const reraEl = document.getElementById('footer-rera');
+            if (reraEl) reraEl.textContent = `RERA: ${settings.rera_number || ''}`;
+            const copyrightEl = document.getElementById('footer-copyright');
+            if (copyrightEl) copyrightEl.textContent = settings.copyright_text || `© ${new Date().getFullYear()} RIGHT VALUE PROPERTY.`;
+
+            const statusElement = document.getElementById('office-status');
+            const timeElement = document.getElementById('current-time');
+            if (statusElement && timeElement) {
+                const updateOfficeStatus = () => {
+                    const openHour = parseInt(settings.opening_hour, 10) || 10;
+                    const closeHour = parseInt(settings.closing_hour, 10) || 19;
+                    const closedDays = (settings.closed_days || 'Sun').split(',').map(d => d.trim());
+                    const now = new Date();
+                    const options = { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+                    const timeString = now.toLocaleTimeString('en-IN', options);
+                    const day = now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata', weekday: 'short' });
+                    const hour = parseInt(now.toLocaleString('en-US', { timeZone: 'Asia/Kolkata', hour: '2-digit', hour12: false }));
+                    const isOpen = !closedDays.includes(day) && hour >= openHour && hour < closeHour;
+                    timeElement.textContent = `${timeString} (IST)`;
+                    statusElement.textContent = isOpen ? 'Open' : 'Closed';
+                    statusElement.classList.toggle('open', isOpen);
+                    statusElement.classList.toggle('closed', !isOpen);
+                };
+                updateOfficeStatus();
+                setInterval(updateOfficeStatus, 1000);
+            }
+
+            const scrollToTopBtn = document.getElementById('scroll-to-top');
+            if (scrollToTopBtn) {
+                window.addEventListener('scroll', () => scrollToTopBtn.classList.toggle('show', window.pageYOffset > 300));
+                scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            }
+        };
+
+        // --- PAGE-SPECIFIC LOGIC ---
+        const initializePropertyDetailsPage = async () => {
+            const container = document.getElementById('property-details-container');
+            const urlParams = new URLSearchParams(window.location.search);
+            const propertyId = urlParams.get('id');
+            const propertyType = 'projects_residential'; 
+
+            if (!propertyId) {
+                container.innerHTML = `<p class="text-center text-red-500 col-span-3">No project ID specified.</p>`;
+                return;
+            }
+
+            try {
+                const p = await fetchData(propertyType, propertyId);
+                if (p.error || !p.id) throw new Error('Invalid project data');
+                displayPropertyDetails(p);
+            } catch (error) {
+                container.innerHTML = `<p class="text-center text-red-500 col-span-3">Could not load project details. It may not exist.</p>`;
+            }
+        };
+
+        function displayPropertyDetails(p) {
+            const container = document.getElementById('property-details-container');
+            const galleryImages = p.images || [];
+            
+            const leftColumn = `
+                <div class="lg:col-span-2 space-y-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md" data-aos="fade-up">
+                        <h1 class="text-3xl md:text-4xl font-bold text-[var(--text-dark)]">${p.title || 'N/A'}</h1>
+                        <p class="text-gray-500 mt-2 flex items-center text-lg"><i class="fa-solid fa-location-dot w-5 mr-2 text-[var(--primary-red)]"></i>${p.location || 'N/A'}</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md" data-aos="fade-up">
+                        <div id="image-gallery">
+                            <div class="gallery-main-image"><img id="main-image" src="${galleryImages.length > 0 ? galleryImages[0] : 'https://placehold.co/800x600'}" alt="${p.title}"></div>
+                            <div class="gallery-thumbnails">${galleryImages.map((img, index) => `<div class="thumbnail-item ${index === 0 ? 'active' : ''} cursor-link" data-src="${img}"><img src="${img}" alt="Thumbnail ${index + 1}"></div>`).join('')}</div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md" data-aos="fade-up">
+                        <h2 class="section-title">About this project</h2>
+                        <p class="text-gray-700 leading-relaxed">${p.description || 'No description available.'}</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md" data-aos="fade-up">
+                        <h2 class="section-title">Amenities</h2>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">${(p.amenities || '').split(',').map(amenity => amenity.trim() ? `<div class="flex items-center text-gray-700"><i class="fa-solid fa-check-circle w-5 mr-3 text-[var(--success-green)]"></i><span>${amenity.trim()}</span></div>` : '').join('')}</div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md" data-aos="fade-up">
+                        <h2 class="section-title">Project on Map</h2>
+                        <div class="map-container rounded-md overflow-hidden">${p.map_embed_url || '<p class="p-4">Map not available.</p>'}</div>
+                    </div>
+                </div>`;
+
+            const rightColumn = `
+                <div class="lg:col-span-1">
+                    <div class="lg:sticky lg:top-28 space-y-8">
+                        <div class="bg-white p-6 rounded-lg shadow-md" data-aos="fade-up" data-aos-delay="100">
+                            <div class="text-4xl font-bold text-[var(--primary-red)] mb-4">${p.price || 'N/A'}</div>
+                            <div class="grid grid-cols-3 gap-4 text-center border-t pt-4">
+                                <div><div class="font-bold text-xl">${p.beds || 0}</div><div class="text-sm text-gray-600">Beds</div></div>
+                                <div><div class="font-bold text-xl">${p.baths || 0}</div><div class="text-sm text-gray-600">Baths</div></div>
+                                <div><div class="font-bold text-xl">${p.sqft ? p.sqft.toLocaleString() : 0}</div><div class="text-sm text-gray-600">sqft</div></div>
+                            </div>
+                        </div>
+                        <div id="inquiry-form-container" class="bg-white p-6 rounded-lg shadow-md" data-aos="fade-up" data-aos-delay="200">
+                             <h3 class="text-xl font-bold text-center mb-4">Request a Call Back</h3>
+                             <form id="inquiry-form" class="space-y-4">
+                                <input type="hidden" name="property_id" value="${p.id}">
+                                <input type="hidden" name="subject" value="Inquiry for Residential Project: ${p.title}">
+                                <div><input type="text" name="name" placeholder="Your Name" class="w-full p-3 border border-gray-300 rounded-md cursor-link" required></div>
+                                <div><input type="email" name="email" placeholder="Your Email" class="w-full p-3 border border-gray-300 rounded-md cursor-link" required></div>
+                                <div><input type="tel" name="phone" placeholder="Your Phone Number" class="w-full p-3 border border-gray-300 rounded-md cursor-link" required></div>
+                                <div><textarea name="message" rows="4" placeholder="I am interested in this project..." class="w-full p-3 border border-gray-300 rounded-md cursor-link"></textarea></div>
+                                <button type="submit" class="w-full bg-[var(--primary-red)] text-white font-bold py-3 px-4 rounded-lg cursor-link">Send Request</button>
+                             </form>
+                        </div>
+                    </div>
+                </div>`;
+
+            container.innerHTML = leftColumn + rightColumn;
+            initializeImageGallery();
+            initializeInquiryForm(p.title);
+            AOS.refresh();
+            addCursorHoverEffect();
+        }
+        
+        function initializeImageGallery() {
+            const mainImage = document.getElementById('main-image');
+            const thumbnails = document.querySelectorAll('.thumbnail-item');
+            thumbnails.forEach(thumbnail => {
+                thumbnail.addEventListener('click', function() {
+                    mainImage.src = this.dataset.src;
+                    thumbnails.forEach(item => item.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        }
+
+        function initializeInquiryForm(propertyTitle) {
+            const inquiryForm = document.getElementById('inquiry-form');
+            if(!inquiryForm) return;
+            inquiryForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const form = e.target;
+                const submitButton = form.querySelector('button[type="submit"]');
+                submitButton.textContent = 'Sending...';
+                submitButton.disabled = true;
+
+                const formData = new FormData(form);
+                formData.append('source', `Residential Project Inquiry: ${propertyTitle}`);
+
+                try {
+                    const response = await fetch('api/api.php?collection=form_submissions', { method: 'POST', body: formData });
+                    const result = await response.json();
+                    if (!result.success) throw new Error(result.message || 'Submission failed');
+                    
+                    document.getElementById('inquiry-form-container').innerHTML = `<div class="text-center py-10"><i class="fa-solid fa-check-circle text-5xl text-green-500 mb-4"></i><h3 class="text-xl font-bold text-gray-800">Request Sent!</h3><p class="text-gray-600 mt-2">Our team will contact you shortly.</p></div>`;
+                } catch (error) {
+                    alert(`An error occurred: ${error.message}`);
+                    submitButton.textContent = 'Send Request';
+                    submitButton.disabled = false;
+                }
+            });
+        }
+
+        const addCursorHoverEffect = () => {
+            document.querySelectorAll('.cursor-link').forEach(link => {
+                link.addEventListener('mouseenter', () => document.body.classList.add('cursor-link-hover'));
+                link.addEventListener('mouseleave', () => document.body.classList.remove('cursor-link-hover'));
+            });
+        };
+
+        // --- EXECUTION LOGIC ---
+        const initializePage = async () => {
+            await Promise.all([
+                loadComponent('header-placeholder', 'header.html'),
+                loadComponent('footer-placeholder', 'footer.html')
+            ]);
+            
+            const siteSettings = await fetchData('settings');
+            
+            initializeHeaderScripts();
+            initializeFooter(siteSettings);
+            
+            await initializePropertyDetailsPage();
+
+            setTimeout(() => {
+                preloader.classList.add('hidden');
+                document.body.classList.add('loaded');
+                const pageHeader = document.getElementById('page-header');
+                if(pageHeader) pageHeader.classList.add('animate-slide-down');
+                if(pageMain) pageMain.classList.add('animate-slide-up');
+            }, 500);
+
+            AOS.init({ duration: 800, once: true, disable: 'mobile' });
+
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorOutline = document.querySelector('.cursor-outline');
+            window.addEventListener('mousemove', (e) => {
+                cursorDot.style.left = `${e.clientX}px`;
+                cursorDot.style.top = `${e.clientY}px`;
+                cursorOutline.animate({ left: `${e.clientX}px`, top: `${e.clientY}px` }, { duration: 500, fill: "forwards" });
+            });
+            
+            addCursorHoverEffect();
+        };
+
+        initializePage();
+    });
+    </script>
+</body>
+
+</html>

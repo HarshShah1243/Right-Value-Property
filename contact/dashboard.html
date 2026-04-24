@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Right Value Property</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --primary-red: #c0392b; --primary-red-dark: #a93226; }
+        body { font-family: 'Inter', sans-serif; background-color: #ecf0f1; }
+        .btn-primary { background-color: var(--primary-red); color: white; transition: background-color 0.3s ease; }
+        .btn-primary:hover { background-color: var(--primary-red-dark); }
+        .modal { display: none; z-index: 100; }
+        .modal.active { display: flex; }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid var(--primary-red); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
+        .nav-link.active-link { background-color: #fee2e2; color: #b91c1c; font-weight: 600; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .form-section-title { font-weight: 600; color: var(--primary-red); border-bottom: 1px solid #e0e0e0; padding-bottom: 8px; margin-top: 16px; margin-bottom: 12px; }
+        .form-hint { font-size: 0.8rem; color: #7f8c8d; }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <div id="auth-loader" class="fixed inset-0 bg-white flex flex-col items-center justify-center z-[200]">
+        <div class="loader"></div>
+        <p class="mt-4 text-gray-600">Authenticating...</p>
+    </div>
+
+    <div id="app-container" class="hidden">
+        <div class="flex h-screen bg-gray-200">
+            <!-- Sidebar -->
+            <aside class="w-64 bg-white shadow-md flex flex-col">
+                <div class="p-6 bg-gray-800 text-white"><h2 class="text-2xl font-bold">Admin Panel</h2><p class="text-sm">Right Value Property</p></div>
+                <nav class="mt-6 flex-1 overflow-y-auto">
+                    <span class="px-4 text-xs text-gray-500 uppercase font-semibold">Content Collections</span>
+                    <a href="#properties_sale" class="nav-link active-link flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-red-100 hover:text-red-700 text-gray-700"><i class="fas fa-building mr-3 w-5 text-center"></i>Properties (Sale)</a>
+                    <a href="#properties_rent" class="nav-link flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-red-100 hover:text-red-700 text-gray-700"><i class="fas fa-key mr-3 w-5 text-center"></i>Properties (Rent)</a>
+                    <a href="#testimonials" class="nav-link flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-red-100 hover:text-red-700 text-gray-700"><i class="fas fa-comment-alt mr-3 w-5 text-center"></i>Testimonials</a>
+                    <a href="#team_members" class="nav-link flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-red-100 hover:text-red-700 text-gray-700"><i class="fas fa-users mr-3 w-5 text-center"></i>Team Members</a>
+                    <a href="#builders" class="nav-link flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-red-100 hover:text-red-700 text-gray-700"><i class="fas fa-hard-hat mr-3 w-5 text-center"></i>Featured Builders</a>
+                    <a href="#clients" class="nav-link flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-red-100 hover:text-red-700 text-gray-700"><i class="fas fa-handshake mr-3 w-5 text-center"></i>Corporate Clients</a>
+                    <a href="#localities" class="nav-link flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-red-100 hover:text-red-700 text-gray-700"><i class="fas fa-map-marked-alt mr-3 w-5 text-center"></i>Top Localities</a>
+                    
+                    <span class="px-4 mt-6 text-xs text-gray-500 uppercase font-semibold border-t pt-4">Page & Site Settings</span>
+                    <a href="#site_settings" class="nav-link flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-red-100 hover:text-red-700 text-gray-700"><i class="fas fa-cog mr-3 w-5 text-center"></i>Site-Wide Settings</a>
+                    <a href="#page_content_home" class="nav-link flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-red-100 hover:text-red-700 text-gray-700"><i class="fas fa-file-alt mr-3 w-5 text-center"></i>Home Page</a>
+                    <a href="#page_content_about" class="nav-link flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-red-100 hover:text-red-700 text-gray-700"><i class="fas fa-info-circle mr-3 w-5 text-center"></i>About Page</a>
+                    <a href="#page_content_finance" class="nav-link flex items-center py-2.5 px-4 rounded transition duration-200 hover:bg-red-100 hover:text-red-700 text-gray-700"><i class="fas fa-calculator mr-3 w-5 text-center"></i>Finance Page</a>
+                </nav>
+                 <div class="p-4 border-t mt-auto">
+                    <a href="index.html" target="_blank" class="flex items-center justify-center w-full py-2.5 px-4 rounded transition duration-200 bg-gray-200 hover:bg-gray-300 text-gray-700"><i class="fas fa-eye mr-2"></i>View Website</a>
+                    <button id="logoutBtn" class="flex items-center justify-center w-full mt-2 py-2.5 px-4 rounded transition duration-200 hover:bg-red-100 text-red-700"><i class="fas fa-sign-out-alt mr-2"></i>Logout</button>
+                 </div>
+            </aside>
+
+            <!-- Main Content -->
+            <div class="flex-1 flex flex-col overflow-hidden">
+                <header class="flex justify-between items-center p-6 bg-white border-b-2 border-gray-200"><h1 id="page-title" class="text-3xl font-bold text-gray-800">Properties (Sale)</h1><button id="addNewBtn" class="btn-primary px-5 py-2 rounded-md shadow-sm font-semibold"><i class="fas fa-plus mr-2"></i>Add New</button></header>
+                <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-6">
+                    <div id="properties_sale" class="content-section"></div>
+                    <div id="properties_rent" class="content-section hidden"></div>
+                    <div id="testimonials" class="content-section hidden"></div>
+                    <div id="team_members" class="content-section hidden"></div>
+                    <div id="builders" class="content-section hidden"></div>
+                    <div id="clients" class="content-section hidden"></div>
+                    <div id="localities" class="content-section hidden"></div>
+                    <div id="site_settings" class="content-section hidden"></div>
+                    <div id="page_content_home" class="content-section hidden"></div>
+                    <div id="page_content_about" class="content-section hidden"></div>
+                    <div id="page_content_finance" class="content-section hidden"></div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Add/Edit Form -->
+    <div id="formModal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center"><div class="bg-white rounded-lg shadow-xl p-8 w-full max-w-3xl max-h-[90vh] overflow-y-auto"><h2 id="modalTitle" class="text-2xl font-bold mb-6 text-gray-800">Add New Item</h2><form id="dataForm" enctype="multipart/form-data"><input type="hidden" id="editId"><div id="formFields" class="space-y-4"></div><div class="mt-8 flex justify-end space-x-4"><button type="button" id="cancelBtn" class="px-4 py-2 rounded-md text-gray-600 bg-gray-200 hover:bg-gray-300">Cancel</button><button type="submit" class="btn-primary px-4 py-2 rounded-md font-semibold flex items-center"><span id="saveBtnText">Save</span><div id="saveSpinner" class="loader w-5 h-5 ml-2 hidden" style="border-top-color: white; border-width: 2px;"></div></button></div></form></div></div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            if (!isDevelopment) {
+                 try {
+                    const response = await fetch('api/auth.php?action=check_session');
+                    const data = await response.json();
+                    if (!data.isLoggedIn) { window.location.href = 'admin.html'; return; }
+                } catch (error) { window.location.href = 'admin.html'; return; }
+            }
+            
+            document.getElementById('auth-loader').classList.add('hidden');
+            document.getElementById('app-container').classList.remove('hidden');
+
+            let currentCollection = 'properties_sale';
+            let localDataCache = {};
+
+            const sections = {
+                'properties_sale': { name: 'Properties (Sale)', collection: 'properties_sale', renderer: renderPropertyCard, fields: [ /* Fields defined below */ ] },
+                'properties_rent': { name: 'Properties (Rent)', collection: 'properties_rent', renderer: renderPropertyCard, fields: [ /* Fields defined below */ ] },
+                'testimonials': { name: 'Testimonials', collection: 'testimonials', renderer: renderTestimonialCard, fields: [{name:'quote', label:'Quote', type:'textarea'}, {name:'name', label:'Client Name'}, {name:'location', label:'Client Location'}, {name:'avatar', label:'Avatar Image', type:'file'}] },
+                'team_members': { name: 'Team Members', collection: 'team_members', renderer: renderTeamCard, fields: [{name:'name', label:'Name'}, {name:'role', label:'Role/Position'}, {name:'bio', label:'Short Bio', type:'textarea'}, {name:'image', label:'Photo', type:'file'}] },
+                'builders': { name: 'Featured Builders', collection: 'builders', renderer: renderLogoCard, fields: [{name:'name', label:'Builder Name'}, {name:'logo', label:'Logo', type:'file'}] },
+                'clients': { name: 'Corporate Clients', collection: 'clients', renderer: renderLogoCard, fields: [{name:'name', label:'Client Name'}, {name:'logo', label:'Logo', type:'file'}] },
+                'localities': { name: 'Top Localities', collection: 'localities', renderer: renderLocalityCard, fields: [{name:'name', label:'Locality Name'}, {name:'image', label:'Image', type:'file'}] },
+                'site_settings': { name: 'Site-Wide Settings', collection: 'settings', isSingleItem: true, renderer: renderSettingsForm, fields: [ /* Fields defined below */ ] },
+                'page_content_home': { name: 'Home Page', collection: 'page_home', isSingleItem: true, renderer: renderSettingsForm, fields: [ /* Fields defined below */ ] },
+                'page_content_about': { name: 'About Page', collection: 'page_about', isSingleItem: true, renderer: renderSettingsForm, fields: [ /* Fields defined below */ ] },
+                'page_content_finance': { name: 'Finance Page', collection: 'page_finance', isSingleItem: true, renderer: renderSettingsForm, fields: [ /* Fields defined below */ ] },
+            };
+
+            const propertyFields = [
+                { name: 'title', label: 'Property Title' }, { name: 'location', label: 'Location' }, { name: 'price', label: 'Price (e.g., ₹ 1.2 Cr)' }, { name: 'is_featured', label: 'Feature on Homepage?', type: 'checkbox' }, { name: 'description', label: 'Full Description', type: 'textarea' }, { title: 'Images' }, { name: 'main_image', label: 'Main Card Image', type: 'file' }, { name: 'living_room_image', label: 'Living Room (for hover)', type: 'file' }, { name: 'bedroom_image', label: 'Bedroom (for hover)', type: 'file' }, { name: 'kitchen_image', label: 'Kitchen (for hover)', type: 'file' }, { name: 'bathroom_image', label: 'Bathroom (for hover)', type: 'file' },
+            ];
+            sections.properties_sale.fields = propertyFields;
+            sections.properties_rent.fields = propertyFields;
+            
+            sections.site_settings.fields = [
+                { title: 'Header & Footer' }, { name: 'phone', label: 'Contact Phone' }, { name: 'email', label: 'Contact Email' }, { name: 'address', label: 'Company Address', type: 'textarea' }, { name: 'rera_number', label: 'RERA Number' }, { name: 'copyright_text', label: 'Footer Copyright' }, { title: 'Social Media Links' }, { name: 'facebook_url', label: 'Facebook URL' }, { name: 'instagram_url', label: 'Instagram URL' }, { name: 'twitter_url', label: 'Twitter/X URL' }, { name: 'linkedin_url', label: 'LinkedIn URL' },
+            ];
+            sections.page_content_home.fields = [
+                { title: 'Hero Section' }, { name: 'hero_title', label: 'Main Title' }, { name: 'hero_subtitle', label: 'Subtitle' }, { name: 'hero_button_text', label: 'Button Text' }, { name: 'hero_bg_image', label: 'Background Image', type: 'file' },
+                { title: 'Premier Listings Section' }, { name: 'listings_title', label: 'Title' }, { name: 'listings_subtitle', label: 'Subtitle' }, 
+            ];
+             sections.page_content_about.fields = [
+                { title: 'Hero Section' }, { name: 'hero_title', label: 'Main Title' }, { name: 'hero_subtitle', label: 'Subtitle' }, { name: 'hero_bg_image', label: 'Background Image', type: 'file' },
+                { title: 'Mission Section' }, { name: 'mission_title', label: 'Title' }, { name: 'mission_text_1', label: 'Paragraph 1', type:'textarea' }, { name: 'mission_text_2', label: 'Paragraph 2', type:'textarea' }, { name: 'mission_image', label: 'Image', type:'file'},
+                { title: 'Team Section' }, { name: 'team_title', label: 'Title' }, { name: 'team_subtitle', label: 'Subtitle' },
+            ];
+            sections.page_content_finance.fields = [
+                { title: 'Hero Section' }, { name: 'hero_title', label: 'Main Title' }, { name: 'hero_subtitle', label: 'Subtitle' },
+                { title: 'Calculator Section' }, { name: 'calc_title', label: 'Title' }, { name: 'calc_subtitle', label: 'Subtitle' },
+                { title: 'Offerings Section' }, { name: 'offerings_title', label: 'Title' }, { name: 'offerings_subtitle', label: 'Subtitle' },
+            ];
+
+            async function fetchData(collectionName) {
+                try {
+                    const response = await fetch(`api/api.php?collection=${collectionName}`);
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    const data = await response.json();
+                    localDataCache[collectionName] = data;
+                    renderData(collectionName);
+                } catch (error) { console.error(`Error fetching ${collectionName}:`, error); }
+            }
+            
+            function renderSettingsForm(data) {
+                const sectionConfig = Object.values(sections).find(s => s.collection === currentCollection);
+                const container = document.getElementById(sectionConfig.collection);
+                const fields = sectionConfig.fields;
+                let formHtml = `<form class="bg-white p-6 rounded-lg shadow-md max-w-4xl mx-auto space-y-4 settings-form" data-collection="${sectionConfig.collection}">`;
+                fields.forEach(field => {
+                     if (field.title) { formHtml += `<h3 class="form-section-title">${field.title}</h3>`; return; }
+                     const value = data[field.name] || '';
+                     formHtml += `<div><label for="setting-${field.name}" class="block text-sm font-medium text-gray-700">${field.label}</label>`;
+                     if (field.type === 'textarea') {
+                         formHtml += `<textarea id="setting-${field.name}" name="${field.name}" rows="5" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm">${value}</textarea>`;
+                     } else if (field.type === 'file') {
+                         formHtml += `<input type="file" id="setting-${field.name}" name="${field.name}" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-red-50 file:text-red-700 hover:file:bg-red-100">
+                                      ${value ? `<img src="${value}" class="mt-2 h-20 rounded-md border p-1"><input type="hidden" name="${field.name}_url" value="${value}">` : ''}`;
+                     } else {
+                         formHtml += `<input type="text" id="setting-${field.name}" name="${field.name}" value="${value}" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm">`;
+                     }
+                     formHtml += `</div>`;
+                });
+                formHtml += `<div class="pt-4 text-right"><button type="submit" class="btn-primary px-6 py-2 rounded-md font-semibold">Save Settings</button></div></form>`;
+                container.innerHTML = formHtml;
+                
+                document.querySelector(`form[data-collection="${sectionConfig.collection}"]`).addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const formData = new FormData(e.target);
+                    try {
+                        await fetch(`api/api.php?collection=${sectionConfig.collection}`, { method: 'POST', body: formData });
+                        alert('Settings saved successfully!');
+                    } catch (error) { alert('Failed to save settings.'); }
+                });
+            }
+
+            function renderData(collectionName) {
+                const sectionConfig = Object.values(sections).find(s => s.collection === collectionName);
+                if (sectionConfig.isSingleItem) {
+                    sectionConfig.renderer(localDataCache[collectionName] || {});
+                    return;
+                }
+                const containerId = Object.keys(sections).find(key => sections[key].collection === collectionName);
+                const container = document.getElementById(containerId);
+                const renderer = sectionConfig.renderer;
+                const data = localDataCache[collectionName] || [];
+
+                if (data.length === 0) {
+                    container.innerHTML = '<div class="col-span-full text-center text-gray-500 py-10 bg-white rounded-lg shadow-md"><p>No items found. Click "Add New" to get started.</p></div>';
+                    return;
+                }
+
+                let content = '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">';
+                data.forEach(item => {
+                    content += `<div class="relative group">${renderer(item)}<div class="absolute top-2 right-2 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"><button class="edit-btn bg-blue-500 text-white w-10 h-10 rounded-full shadow-md hover:bg-blue-600 flex items-center justify-center" data-id="${item.id}"><i class="fas fa-pencil-alt"></i></button><button class="delete-btn bg-red-500 text-white w-10 h-10 rounded-full shadow-md hover:bg-red-600 flex items-center justify-center" data-id="${item.id}"><i class="fas fa-trash-alt"></i></button></div></div>`;
+                });
+                content += '</div>';
+                container.innerHTML = content;
+                attachActionListeners();
+            }
+
+            function renderPropertyCard(data) { return `<div class="bg-white p-4 rounded-lg shadow-md h-full"><img src="${data.main_image || 'https://placehold.co/600x400'}" class="w-full h-40 object-cover rounded-md mb-4"><h3 class="font-bold text-lg">${data.title}</h3><p class="text-gray-600 text-sm">${data.location}</p>${data.is_featured === 'on' ? '<span class="mt-2 inline-block bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Featured</span>' : ''}</div>`; }
+            function renderTestimonialCard(data) { return `<div class="bg-white p-4 rounded-lg shadow-md h-full"><div class="flex items-center mb-4"><img src="${data.avatar || 'https://placehold.co/100x100'}" class="w-12 h-12 rounded-full mr-4 object-cover"><div><h4 class="font-bold">${data.name}</h4><p class="text-sm text-red-600">${data.location}</p></div></div><p class="text-gray-600 italic">"${data.quote}"</p></div>`; }
+            function renderTeamCard(data) { return `<div class="bg-white p-4 rounded-lg shadow-md h-full text-center"><img src="${data.image || 'https://placehold.co/400x400'}" class="w-32 h-32 object-cover rounded-full mx-auto mb-4"><h3 class="font-bold text-lg">${data.name}</h3><p class="text-sm text-red-600">${data.role}</p></div>`; }
+            function renderLogoCard(data) { return `<div class="bg-white p-4 rounded-lg shadow-md flex flex-col items-center justify-center h-48"><img src="${data.logo || 'https://placehold.co/200x100'}" class="max-h-20 object-contain mb-4"><h3 class="font-semibold text-center">${data.name}</h3></div>`; }
+            function renderLocalityCard(data) { return `<div class="bg-white p-4 rounded-lg shadow-md h-full"><img src="${data.image || 'https://placehold.co/400x400'}" class="w-full h-32 object-cover rounded-md mb-4"><h3 class="font-bold text-lg text-center">${data.name}</h3></div>`; }
+
+            function attachActionListeners() {
+                document.querySelectorAll('.edit-btn').forEach(b => b.onclick = (e) => handleEdit(e.currentTarget.dataset.id));
+                document.querySelectorAll('.delete-btn').forEach(b => b.onclick = (e) => handleDelete(e.currentTarget.dataset.id));
+            }
+
+            function handleEdit(id) {
+                const item = (localDataCache[currentCollection] || []).find(d => d.id === id);
+                if (item) openModal(item);
+            }
+
+            async function handleDelete(id) {
+                if (!confirm('Are you sure you want to delete this item?')) return;
+                try {
+                    await fetch(`api/api.php?collection=${currentCollection}&id=${id}`, { method: 'DELETE' });
+                    fetchData(currentCollection);
+                } catch (error) { alert('An error occurred.'); }
+            }
+
+            function openModal(data = {}) {
+                const sectionConfig = Object.values(sections).find(s => s.collection === currentCollection);
+                const fields = sectionConfig.fields;
+                const formFields = document.getElementById('formFields');
+                formFields.innerHTML = '';
+
+                fields.forEach(field => {
+                    if (field.title) { formFields.innerHTML += `<h3 class="form-section-title">${field.title}</h3>`; return; }
+                    const value = data[field.name] || '';
+                    let fieldHtml = `<div><label for="${field.name}" class="block text-sm font-medium text-gray-700">${field.label}</label>`;
+                    switch(field.type) {
+                        case 'file': fieldHtml += `<input type="file" id="${field.name}" name="${field.name}" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-red-50 file:text-red-700 hover:file:bg-red-100">${value ? `<img src="${value}" class="mt-2 h-20 rounded-md border p-1"><input type="hidden" name="${field.name}_url" value="${value}">` : ''}`; break;
+                        case 'textarea': fieldHtml += `<textarea id="${field.name}" name="${field.name}" rows="5" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">${value}</textarea>`; break;
+                        case 'checkbox': fieldHtml += `<div class="mt-2"><input type="checkbox" id="${field.name}" name="${field.name}" class="h-4 w-4 text-red-600 border-gray-300 rounded" ${data[field.name] === 'on' ? 'checked' : ''}></div>`; break;
+                        default: fieldHtml += `<input type="${field.type || 'text'}" id="${field.name}" name="${field.name}" value="${value}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">`;
+                    }
+                    formFields.innerHTML += `</div>`;
+                });
+
+                document.getElementById('editId').value = data.id || '';
+                document.getElementById('modalTitle').innerText = data.id ? `Edit ${sectionConfig.name.slice(0, -1)}` : `Add New ${sectionConfig.name.slice(0, -1)}`;
+                document.getElementById('formModal').classList.add('active');
+            }
+            
+            function closeModal() {
+                document.getElementById('formModal').classList.remove('active');
+                document.getElementById('dataForm').reset();
+            }
+
+            document.getElementById('dataForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const btn = e.target.querySelector('button[type="submit"]');
+                btn.disabled = true;
+
+                const formData = new FormData(e.target);
+                const id = document.getElementById('editId').value;
+                if (id) formData.append('id', id);
+
+                try {
+                    await fetch(`api/api.php?collection=${currentCollection}`, { method: 'POST', body: formData });
+                    fetchData(currentCollection);
+                    closeModal();
+                } catch (error) {
+                    alert('An error occurred.');
+                } finally {
+                    btn.disabled = false;
+                }
+            });
+
+            document.getElementById('cancelBtn').addEventListener('click', closeModal);
+            document.getElementById('addNewBtn').addEventListener('click', () => openModal());
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = e.currentTarget.getAttribute('href').substring(1);
+                    const sectionConfig = sections[targetId];
+                    
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active-link'));
+                    e.currentTarget.classList.add('active-link');
+                    
+                    document.querySelectorAll('.content-section').forEach(s => s.classList.add('hidden'));
+                    document.getElementById(targetId).classList.remove('hidden');
+                    
+                    document.getElementById('page-title').innerText = sectionConfig.name;
+                    document.getElementById('addNewBtn').style.display = sectionConfig.isSingleItem ? 'none' : 'block';
+                    currentCollection = sectionConfig.collection;
+                    
+                    fetchData(currentCollection);
+                });
+            });
+
+            document.getElementById('logoutBtn').addEventListener('click', async () => {
+                await fetch('api/auth.php?action=logout');
+                window.location.href = 'admin.html';
+            });
+
+            fetchData(currentCollection);
+        });
+    </script>
+</body>
+</html>

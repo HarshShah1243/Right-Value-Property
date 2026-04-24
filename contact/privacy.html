@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - RIGHT VALUE PROPERTY</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --primary-red: #c0392b; --text-dark: #2c3e50; --text-light: #7f8c8d; }
+        body { font-family: 'Inter', sans-serif; color: var(--text-dark); }
+        .legal-content h2 { font-size: 1.875rem; font-weight: 700; margin-top: 2rem; margin-bottom: 1rem; color: var(--primary-red); }
+        .legal-content h3 { font-size: 1.5rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.75rem; color: var(--text-dark); }
+        .legal-content p { margin-bottom: 1rem; line-height: 1.75; color: var(--text-light); }
+        .legal-content ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 1rem; color: var(--text-light); }
+        .legal-content li { margin-bottom: 0.5rem; }
+    </style>
+</head>
+<body class="bg-white">
+
+    <div id="header-placeholder"></div>
+
+    <main>
+        <section class="py-16 sm:py-20 bg-gray-50">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl" data-aos="fade-up">
+                <div class="bg-white p-8 sm:p-12 rounded-lg shadow-lg">
+                    <h1 id="privacy-title" class="text-4xl sm:text-5xl font-bold text-center text-[var(--text-dark)] mb-8">Privacy Policy</h1>
+                    <div id="privacy-content" class="legal-content">
+                        <p>Loading content...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({ duration: 800, once: true });
+
+            async function loadLegalContent() {
+                try {
+                    const response = await fetch('api/api.php?collection=page_legal');
+                    const data = await response.json();
+
+                    const titleEl = document.getElementById('privacy-title');
+                    const contentEl = document.getElementById('privacy-content');
+
+                    if (titleEl) titleEl.textContent = data.privacy_title || 'Privacy Policy';
+                    if (contentEl) contentEl.innerHTML = data.privacy_content || '<p>Content could not be loaded. Please try again later.</p>';
+
+                    document.title = (data.privacy_title || 'Privacy Policy') + ' - RIGHT VALUE PROPERTY';
+
+                } catch (error) {
+                    console.error('Failed to load legal content:', error);
+                    const contentEl = document.getElementById('privacy-content');
+                    if (contentEl) contentEl.innerHTML = '<p>There was an error loading the content.</p>';
+                }
+            }
+
+            loadLegalContent();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!-- Reusable Header Component -->
+<header class="bg-white shadow-md sticky top-0 z-50">
+    <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-2 flex justify-between items-center">
+        <a href="index.html" class="flex items-center cursor-link">
+            <img src="logo/RVP Logo.png" class="h-24 w-auto logo-img" alt="Right Value Property Logo" />
+        </a>
+        <div class="hidden md:flex space-x-4 lg:space-x-6 items-center">
+            <a href="index.html" class="nav-link text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300 cursor-link">Home</a>
+            <a href="buy.html" class="nav-link text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300 cursor-link">Buy</a>
+            <a href="rent.html" class="nav-link text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300 cursor-link">Rent</a>
+            <a href="finance.html" class="nav-link text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300 cursor-link">Finance</a>
+            <a href="about.html" class="nav-link text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300 cursor-link">About Us</a>
+            <a href="contact.html" class="nav-link text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300 cursor-link">Contact</a>
+            <a href="admin.html" class="btn-primary btn-shine px-4 py-2 rounded-md shadow-sm cursor-link">Admin Login</a>
+        </div>
+        <div class="md:hidden">
+            <button id="mobile-menu-button" class="text-gray-600 hover:text-[var(--primary-red)] focus:outline-none cursor-link">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+            </button>
+        </div>
+    </nav>
+    <div id="mobile-menu" class="md:hidden hidden px-4 sm:px-6 pb-4 space-y-2">
+         <a href="index.html" class="block text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300 py-2 cursor-link">Home</a>
+         <a href="buy.html" class="block text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300 py-2 cursor-link">Buy</a>
+         <a href="rent.html" class="block text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300 py-2 cursor-link">Rent</a>
+         <a href="finance.html" class="block text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300 py-2 cursor-link">Finance</a>
+         <a href="about.html" class="block text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300 py-2 cursor-link">About Us</a>
+         <a href="contact.html" class="block text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300 py-2 cursor-link">Contact</a>
+         <a href="admin.html" class="block btn-primary btn-shine text-center px-4 py-2 rounded-md shadow-sm mt-2 cursor-link">Admin Login</a>
+    </div>
+</header>

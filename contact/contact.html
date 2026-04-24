@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - RIGHT VALUE PROPERTY</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --primary-red: #c0392b; }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-white">
+
+<div id="header-placeholder"></div>
+
+    <main>
+        <section class="relative h-[50vh] bg-cover bg-center flex items-center justify-center" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.pexels.com/photos/323705/pexels-photo-323705.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');">
+            <div class="text-center text-white p-4" data-aos="fade-in">
+                <h1 id="hero-title" class="text-4xl sm:text-5xl md:text-6xl font-bold drop-shadow-lg"></h1>
+                <p id="hero-subtitle" class="text-lg md:text-xl mt-4 max-w-2xl mx-auto drop-shadow-md"></p>
+            </div>
+        </section>
+
+        <section class="py-16 sm:py-20 bg-gray-50">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div data-aos="fade-right">
+                        <h2 id="info-title" class="text-3xl font-bold text-[var(--primary-red)] mb-6"></h2>
+                        <div id="contact-info-details" class="space-y-6 text-gray-600">
+                            <!-- Dynamic contact details will be loaded here -->
+                        </div>
+                        <div id="map-container" class="mt-10 rounded-lg overflow-hidden shadow-lg" data-aos="zoom-in" data-aos-delay="200">
+                           <!-- Map will be loaded here -->
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-lg shadow-lg" data-aos="fade-left" data-aos-delay="150">
+                        <h2 id="form-title" class="text-3xl font-bold text-[var(--primary-red)] mb-6"></h2>
+                        <form id="contact-form" class="space-y-5" novalidate>
+                            <!-- Form fields remain the same -->
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                                <input type="text" id="name" name="name" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm" required>
+                            </div>
+                             <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                                <input type="email" id="email" name="email" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm" required>
+                            </div>
+                             <div>
+                                <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm">
+                            </div>
+                            <div>
+                                <label for="subject" class="block text-sm font-medium text-gray-700">Subject</label>
+                                <input type="text" id="subject" name="subject" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm" required>
+                            </div>
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+                                <textarea id="message" name="message" rows="4" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm" required></textarea>
+                            </div>
+                            <div class="pt-2">
+                                <button type="submit" class="w-full btn-primary font-semibold py-3 px-4 rounded-md shadow-lg flex items-center justify-center">
+                                    Send Message
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({ duration: 800, once: true });
+
+            async function loadPageContent() {
+                try {
+                    const [pageContent, siteSettings] = await Promise.all([
+                        fetch('api/api.php?collection=page_contact').then(res => res.json()),
+                        fetch('api/api.php?collection=settings').then(res => res.json())
+                    ]);
+
+                    // Populate page-specific content
+                    document.getElementById('hero-title').textContent = pageContent.hero_title || '';
+                    document.getElementById('hero-subtitle').textContent = pageContent.hero_subtitle || '';
+                    document.getElementById('info-title').textContent = pageContent.info_title || '';
+                    document.getElementById('form-title').textContent = pageContent.form_title || '';
+                    
+                    // Populate shared contact details from site settings
+                    const contactDetailsContainer = document.getElementById('contact-info-details');
+                    if(contactDetailsContainer) {
+                        contactDetailsContainer.innerHTML = `
+                            <div class="flex items-start space-x-4">
+                                <i class="fa-solid fa-location-dot text-2xl text-[var(--primary-red)] mt-1"></i>
+                                <div>
+                                    <h3 class="font-semibold text-lg text-gray-800">Our Office</h3>
+                                    <p>${siteSettings.address || ''}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <i class="fa-solid fa-envelope text-2xl text-[var(--primary-red)] mt-1"></i>
+                                <div>
+                                    <h3 class="font-semibold text-lg text-gray-800">Email Us</h3>
+                                    <a href="mailto:${siteSettings.email || ''}" class="hover:text-[var(--primary-red)]">${siteSettings.email || ''}</a>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <i class="fa-solid fa-phone text-2xl text-[var(--primary-red)] mt-1"></i>
+                                <div>
+                                    <h3 class="font-semibold text-lg text-gray-800">Call Us</h3>
+                                    <a href="tel:${siteSettings.phone || ''}" class="hover:text-[var(--primary-red)]">${siteSettings.phone || ''}</a>
+                                </div>
+                            </div>
+                        `;
+                    }
+                    
+                    // Populate map
+                    const mapContainer = document.getElementById('map-container');
+                    if(mapContainer && siteSettings.map_embed_url) {
+                        mapContainer.innerHTML = siteSettings.map_embed_url;
+                    }
+
+                } catch (error) {
+                    console.error('Failed to load contact page content:', error);
+                }
+            }
+
+            loadPageContent();
+        });
+    </script>
+</body>
+</html>

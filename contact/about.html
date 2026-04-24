@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - RIGHT VALUE PROPERTY</title>
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- AOS (Animate on Scroll) Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-red: #c0392b;
+            --primary-red-dark: #a93226;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --bg-light: #ecf0f1;
+            --bg-darker: #e4e7e8;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+        }
+        
+        header { transition: all 0.4s ease-out; }
+        header.scrolled nav { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+        header.scrolled .logo-img { height: 4.5rem; }
+        .logo-img { transition: height 0.4s ease-out; }
+
+        .btn-primary {
+            background-color: var(--primary-red);
+            color: white;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: var(--primary-red-dark);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 10px 20px -5px rgba(192, 57, 43, 0.4);
+        }
+        
+        .nav-link { position: relative; padding: 4px 0; }
+        .nav-link::after {
+            content: ''; position: absolute; bottom: 0; left: 50%;
+            transform: translateX(-50%); width: 0; height: 2px;
+            background-color: var(--primary-red); transition: width 0.3s ease-out;
+        }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+        .card-hover { transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        .team-card .team-img { transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1); }
+        .team-card:hover .team-img { transform: scale(1.05); }
+        .placeholder { background-color: #e0e0e0; border-radius: 0.5rem; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
+    </style>
+</head>
+<body class="bg-white">
+
+    <!-- =========== HEADER =========== -->
+
+    <div id="header-placeholder"></div>
+    <!-- <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-2 flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <img src="logo/RVP Logo.png" class="h-24 w-auto logo-img" alt="Right Value Property Logo" />
+            </a>
+            <div class="hidden md:flex space-x-4 lg:space-x-6 items-center">
+                <a href="index.html" class="nav-link text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300">Home</a>
+                <a href="buy.html" class="nav-link text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300">Buy</a>
+                <a href="rent.html" class="nav-link text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300">Rent</a>
+                <a href="finance.html" class="nav-link text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300">Finance</a>
+                <a href="about.html" class="nav-link active text-[var(--primary-red)] font-semibold">About Us</a>
+                <a href="contact.html" class="nav-link text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300">Contact</a>
+                <a href="admin.html" class="btn-primary px-4 py-2 rounded-md shadow-sm">Admin Login</a>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-600 hover:text-[var(--primary-red)] focus:outline-none">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+                </button>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="md:hidden hidden px-4 sm:px-6 pb-4 space-y-2">
+             <a href="index.html" class="block text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300 py-2">Home</a>
+             <a href="buy.html" class="block text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300 py-2">Buy</a>
+             <a href="rent.html" class="block text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300 py-2">Rent</a>
+             <a href="finance.html" class="block text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300 py-2">Finance</a>
+             <a href="about.html" class="block text-[var(--primary-red)] font-semibold py-2">About Us</a>
+             <a href="contact.html" class="block text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300 py-2">Contact</a>
+             <a href="admin.html" class="block btn-primary text-center px-4 py-2 rounded-md shadow-sm mt-2">Admin Login</a>
+        </div>
+    </header> -->
+
+    <main>
+        <!-- =========== ABOUT US HERO =========== -->
+        <section class="relative h-[50vh] bg-cover bg-center flex items-center justify-center">
+            <div id="hero-bg" class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.pexels.com/photos/209274/pexels-photo-209274.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')"></div>
+            <div class="absolute inset-0 bg-black opacity-50"></div>
+            <div class="relative z-10 text-center text-white p-4" data-aos="fade-in">
+                <h1 id="hero-title" class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 drop-shadow-lg">About RIGHT VALUE PROPERTY</h1>
+                <p id="hero-subtitle" class="text-lg md:text-xl max-w-3xl mx-auto drop-shadow-md">Your Trusted Partner in Vadodara's Real Estate Landscape.</p>
+            </div>
+        </section>
+
+        <!-- =========== OUR STORY & MISSION =========== -->
+        <section class="py-16 sm:py-20" style="background-color: var(--bg-light);">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 sm:gap-16 items-center">
+                    <div data-aos="fade-right">
+                        <img id="mission-image" src="https://placehold.co/600x500/e0e0e0/ffffff?text=RVP" alt="Modern office interior" class="rounded-lg shadow-2xl w-full h-full object-cover">
+                    </div>
+                    <div data-aos="fade-left">
+                        <h2 id="mission-title" class="text-3xl sm:text-4xl font-bold text-[var(--primary-red)] mb-4">Our Mission: Redefining Real Estate</h2>
+                        <p id="mission-text-1" class="text-[var(--text-light)] mb-4">
+                            Founded with a vision to bring transparency, integrity, and client-centric service to the forefront of the real estate industry in Vadodara, RIGHT VALUE PROPERTY has grown into a trusted name for property transactions.
+                        </p>
+                        <p id="mission-text-2" class="text-[var(--text-light)]">
+                            Our mission is simple: to empower our clients with expert guidance, verified information, and end-to-end support, ensuring every decision is made with confidence and clarity.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========== MEET THE TEAM =========== -->
+        <section class="py-16 sm:py-20" style="background-color: var(--bg-darker);">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div data-aos="fade-up">
+                    <h2 id="team-title" class="text-3xl sm:text-4xl font-bold text-center text-[var(--primary-red)] mb-2">Meet Our Experts</h2>
+                    <p id="team-subtitle" class="text-center text-[var(--text-light)] mb-12 max-w-2xl mx-auto">The dedicated professionals driving our success and ensuring your satisfaction.</p>
+                </div>
+                <div id="team-members-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="placeholder h-96"></div>
+                    <div class="placeholder h-96"></div>
+                    <div class="placeholder h-96"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- =========== FOOTER =========== -->
+   <div id="footer-placeholder"></div>
+
+
+   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="js/main.js"></script> <!-- Add this line -->
+<script>
+    // Your page-specific JavaScript code here...
+</script>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({ duration: 800, once: true });
+
+            const fetchData = async (collectionName) => {
+                try {
+                    const response = await fetch(`api/api.php?collection=${collectionName}`);
+                    return response.ok ? await response.json() : (collectionName.startsWith('page_') ? {} : []);
+                } catch (error) {
+                    console.error(`Failed to fetch ${collectionName}:`, error);
+                    return collectionName.startsWith('page_') ? {} : [];
+                }
+            };
+
+            const renderTeamMembers = (data) => {
+                const container = document.getElementById('team-members-grid');
+                if (!container) return;
+                if (!data || data.length === 0) {
+                    container.innerHTML = '<p class="col-span-full text-center text-gray-500">Our team members will be listed here soon.</p>';
+                    return;
+                }
+                container.innerHTML = data.map((member, index) => `
+                    <div class="bg-white text-center rounded-lg shadow-lg overflow-hidden card-hover team-card" data-aos="fade-up" data-aos-delay="${(index + 1) * 100}">
+                        <div class="overflow-hidden">
+                            <img src="${member.image || 'https://placehold.co/400x400/e0e0e0/ffffff?text=Expert'}" alt="${member.name}" class="w-full h-72 object-cover team-img">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-[var(--text-dark)]">${member.name}</h3>
+                            <p class="font-semibold mb-2" style="color: var(--primary-red);">${member.role}</p>
+                            <p class="text-sm text-[var(--text-light)]">${member.bio}</p>
+                        </div>
+                    </div>
+                `).join('');
+            };
+
+            async function loadPageContent() {
+                const [pageContent, teamMembers] = await Promise.all([
+                    fetchData('page_about'),
+                    fetchData('team_members')
+                ]);
+
+                const setText = (id, value) => {
+                    const el = document.getElementById(id);
+                    if (el && value && value.trim()) el.textContent = value;
+                }
+                
+                const setSrc = (id, value) => {
+                    const el = document.getElementById(id);
+                    if (el && value && value.trim()) el.src = value;
+                }
+
+                setText('hero-title', pageContent.hero_title);
+                setText('hero-subtitle', pageContent.hero_subtitle);
+                if (pageContent.hero_bg_image) document.getElementById('hero-bg').style.backgroundImage = `url('${pageContent.hero_bg_image}')`;
+
+                setText('mission-title', pageContent.mission_title);
+                setText('mission-text-1', pageContent.mission_text_1);
+                setText('mission-text-2', pageContent.mission_text_2);
+                setSrc('mission-image', pageContent.mission_image);
+                
+                setText('team-title', pageContent.team_title);
+                setText('team-subtitle', pageContent.team_subtitle);
+
+                renderTeamMembers(teamMembers);
+                AOS.refresh();
+            }
+
+            // Mobile Menu Toggle
+            document.getElementById('mobile-menu-button').addEventListener('click', function() {
+                document.getElementById('mobile-menu').classList.toggle('hidden');
+            });
+            
+            // Header Scroll Effect
+            const header = document.querySelector('header');
+            window.addEventListener('scroll', () => {
+                header.classList.toggle('scrolled', window.scrollY > 50);
+            });
+
+            loadPageContent();
+        });
+    </script>
+</body>
+</html>

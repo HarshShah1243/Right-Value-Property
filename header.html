@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Header</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for the header */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+            /* A light gray background to see the header clearly */
+        }
+
+        /* Styling for the navigation link hover effect */
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 2px;
+            bottom: -6px;
+            left: 0;
+            background-color: #c53030;
+            /* A shade of red */
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-out;
+        }
+
+        .nav-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        /* Keep dropdown open on hover */
+        .group:hover .group-hover\:block {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header Section -->
+    <header class="bg-white shadow-md">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="index.html">
+                        <img class="h-20 " src="logo/website RVP LOGO.jpg" alt="Right Value Property Logo" onerror="this.onerror=null;this.src='https://placehold.co/200x50/c53030/ffffff?text=Logo+Not+Found';">
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="nav-link text-gray-700 hover:text-red-700">Home</a>
+                    <a href="buy.html" class="nav-link text-gray-700 hover:text-red-700">Buy</a>
+                    <a href="rent.html" class="nav-link text-gray-700 hover:text-red-700">Rent</a>
+
+                    <!-- Projects Dropdown -->
+                    <div class="relative group">
+                        <button class="nav-link flex items-center text-gray-700 hover:text-red-700 focus:outline-none">
+                            <span>Projects</span>
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="absolute z-10 hidden group-hover:block bg-white shadow-lg rounded-md mt-2 w-48">
+                            <a href="projects-residential.html"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-700 rounded-t-md">Residential</a>
+                            <a href="projects-commercial.html"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-700 rounded-b-md">Commercial</a>
+                        </div>
+                    </div>
+
+                    <!-- Commercial Dropdown -->
+                    <div class="relative group">
+                        <button class="nav-link flex items-center text-gray-700 hover:text-red-700 focus:outline-none">
+                            <span>Commercial</span>
+                             <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="absolute z-10 hidden group-hover:block bg-white shadow-lg rounded-md mt-2 w-48">
+                            <a href="commercial-buy.html"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-700 rounded-t-md">Buy</a>
+                            <a href="commercial-rent.html"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-700 rounded-b-md">Rent</a>
+                        </div>
+                    </div>
+
+                    <a href="finance.html" class="nav-link text-gray-700 hover:text-red-700">Finance</a>
+                    <a href="about.html" class="nav-link text-gray-700 hover:text-red-700">About Us</a>
+                    <a href="contact.html" class="nav-link text-gray-700 hover:text-red-700">Contact</a>
+                </div>
+
+                <!-- Admin Login Button & Mobile Menu Button -->
+                <div class="flex items-center">
+                    <a href="admin.html"
+                        class="hidden md:block bg-red-700 text-white font-bold py-2 px-6 rounded-lg hover:bg-red-800 transition-colors duration-300">
+                        Admin Login
+                    </a>
+                    <!-- Mobile menu button -->
+                    <div class="md:hidden flex items-center">
+                        <button id="mobile-menu-button" class="outline-none mobile-menu-button">
+                            <svg class=" w-6 h-6 text-gray-500 hover:text-red-700 "
+                                x-show="!showMenu"
+                                fill="none"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path d="M4 6h16M4 12h16M4 18h16"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden py-4">
+                <a href="index.html" class="block py-2 px-4 text-sm hover:bg-red-50 rounded-md">Home</a>
+                <a href="buy.html" class="block py-2 px-4 text-sm hover:bg-red-50 rounded-md">Buy</a>
+                <a href="rent.html" class="block py-2 px-4 text-sm hover:bg-red-50 rounded-md">Rent</a>
+
+                <!-- Mobile Projects Dropdown -->
+                <div>
+                    <button id="mobile-projects-button" class="w-full text-left flex justify-between items-center py-2 px-4 text-sm hover:bg-red-50 rounded-md">
+                        <span>Projects</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="mobile-projects-menu" class=" pl-8">
+                        <a href="projects-residential.html" class="block py-2 px-4 text-sm hover:bg-red-50 rounded-md">Residential</a>
+                        <a href="projects-commercial.html" class="block py-2 px-4 text-sm hover:bg-red-50 rounded-md">Commercial</a>
+                    </div>
+                </div>
+
+                <!-- Mobile Commercial Dropdown -->
+                <div>
+                    <button id="mobile-commercial-button" class="w-full text-left flex justify-between items-center py-2 px-4 text-sm hover:bg-red-50 rounded-md">
+                        <span>Commercial</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="mobile-commercial-menu" class=" pl-8">
+                        <a href="commercial-buy.html" class="block py-2 px-4 text-sm hover:bg-red-50 rounded-md">Buy</a>
+                        <a href="commercial-rent.html" class="block py-2 px-4 text-sm hover:bg-red-50 rounded-md">Rent</a>
+                    </div>
+                </div>
+
+                <a href="finance.html" class="block py-2 px-4 text-sm hover:bg-red-50 rounded-md">Finance</a>
+                <a href="about.html" class="block py-2 px-4 text-sm hover:bg-red-50 rounded-md">About Us</a>
+                <a href="contact.html" class="block py-2 px-4 text-sm hover:bg-red-50 rounded-md">Contact</a>
+                <a href="admin.html"
+                    class="block w-full mt-4 text-center bg-red-700 text-white font-bold py-2 px-6 rounded-lg hover:bg-red-800 transition-colors duration-300">
+                    Admin Login
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <script>
+        // Grab HTML Elements
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileProjectsButton = document.getElementById('mobile-projects-button');
+        const mobileProjectsMenu = document.getElementById('mobile-projects-menu');
+        const mobileCommercialButton = document.getElementById('mobile-commercial-button');
+        const mobileCommercialMenu = document.getElementById('mobile-commercial-menu');
+
+        // Add Event Listeners
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileProjectsButton.addEventListener('click', () => {
+            mobileProjectsMenu.classList.toggle('hidden');
+        });
+        
+        mobileCommercialButton.addEventListener('click', () => {
+            mobileCommercialMenu.classList.toggle('hidden');
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rent Properties - RIGHT VALUE PROPERTY</title>
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- AOS (Animate on Scroll) Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-red: #c0392b;
+            --primary-red-dark: #a93226;
+            --text-dark: #2c3e50;
+            --bg-light: #ecf0f1;
+            --bg-darker: #e4e7e8;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+        }
+        
+        header { transition: all 0.4s ease-out; }
+        header.scrolled nav { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+        header.scrolled .logo-img { height: 4.5rem; }
+        .logo-img { transition: height 0.4s ease-out; }
+        
+        .btn-primary {
+            background-color: var(--primary-red);
+            color: white;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: var(--primary-red-dark);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 10px 20px -5px rgba(192, 57, 43, 0.4);
+        }
+        
+        .btn-shine { position: relative; overflow: hidden; }
+        .btn-shine::before {
+            content: ''; position: absolute; top: 0; left: -75%; width: 50%; height: 100%;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%);
+            transform: skewX(-25deg); transition: left 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .btn-shine:hover::before { left: 125%; }
+        
+        .card-hover { transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        .card-hover .card-image { transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1); }
+        .card-hover:hover .card-image { transform: scale(1.05); }
+
+        .property-card-reveal .hover-content {
+            position: absolute; inset: 0; background-color: rgba(44, 62, 80, 0.85); opacity: 0;
+            transition: opacity 0.5s ease; pointer-events: none; display: flex; align-items: center;
+            justify-content: center; overflow: hidden;
+        }
+        .property-card-reveal:hover .hover-content { opacity: 1; pointer-events: auto; }
+        .hover-content .sub-image-container { position: absolute; opacity: 0; transform: translateY(20px); transition: all 0.5s ease; }
+        .property-card-reveal:hover .sub-image-container { opacity: 1; transform: translateY(0); }
+        .sub-image { width: 50px; height: 50px; border-radius: 50%; border: 2px solid white; object-fit: cover; box-shadow: 0 0 15px rgba(0,0,0,0.5); }
+        .sub-image-container.living-room { top: 15%; left: 15%; transition-delay: 0.1s; }
+        .sub-image-container.bedroom { top: 15%; right: 15%; transition-delay: 0.2s; }
+        .sub-image-container.kitchen { bottom: 15%; left: 15%; transition-delay: 0.3s; }
+        .sub-image-container.bathroom { bottom: 15%; right: 15%; transition-delay: 0.4s; }
+
+        .nav-link { position: relative; padding: 4px 0; }
+        .nav-link::after {
+            content: ''; position: absolute; bottom: 0; left: 50%;
+            transform: translateX(-50%); width: 0; height: 2px;
+            background-color: var(--primary-red); transition: width 0.3s ease-out;
+        }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+        .pagination-link { transition: all 0.3s ease; }
+        .pagination-link:hover:not(.active):not(.disabled) {
+            background-color: var(--bg-darker); border-color: #ccc; transform: translateY(-2px);
+        }
+        .pagination-link.active {
+            background-color: var(--primary-red); border-color: var(--primary-red);
+            color: white; cursor: default;
+        }
+        .pagination-link.disabled { opacity: 0.5; cursor: not-allowed; }
+        .placeholder { background-color: #e0e0e0; border-radius: 0.5rem; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
+    </style>
+</head>
+<body class="bg-white">
+    
+    <!-- =========== HEADER =========== -->
+
+    <div id="header-placeholder"></div>
+    <!-- <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-2 flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <img src="logo/RVP Logo.png" class="h-24 w-auto logo-img" alt="Right Value Property Logo" />
+            </a>
+            <div class="hidden md:flex space-x-4 lg:space-x-6 items-center">
+                <a href="index.html" class="nav-link text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300">Home</a>
+                <a href="buy.html" class="nav-link text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300">Buy</a>
+                <a href="rent.html" class="nav-link active text-[var(--primary-red)] font-semibold transition-colors duration-300">Rent</a>
+                <a href="finance.html" class="nav-link text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300">Finance</a>
+                <a href="about.html" class="nav-link text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300">About Us</a>
+                <a href="contact.html" class="nav-link text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300">Contact</a>
+                <a href="admin.html" class="btn-primary btn-shine px-4 py-2 rounded-md shadow-sm">Admin Login</a>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-600 hover:text-[var(--primary-red)] focus:outline-none">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+                </button>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="md:hidden hidden px-4 sm:px-6 pb-4 space-y-2">
+             <a href="index.html" class="block text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300 py-2">Home</a>
+             <a href="buy.html" class="block text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300 py-2">Buy</a>
+             <a href="rent.html" class="block text-[var(--primary-red)] font-semibold transition-colors duration-300 py-2">Rent</a>
+             <a href="finance.html" class="block text-gray-600 hover:text-[var(--primary-red)] transition-colors duration-300 py-2">Finance</a>
+             <a href="admin.html" class="block btn-primary btn-shine text-center px-4 py-2 rounded-md shadow-sm mt-2">Admin Login</a>
+        </div>
+    </header> -->
+
+    <main>
+        <!-- =========== PROPERTY LISTINGS =========== -->
+        <section class="py-16 sm:py-20" style="background-color: var(--bg-light);">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4" data-aos="fade-up">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-[var(--primary-red)]">Properties For Rent</h2>
+                </div>
+
+                <div id="property-listings" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="placeholder h-96"></div>
+                    <div class="placeholder h-96"></div>
+                    <div class="placeholder h-96"></div>
+                </div>
+
+                <!-- PAGINATION -->
+                <div class="mt-12 flex justify-center" data-aos="fade-up">
+                    <nav id="pagination-controls" class="flex items-center space-x-2" aria-label="Pagination"></nav>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- =========== FOOTER =========== -->
+    <div id="footer-placeholder"></div>
+
+
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="js/main.js"></script> <!-- Add this line -->
+<script>
+    // Your page-specific JavaScript code here...
+</script>
+
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({ duration: 800, once: true, disable: 'mobile' });
+
+            const listingsContainer = document.getElementById('property-listings');
+            const paginationControls = document.getElementById('pagination-controls');
+            let allProperties = [];
+            const propertiesPerPage = 6;
+            let currentPage = 1;
+
+            const fetchData = async (collectionName) => {
+                try {
+                    const response = await fetch(`api/api.php?collection=${collectionName}`);
+                    if (!response.ok) return [];
+                    return await response.json();
+                } catch (error) {
+                    console.error(`Failed to fetch ${collectionName}:`, error);
+                    return [];
+                }
+            };
+            
+            async function loadContent() {
+                allProperties = await fetchData('properties_rent');
+                if (listingsContainer) {
+                    displayProperties(currentPage);
+                    setupPagination();
+                }
+            }
+
+            function displayProperties(page) {
+                listingsContainer.innerHTML = '';
+                page--; // Use zero-based index
+
+                const startIndex = propertiesPerPage * page;
+                const endIndex = startIndex + propertiesPerPage;
+                const paginatedProperties = allProperties.slice(startIndex, endIndex);
+
+                if (paginatedProperties.length === 0) {
+                    listingsContainer.innerHTML = '<p class="col-span-full text-center text-gray-500">No properties available for rent.</p>';
+                    return;
+                }
+
+                paginatedProperties.forEach((prop, index) => {
+                    const card = `
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden card-hover property-card-reveal flex flex-col" data-aos="fade-up" data-aos-delay="${index * 100}">
+                            <div class="overflow-hidden relative h-56">
+                                <img src="${prop.main_image || 'https://placehold.co/600x400/e0e0e0/ffffff?text=RVP'}" alt="${prop.title}" class="w-full h-full object-cover card-image">
+                                <div class="hover-content">
+                                    ${prop.living_room_image ? `<div class="sub-image-container living-room"><img src="${prop.living_room_image}" alt="Living Room" class="sub-image"></div>` : ''}
+                                    ${prop.bedroom_image ? `<div class="sub-image-container bedroom"><img src="${prop.bedroom_image}" alt="Bedroom" class="sub-image"></div>` : ''}
+                                    ${prop.kitchen_image ? `<div class="sub-image-container kitchen"><img src="${prop.kitchen_image}" alt="Kitchen" class="sub-image"></div>` : ''}
+                                    ${prop.bathroom_image ? `<div class="sub-image-container bathroom"><img src="${prop.bathroom_image}" alt="Bathroom" class="sub-image"></div>` : ''}
+                                </div>
+                            </div>
+                            <div class="p-6 flex flex-col flex-grow">
+                                 <h3 class="text-xl font-bold text-[var(--text-dark)] mb-2">${prop.title}</h3>
+                                 <p class="text-gray-500 text-sm mb-4">${prop.location}</p>
+                                 <div class="text-2xl font-extrabold mb-4" style="color: var(--primary-red);">${prop.price}</div>
+                                 <div class="flex justify-between text-sm text-gray-600 border-t pt-4 mt-auto">
+                                    <span><strong class="text-gray-800">${prop.beds || 0}</strong> Beds</span>
+                                    <span><strong class="text-gray-800">${prop.baths || 0}</strong> Baths</span>
+                                    <span><strong class="text-gray-800">${prop.sqft || 0}</strong> sqft</span>
+                                 </div>
+                                 <a href="rent-details.html?id=${prop.id}" class="block text-center mt-4 px-4 py-2 text-sm font-semibold rounded-md text-white transition-colors" style="background-color: var(--primary-red-dark);">Know More</a>
+                            </div>
+                        </div>
+                    `;
+                    listingsContainer.innerHTML += card;
+                });
+            }
+
+            function setupPagination() {
+                if (!paginationControls || allProperties.length <= propertiesPerPage) {
+                    if (paginationControls) paginationControls.innerHTML = '';
+                    return;
+                }
+                const pageCount = Math.ceil(allProperties.length / propertiesPerPage);
+                paginationControls.innerHTML = '';
+
+                // Previous Button
+                const prevButton = document.createElement('button');
+                prevButton.innerHTML = `<i class="fas fa-arrow-left"></i>`;
+                prevButton.className = 'pagination-link relative inline-flex items-center justify-center w-10 h-10 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-500';
+                prevButton.addEventListener('click', () => {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        displayProperties(currentPage);
+                        updatePagination();
+                    }
+                });
+                paginationControls.appendChild(prevButton);
+
+                // Page Number Buttons
+                for (let i = 1; i <= pageCount; i++) {
+                    const pageButton = document.createElement('button');
+                    pageButton.innerText = i;
+                    pageButton.className = 'pagination-link relative inline-flex items-center justify-center w-10 h-10 border border-gray-300 bg-white text-sm font-medium text-gray-700 rounded-md';
+                    if (i === currentPage) {
+                        pageButton.classList.add('active');
+                    }
+                    pageButton.addEventListener('click', () => {
+                        currentPage = i;
+                        displayProperties(currentPage);
+                        updatePagination();
+                    });
+                    paginationControls.appendChild(pageButton);
+                }
+
+                // Next Button
+                const nextButton = document.createElement('button');
+                nextButton.innerHTML = `<i class="fas fa-arrow-right"></i>`;
+                nextButton.className = 'pagination-link relative inline-flex items-center justify-center w-10 h-10 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-500';
+                nextButton.addEventListener('click', () => {
+                    if (currentPage < pageCount) {
+                        currentPage++;
+                        displayProperties(currentPage);
+                        updatePagination();
+                    }
+                });
+                paginationControls.appendChild(nextButton);
+                
+                updatePagination();
+            }
+
+            function updatePagination() {
+                if (!paginationControls) return;
+                const pageCount = Math.ceil(allProperties.length / propertiesPerPage);
+                const buttons = paginationControls.querySelectorAll('button');
+                
+                buttons.forEach(button => {
+                    button.classList.remove('active', 'disabled');
+                    if (parseInt(button.innerText) === currentPage) {
+                        button.classList.add('active');
+                    }
+                });
+                if (currentPage === 1) {
+                    buttons[0].classList.add('disabled');
+                }
+                if (currentPage === pageCount) {
+                    buttons[buttons.length - 1].classList.add('disabled');
+                }
+            }
+
+            // Mobile Menu Toggle
+            document.getElementById('mobile-menu-button').addEventListener('click', function() {
+                document.getElementById('mobile-menu').classList.toggle('hidden');
+            });
+            
+            // Header Scroll Effect
+            const header = document.querySelector('header');
+            window.addEventListener('scroll', () => {
+                header.classList.toggle('scrolled', window.scrollY > 50);
+            });
+
+            // Initial Load
+            loadContent();
+        });
+    </script>
+</body>
+</html>

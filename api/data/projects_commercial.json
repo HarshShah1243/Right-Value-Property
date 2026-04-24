@@ -1,0 +1,135 @@
+[
+    {
+        "id": "688dcca23bc7e",
+        "images": [
+            "https://rightvalueproperty.com/api/uploads/1754123426_688dcca23bca4_vasna road.jpg"
+        ],
+        "title": "Modern Office Space",
+        "location": "Alkapuri, Vadodara",
+        "price": "\u20b9 1,20,000 / month",
+        "beds": "2 ",
+        "baths": "1 ",
+        "sqft": "2500",
+        "description": "",
+        "amenities": "",
+        "map_embed_url": "",
+        "nearby_schools": "",
+        "nearby_hospitals": "",
+        "nearby_shopping": "",
+        "is_featured": "off"
+    },
+    {
+        "id": "688dcd00548cc",
+        "images": [
+            "https://rightvalueproperty.com/api/uploads/1754123520_688dcd00548fb_pexels-quang-nguyen-vinh-222549-2174992.jpg"
+        ],
+        "title": "High-Street Retail Shop",
+        "location": "Akota, Vadodara",
+        "price": "\u20b9 85,000 / month",
+        "beds": "2 ",
+        "baths": "1 ",
+        "sqft": "1500",
+        "description": "",
+        "amenities": "",
+        "map_embed_url": "",
+        "nearby_schools": "",
+        "nearby_hospitals": "",
+        "nearby_shopping": "",
+        "is_featured": "off"
+    },
+    {
+        "id": "688dcd44e3a80",
+        "images": [
+            "https://rightvalueproperty.com/api/uploads/1754123588_688dcd44e3aa4_pexels-heyho-6794934.jpg"
+        ],
+        "title": "Corporate Office Suite",
+        "location": "Sayajigunj, Vadodara",
+        "price": "\u20b9 2,50,000 / month",
+        "beds": "6",
+        "baths": "3",
+        "sqft": "5000",
+        "description": "",
+        "amenities": "",
+        "map_embed_url": "",
+        "nearby_schools": "",
+        "nearby_hospitals": "",
+        "nearby_shopping": "",
+        "is_featured": "off"
+    },
+    {
+        "id": "688dcd8577304",
+        "images": [
+            "https://rightvalueproperty.com/api/uploads/1754123653_688dcd8577339_pexels-proxyclick-2451616.jpg"
+        ],
+        "title": "Spacious Warehouse",
+        "location": "Gotri, Vadodara",
+        "price": "\u20b9 95,000 / month",
+        "beds": "3",
+        "baths": "2 ",
+        "sqft": "10000",
+        "description": "",
+        "amenities": "",
+        "map_embed_url": "",
+        "nearby_schools": "",
+        "nearby_hospitals": "",
+        "nearby_shopping": "",
+        "is_featured": "off"
+    },
+    {
+        "id": "688dcdc40a215",
+        "images": [
+            "https://rightvalueproperty.com/api/uploads/1754123716_688dcdc40a24a_pexels-sevenstormphotography-443383.jpg"
+        ],
+        "title": "Ground Floor Showroom",
+        "location": "Vasna Road, Vadodara",
+        "price": "\u20b9 1,50,000 / month",
+        "beds": "2 ",
+        "baths": "1 ",
+        "sqft": "3200",
+        "description": "",
+        "amenities": "",
+        "map_embed_url": "",
+        "nearby_schools": "",
+        "nearby_hospitals": "",
+        "nearby_shopping": "",
+        "is_featured": "off"
+    },
+    {
+        "id": "688dce17839c4",
+        "images": [
+            "https://rightvalueproperty.com/api/uploads/1754123799_688dce1783a0a_pexels-fotios-photos-1089570.jpg"
+        ],
+        "title": "Restaurant Space",
+        "location": "Nizampura, Vadodara",
+        "price": "\u20b9 1,75,000 / month",
+        "beds": "2 ",
+        "baths": "1 ",
+        "sqft": "2,500",
+        "description": "",
+        "amenities": "",
+        "map_embed_url": "",
+        "nearby_schools": "",
+        "nearby_hospitals": "",
+        "nearby_shopping": "",
+        "is_featured": "off"
+    },
+    {
+        "id": "688dce62bea7e",
+        "images": [
+            "https://rightvalueproperty.com/api/uploads/1754123874_688dce62beaab_pexels-tomfisk-3052848.jpg"
+        ],
+        "title": "Industrial Shed",
+        "location": "Kalali, Vadodara",
+        "price": "\u20b9 70,000 / month",
+        "beds": "6",
+        "baths": "5",
+        "sqft": "8000",
+        "description": "",
+        "amenities": "",
+        "map_embed_url": "",
+        "nearby_schools": "",
+        "nearby_hospitals": "",
+        "nearby_shopping": "",
+        "is_featured": "off"
+    }
+]
